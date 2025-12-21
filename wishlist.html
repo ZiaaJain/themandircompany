@@ -83,8 +83,6 @@ body {
 
 <!-- SCRIPT -->
 <script>
-const BASE_URL = "https://ziaajain.github.io/themandircompany/";
-
 const products = {
   1:{name:"German Silver Diya",price:"₹1,100"},
   2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
@@ -155,12 +153,12 @@ function shareWishlist() {
     return;
   }
 
-  let text = "✨ My Wishlist from The Mandir Company ✨\n\n";
+  let text = "✨ My Wishlist from The Mandir Company
+    https://ziaajain.github.io/themandircompany/✨\n\n";
 
   wishlist.forEach(id => {
     if (products[id]) {
       text += `• ${products[id].name} (${products[id].price})\n`;
-      text += `👉 ${BASE_URL}product.html?id=${id}\n\n`;
     }
   });
 
