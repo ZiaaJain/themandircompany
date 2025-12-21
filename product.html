@@ -105,23 +105,23 @@ color:#c4a092;
 
 const products = {
   1:{name:"German Silver Diya",price:"₹1,100",desc:"Luxury meets devotion. This handcrafted German silver diya features intricate peacock detailing, making it a timeless art piece for your mandir or home décor.",
-    Img: "images/nakkashi_peacock.jpeg"},
+    img: "images/nakkashi_peacock.jpeg"},
   2:{name:"Marble & Metal Flower Diya Holder",price:"₹850",desc:"A beautiful round marble base paired with a metal flower design, ideal for tealights or dhoop. Customisation available.",
      img:"images/metal_flower_om_marblebase.jpeg"},
   4:{name:"German Silver Dibbi",price:"₹185 each",desc:"German silver Nakkashi dibbi ideal for saffron, cardamom or coin packing.",
-     img:"images/German_silver_kesar_box.jpeg"},
+     img:"images/german_silver_kesar_box.jpeg"},
   5:{name:"Marble Tic Tac Toe",price:"₹1,600",desc:"Luxury marble tic-tac-toe board with elegant gold accents.",
      img:"images/tic_tac_toe.jpeg"},
   6:{name:"Marble Agarbatti Stand",price:"₹550",desc:"Marble agarbatti stand with brass moon phase detailing.",
-     img:"images/Marble_agarbatti.jpeg"},
+     img:"images/marble_agarbatti.jpeg"},
   7:{name:"Nakkashi Cup",price:"₹475",desc:"German silver elephant Nakkashi cup for kumkum or prasad.",
-     img:"images/nakkashi_bowl?elephantleg.jpeg"},
+     img:"images/nakkashi_bowl_elephantleg.jpeg"},
   8:{name:"Elephant Akhand Diya",price:"₹850",desc:"Pure German silver elephant akhand diya with antique finish.",
      img:"images/elephant_akhand_diya.jpeg"},
   9:{name:"Om Diya and Bell Set",price:"₹575",desc:"German silver Om diya paired with peacock feather bell.",
-     img:"images/Om_akhand_diya.jpeg"},
+     img:"images/om_akhand_diya.jpeg"},
   10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575",desc:"Antique German silver swastik diya with roli chawal bowls.",
-     img:"images/swastik_akhand_diya_roli?.jpeg"},
+     img:"images/swastik_akhand_diya_roli.jpeg"},
   11:{name:"German Silver Pooja Set",price:"₹1,550",desc:"Complete pooja set including thali, diya, bell, bowl and tilak stick.",
      img:"images/diya_roli_chawal_set.jpeg"},
   12:{name:"Antique Aarti Stand",price:"₹850",desc:"Exclusive antique German silver aarti stand.",
@@ -133,11 +133,11 @@ const products = {
   15:{name:"German Silver Bell",price:"₹270 each",desc:"Budget-friendly German silver bell.",
      img:"images/gsilver_bell.jpeg"},
   16:{name:"Nakkashi Swastik Diya",price:"₹399",desc:"Gold plated Nakkashi Swastik diya.",
-     img:"images/swastik_akhand_diya?.jpeg"},
+     img:"images/swastik_akhand_diya.jpeg"},
   17:{name:"Radha Krishna Tilak Set",price:"₹850",desc:"Peacock feather flute tilak stick with roli chawal chopra.",
      img:"images/radhakrishna_roli_chawal_set.jpeg"},
   18:{name:"LED Krishna Box Set",price:"₹850 each",desc:"LED Radha Krishna Box with tilak stick and roli chwal chopra.",
-     img:"images/LED_krishna_box.jpeg"},
+     img:"images/led_krishna_box.jpeg"},
   19:{name:"Marble Platter with Gold Inlay",price:"₹1,880",desc:"Handcrafted white marble platter with gold inlay.",
      img:"images/marble_platter.jpeg"},
   20:{name:"Akhand Diya With Plate Set",price:"₹575",desc:"Daily-use akhand diya with detachable plate.",
@@ -147,9 +147,9 @@ const products = {
   22:{name:"Agate & Marble Ganesha Stand",price:"₹350",desc:"Ganesha figurines on agate stone and marble base.",
      img:"images/Ganesha_marble_agate.jpeg"},
   23:{name:"Nimbu Mirchi Evil Eye",price:"₹650",desc:"German silver evil eye charm for positivity.",
-     img:"images/Nimbu_mirchi_german_silver.jpeg"},
+     img:"images/nimbu_mirchi_german_silver.jpeg"},
   24:{name:"Buddha Diya Base",price:"₹599",desc:"Polyresin Buddha with marble diya base.",
-     img:"images/Buddha.jpeg"},
+     img:"images/buddha.jpeg"},
   25:{name:"Evil Eye Candle Set",price:"₹675",desc:"Marble evil eye candle set of two.",
      img:"images/evileye_diya_set.jpeg"}
 };
@@ -161,8 +161,7 @@ if (products[id]) {
   document.getElementById("product-name").innerText = products[id].name;
   document.getElementById("product-price").innerText = products[id].price;
   document.getElementById("product-description").innerText = products[id].desc;
-  document.getElementById("product-image").src =
-    driveToDirect(products[id].img);
+  document.getElementById("product-image").src = products[id].img;
 }
 
 /* WISHLIST TOGGLE */
