@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wishlist | The Mandir Company</title>a
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  
+<style>
+h2 {
+color: #c4a092;}
+
+p{
+color:#c4a092;
+}
+
+.page-content {
+      background-color: #fff6ea;
+      min-height: calc(100vh - 120px);
+      padding: 60px 0;
+    }
+
+  
+</style>
+
+  <style>
+    .page-content {
+      background-color: #fff6ea;
+      min-height: calc(100vh - 120px);
+      padding: 60px 0;
+    }
+
+    .wishlist-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    .wishlist-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">The Mandir Company</a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="bestsellers.html">← Back to Bestsellers</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="page-content">
+  <section class="container">
+
+    <h1 class="text-center mb-4">My Wishlist ❤️</h1>
+
+    <!-- SHARE BUTTON -->
+    <div class="text-center mb-4">
+      <button class="btn btn-outline-secondary" onclick="shareWishlist()">
+        Share Wishlist 💬
+      </button>
+    </div>
+
+    <!-- WISHLIST ITEMS -->
+    <div id="wishlist-container"></div>
+
+    <p id="empty-msg" class="text-center mt-4"></p>
+
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center py-4 bg-light">
+  <p>&copy; 2025 The Mandir Company. All rights reserved.</p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+const products = {
+  1:{name:"German Silver Diya",price:"₹1,100"},
+  2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
+  3:{name:"German Silver Dibbi",price:"₹185 each"},
+  5:{name:"Marble Tic Tac Toe",price:"₹1,600"},
+  6:{name:"Marble Agarbatti Stand",price:"₹550"},
+  7:{name:"Nakkashi Cup",price:"₹475"},
+  8:{name:"Elephant Akhand Diya",price:"₹850"},
+  9:{name:"Om Diya and Bell Set",price:"₹575"},
+  10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575"},
+  11:{name:"German Silver Pooja Set",price:"₹1,550"},
+  12:{name:"Antique Aarti Stand",price:"₹850"},
+  13:{name:"Lotus Handle Diya Set",price:"₹1,600"},
+  14:{name:"Cow Calf Set",price:"₹250 each"},
+  15:{name:"German Silver Bell",price:"₹70 each"},
+  16:{name:"Nakkashi Swastik Diya",price:"₹399"},
+  17:{name:"Radha Krishna Tilak Set",price:"₹850"},
+  18:{name:"Engraved Bell Set",price:"₹185 each"},
+  19:{name:"Marble Platter with Gold Inlay",price:"₹1,880"},
+  20:{name:"Nakkashi Akhand Diya Set",price:"₹575"},
+  21:{name:"Agarbatti Stand",price:"₹350"},
+  22:{name:"Agate & Marble Ganesha Stand",price:"₹350"},
+  23:{name:"Nimbu Mirchi Evil Eye",price:"₹650"},
+  24:{name:"Buddha Diya Base",price:"₹599"},
+  25:{name:"Evil Eye Candle Set",price:"₹675"}
+};
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+const container = document.getElementById("wishlist-container");
+const emptyMsg = document.getElementById("empty-msg");
+
+function renderWishlist() {
+  container.innerHTML = "";
+
+  if (wishlist.length === 0) {
+    emptyMsg.innerText = "Your wishlist is empty 🌸";
+    return;
+  }
+
+  emptyMsg.innerText = "";
+
+  wishlist.forEach(id => {
+    if (products[id]) {
+      container.innerHTML += `
+        <div class="wishlist-card d-flex justify-content-between align-items-center">
+          <a href="product.html?id=${id}">
+            <strong>${products[id].name}</strong><br>
+            <span>${products[id].price}</span>
+          </a>
+          <button class="btn btn-sm btn-outline-danger" onclick="removeFromWishlist(${id})">
+            Remove
+          </button>
+        </div>
+      `;
+    }
+  });
+}
+
+function removeFromWishlist(id) {
+  wishlist = wishlist.filter(item => item != id);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  renderWishlist();
+}
+
+function shareWishlist() {
+  if (wishlist.length === 0) {
+    alert("Your wishlist is empty!");
+    return;
+  }
+
+  let text = "✨ My Wishlist from The Mandir Company ✨\n\n";
+
+  wishlist.forEach(id => {
+    if (products[id]) {
+      text += `• ${products[id].name} (${products[id].price})\n`;
+      text += `👉 product.html?id=${id}\n\n`;
+    }
+  });
+
+  if (navigator.share) {
+    navigator.share({
+      title: "My Wishlist",
+      text: text
+    });
+  } else {
+    const encoded = encodeURIComponent(text);
+    window.open(`https://wa.me/?text=${encoded}`, "_blank");
+  }
+}
+
+renderWishlist();
+</script>
+
+</body>
+</html>
