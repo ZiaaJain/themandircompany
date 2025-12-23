@@ -82,7 +82,7 @@ body {
 </footer>
 
 <!-- SCRIPT -->
-<script>
+  <script>
 const products = {
   1:{name:"German Silver Diya",price:"₹1,100"},
   2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
@@ -111,6 +111,8 @@ const products = {
 };
 
 let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+wishlist = wishlist.map(id => Number(id)); // normalize IDs
+
 const container = document.getElementById("wishlist-container");
 const emptyMsg = document.getElementById("empty-msg");
 
@@ -142,7 +144,7 @@ function renderWishlist() {
 }
 
 function removeFromWishlist(id) {
-  wishlist = wishlist.filter(item => item != id);
+  wishlist = wishlist.filter(item => item !== id);
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
   renderWishlist();
 }
@@ -153,8 +155,10 @@ function shareWishlist() {
     return;
   }
 
-  let text = "✨ My Wishlist from The Mandir Company
-    https://ziaajain.github.io/themandircompany/✨\n\n";
+  let text = `✨ My Wishlist from The Mandir Company ✨
+https://ziaajain.github.io/themandircompany/
+
+`;
 
   wishlist.forEach(id => {
     if (products[id]) {
