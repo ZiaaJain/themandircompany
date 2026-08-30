@@ -22,28 +22,27 @@
       margin-bottom: 15px;
     }
 
-    .wishlist-card  {
+    .wishlist-card a {
       text-decoration: none;
       color: #c4a092;
     }
 
     h2 {
-color: #c4a092;}
-
-p{
-color:#c4a092;
-}
-
-body {
-      background-color: #fff6ea;
+      color: #c4a092;
     }
 
+    p {
+      color: #c4a092;
+    }
+
+    body {
+      background-color: #fff6ea;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="index.html">The Mandir Company</a>
@@ -55,20 +54,17 @@ body {
   </div>
 </nav>
 
-<!-- MAIN CONTENT -->
 <div class="page-content">
   <section class="container">
 
     <h1 class="text-center mb-4">My Wishlist ❤️</h1>
 
-    <!-- SHARE BUTTON -->
     <div class="text-center mb-4">
       <button class="btn btn-outline-secondary" onclick="shareWishlist()">
         Share Wishlist 💬
       </button>
     </div>
 
-    <!-- WISHLIST ITEMS -->
     <div id="wishlist-container"></div>
 
     <p id="empty-msg" class="text-center mt-4"></p>
@@ -76,17 +72,16 @@ body {
   </section>
 </div>
 
-<!-- FOOTER -->
 <footer class="text-center py-4 bg-light">
   <p>&copy; 2025 The Mandir Company. All rights reserved.</p>
 </footer>
 
-<!-- SCRIPT -->
-  <script>
+<script>
 const products = {
   1:{name:"German Silver Diya",price:"₹1,100"},
   2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
   3:{name:"German Silver Dibbi",price:"₹185 each"},
+  4:{name:"German Silver Nakkashi Dibbi",price:"₹185 each"},
   5:{name:"Marble Tic Tac Toe",price:"₹1,600"},
   6:{name:"Marble Agarbatti Stand",price:"₹550"},
   7:{name:"Nakkashi Cup",price:"₹475"},
@@ -107,7 +102,7 @@ const products = {
   22:{name:"Agate & Marble Ganesha Stand",price:"₹350"},
   23:{name:"Nimbu Mirchi Evil Eye",price:"₹650"},
   24:{name:"Buddha Diya Base",price:"₹599"},
-  25:{name:"Evil Eye Candle Set",price:"₹675"}
+  25:{name:"Evil Eye Candle Set",price:"₹675"},
   26:{name:"Buddha Hamsa Candles",price:"—"},
   27:{name:"Ganesha Hand",price:"—"},
   28:{name:"Guruji Bracelet 1",price:"—"},
@@ -180,10 +175,7 @@ function shareWishlist() {
     return;
   }
 
-  let text = `✨ My Wishlist from The Mandir Company ✨
-https://ziaajain.github.io/themandircompany/
-
-`;
+  let text = `✨ My Wishlist from The Mandir Company ✨\nhttps://ziaajain.github.io/themandircompany/\n\n`;
 
   wishlist.forEach(id => {
     if (products[id]) {
