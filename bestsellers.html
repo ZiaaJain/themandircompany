@@ -8,20 +8,46 @@
   <link href="styles.css" rel="stylesheet">
   
 <style>
-h2 {
-color: #c4a092;}
+  h2 {
+    color: #c4a092;
+  }
 
-p{
-color:#c4a092;
-}
+  p {
+    color: #c4a092;
+  }
 
-body {
-      background-color: #fff6ea;
-    }
+  body {
+    background-color: #fff6ea;
+  }
 
-  
-</style>
-</head>
+  /* Fixed aspect ratio for product images */
+  .card-img-top {
+    height: 220px;
+    object-fit: cover;
+  }
+
+  /* Flexbox setup to keep card heights uniform */
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  /* Ensures title section reserves fixed vertical space */
+  .card-body h6 {
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+</style></head>
 
 <body>
 
