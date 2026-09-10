@@ -1,175 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Wishlist | The Mandir Company</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Wishlist | The Mandir Company</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
-  
-  <style>
-    .page-content {
-      background-color: #fff6ea;
-      min-height: calc(100vh - 120px);
-      padding: 60px 0;
-    }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #fff6ea;
+      margin: 0;
+      padding: 0;
+    }
 
-    .wishlist-card {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 15px;
-    }
+    .page-content {
+      background-color: #fff6ea;
+      min-height: calc(100vh - 120px);
+      padding: 60px 0;
+    }
 
-    .wishlist-card  {
-      text-decoration: none;
-      color: #c4a092;
-    }
+    h1, h2, h3, h6, p {
+      color: #c4a092;
+    }
 
-    h2 {
-color: #c4a092;}
+    /* Uniform Card Styling matching Bestsellers */
+    .wishlist-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
 
-p{
-color:#c4a092;
-}
+    .wishlist-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
 
-body {
-      background-color: #fff6ea;
-    }
+    .wishlist-card h6 {
+      color: #c4a092;
+      font-weight: 600;
+      min-height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  </style>
+    .wishlist-card p {
+      color: #c4a092;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">The Mandir Company</a>
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="bestsellers.html">← Back to Bestsellers</a>
-      </li>
-    </ul>
-  </div>
+  <div class="container">
+    <a class="navbar-brand" href="index.html">The Mandir Company</a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="bestsellers.html">← Back to Bestsellers</a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <!-- MAIN CONTENT -->
 <div class="page-content">
-  <section class="container">
+  <section class="container">
 
-    <h1 class="text-center mb-4">My Wishlist ❤️</h1>
+    <h1 class="text-center mb-4">My Wishlist ❤️</h1>
 
-    <!-- SHARE BUTTON -->
-    <div class="text-center mb-4">
-      <button class="btn btn-outline-secondary" onclick="shareWishlist()">
-        Share Wishlist 💬
-      </button>
-    </div>
+    <!-- SHARE BUTTON -->
+    <div class="text-center mb-4">
+      <button class="btn btn-outline-secondary" onclick="shareWishlist()">
+        Share Wishlist 💬
+      </button>
+    </div>
 
-    <!-- WISHLIST ITEMS -->
-    <div id="wishlist-container"></div>
+    <!-- WISHLIST ITEMS CONTAINER -->
+    <div id="wishlist-container" class="row"></div>
 
-    <p id="empty-msg" class="text-center mt-4"></p>
+    <p id="empty-msg" class="text-center mt-4 fw-bold"></p>
 
-  </section>
+  </section>
 </div>
 
 <!-- FOOTER -->
 <footer class="text-center py-4 bg-light">
-  <p>&copy; 2025 The Mandir Company. All rights reserved.</p>
+  <p>&copy; 2025 The Mandir Company. All rights reserved.</p>
 </footer>
 
 <!-- SCRIPT -->
-  The following list contains all my items could you pls add them in this format <script>
-
+<script>
 const products = {
-  1:{name:"German Silver Diya",price:"₹1,100",desc:"Luxury meets devotion. This handcrafted German silver diya features intricate peacock detailing, making it a timeless art piece for your mandir or home décor.",
-    img: "images/nakkashi_peacock.jpeg"},
-  2:{name:"Marble & Metal Flower Diya Holder",price:"₹850",desc:"A beautiful round marble base paired with a metal flower design, ideal for tealights or dhoop. Customisation available.",
-     img:"images/metal_flower_om_marblebase.jpeg"},
-  4:{name:"German Silver Dibbi",price:"₹185 each",desc:"German silver Nakkashi dibbi ideal for saffron, cardamom or coin packing.",
-     img:"images/german_silver_kesar_box.jpeg"},
-  5:{name:"Marble Tic Tac Toe",price:"₹1,600",desc:"Luxury marble tic-tac-toe board with elegant gold accents.",
-     img:"images/tic_tac_toe.jpeg"},
-  6:{name:"Marble Agarbatti Stand",price:"₹550",desc:"Marble agarbatti stand with brass moon phase detailing.",
-     img:"images/marble_agarbatti.jpeg"},
-  7:{name:"Nakkashi Cup",price:"₹475",desc:"German silver elephant Nakkashi cup for kumkum or prasad.",
-     img:"images/nakkashi_bowl_elephantleg.jpeg"},
-  8:{name:"Elephant Akhand Diya",price:"₹850",desc:"Pure German silver elephant akhand diya with antique finish.",
-     img:"images/elephant_akhand_diya.jpeg"},
-  9:{name:"Om Diya and Bell Set",price:"₹575",desc:"German silver Om diya paired with peacock feather bell.",
-     img:"images/om_akhand_diya.jpeg"},
-  10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575",desc:"Antique German silver swastik diya with roli chawal bowls.",
-     img:"images/swastik_akhand_diya_roli.jpeg"},
-  11:{name:"German Silver Pooja Set",price:"₹1,550",desc:"Complete pooja set including thali, diya, bell, bowl and tilak stick.",
-     img:"images/diya_roli_chawal_set.jpeg"},
-  12:{name:"Antique Aarti Stand",price:"₹850",desc:"Exclusive antique German silver aarti stand.",
-     img:"images/nakkashi_diya_strip.jpeg"},
-  13:{name:"Lotus Handle Diya Set",price:"₹1,600",desc:"Heavy lotus handle diya with pink leaf bell.",
-     img:"images/pink_lotus_set.jpeg"},
-  14:{name:"Cow Calf Set",price:"₹250 each",desc:"Engraved German silver tirupati balaji cow.",
-     img:"images/tirupati_cow.jpeg"},
-  15:{name:"German Silver Bell",price:"₹270 each",desc:"Budget-friendly German silver bell.",
-     img:"images/gsilver_bell.jpeg"},
-  16:{name:"Nakkashi Swastik Diya",price:"₹399",desc:"Gold plated Nakkashi Swastik diya.",
-     img:"images/swastik_akhand_diya.jpeg"},
-  17:{name:"Radha Krishna Tilak Set",price:"₹850",desc:"Peacock feather flute tilak stick with roli chawal chopra.",
-     img:"images/radhakrishna_roli_chawal_set.jpeg"},
-  18:{name:"LED Krishna Box Set",price:"₹850 each",desc:"LED Radha Krishna Box with tilak stick and roli chwal chopra.",
-     img:"images/led_krishna_box.jpeg"},
-  19:{name:"Marble Platter with Gold Inlay",price:"₹1,880",desc:"Handcrafted white marble platter with gold inlay.",
-     img:"images/marble_platter.jpeg"},
-  20:{name:"Akhand Diya With Plate Set",price:"₹575",desc:"Daily-use akhand diya with detachable plate.",
-     img:"images/akhand_diya_wplate.jpeg"},
-  21:{name:" Nakkashi Agarbatti/Dhupatti Stand",price:"₹350",desc:"German silver Om engraved agarbatti stand.",
-     img:"images/dhupatti_nakkashi.jpeg"},
-  22:{name:"Agate & Marble Ganesha Stand",price:"₹350",desc:"Ganesha figurines on agate stone and marble base.",
-     img:"images/Ganesha_marble_agate.jpeg"},
-  23:{name:"Nimbu Mirchi Evil Eye",price:"₹650",desc:"German silver evil eye charm for positivity.",
-     img:"images/nimbu_mirchi_german_silver.jpeg"},
-  24:{name:"Buddha Diya Base",price:"₹599",desc:"Polyresin Buddha with marble diya base.",
-     img:"images/buddha.jpeg"},
-  25:{name:"Evil Eye Candle Set",price:"₹675",desc:"Marble evil eye candle set of two.",
-     img:"images/evileye_diya_set.jpeg"}
+  1:{name:"German Silver Diya",price:"₹1,100",desc:"Luxury meets devotion. This handcrafted German silver diya features intricate peacock detailing, making it a timeless art piece for your mandir or home décor.", img: "images/nakkashi_peacock.jpeg"},
+  2:{name:"Marble & Metal Flower Diya Holder",price:"₹850",desc:"A beautiful round marble base paired with a metal flower design, ideal for tealights or dhoop. Customisation available.", img:"images/metal_flower_om_marblebase.jpeg"},
+  3:{name:"Akhand Diya With Plate",price:"₹575",desc:"German silver Akhand Diya paired with a matching plate for neat daily worship.", img:"images/akhand_diya_wplate_gsilver.jpeg"},
+  4:{name:"German Silver Dibbi",price:"₹185 each",desc:"German silver Nakkashi dibbi ideal for saffron, cardamom or coin packing.", img:"images/german_silver_kesar_box.jpeg"},
+  5:{name:"Marble Tic Tac Toe",price:"₹1,600",desc:"Luxury marble tic-tac-toe board with elegant gold accents.", img:"images/tic_tac_toe.jpeg"},
+  6:{name:"Marble Agarbatti Stand",price:"₹550",desc:"Marble agarbatti stand with brass moon phase detailing.", img:"images/marble_agarbatti.jpeg"},
+  7:{name:"Nakkashi Cup",price:"₹475",desc:"German silver elephant Nakkashi cup for kumkum or prasad.", img:"images/nakkashi_bowl_elephantleg.jpeg"},
+  8:{name:"Elephant Akhand Diya",price:"₹850",desc:"Pure German silver elephant akhand diya with antique finish.", img:"images/elephant_akhand_diya.jpeg"},
+  9:{name:"Om Diya and Bell Set",price:"₹575",desc:"German silver Om diya paired with peacock feather bell.", img:"images/om_akhand_diya.jpeg"},
+  10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575",desc:"Antique German silver swastik diya with roli chawal bowls.", img:"images/swastik_akhand_diya_roli.jpeg"},
+  11:{name:"German Silver Pooja Set",price:"₹1,550",desc:"Complete pooja set including thali, diya, bell, bowl and tilak stick.", img:"images/diya_roli_chawal_set.jpeg"},
+  12:{name:"Antique Aarti Stand",price:"₹850",desc:"Exclusive antique German silver aarti stand.", img:"images/nakkashi_diya_strip.jpeg"},
+  13:{name:"Lotus Handle Diya Set",price:"₹1,600",desc:"Heavy lotus handle diya with pink leaf bell.", img:"images/pink_lotus_set.jpeg"},
+  14:{name:"Cow Calf Set",price:"₹250 each",desc:"Engraved German silver tirupati balaji cow.", img:"images/tirupati_cow.jpeg"},
+  15:{name:"German Silver Bell",price:"₹270 each",desc:"Budget-friendly German silver bell.", img:"images/gsilver_bell.jpeg"},
+  16:{name:"Nakkashi Swastik Diya",price:"₹399",desc:"Gold plated Nakkashi Swastik diya.", img:"images/swastik_akhand_diya.jpeg"},
+  17:{name:"Radha Krishna Tilak Set",price:"₹850",desc:"Peacock feather flute tilak stick with roli chawal chopra.", img:"images/radhakrishna_roli_chawal_set.jpeg"},
+  18:{name:"LED Krishna Box Set",price:"₹850 each",desc:"LED Radha Krishna Box with tilak stick and roli chwal chopra.", img:"images/led_krishna_box.jpeg"},
+  19:{name:"Marble Platter with Gold Inlay",price:"₹1,880",desc:"Handcrafted white marble platter with gold inlay.", img:"images/marble_platter.jpeg"},
+  20:{name:"Akhand Diya With Plate Set",price:"₹575",desc:"Daily-use akhand diya with detachable plate.", img:"images/akhand_diya_wplate.jpeg"},
+  21:{name:"Nakkashi Agarbatti/Dhupatti Stand",price:"₹350",desc:"German silver Om engraved agarbatti stand.", img:"images/dhupatti_nakkashi.jpeg"},
+  22:{name:"Agate & Marble Ganesha Stand",price:"₹350",desc:"Ganesha figurines on agate stone and marble base.", img:"images/Ganesha_marble_agate.jpeg"},
+  23:{name:"Nimbu Mirchi Evil Eye",price:"₹650",desc:"German silver evil eye charm for positivity.", img:"images/nimbu_mirchi_german_silver.jpeg"},
+  24:{name:"Buddha Diya Base",price:"₹599",desc:"Polyresin Buddha with marble diya base.", img:"images/buddha.jpeg"},
+  25:{name:"Evil Eye Candle Set",price:"₹675",desc:"Marble evil eye candle set of two.", img:"images/evileye_diya_set.jpeg"},
+  26:{name:"Buddha Hamsa Candles",price:"—",desc:"Aesthetically crafted Buddha and Hamsa themed decorative candles for peace and protection.", img:"images/Buddha.Hamsa.Candles"},
+  27:{name:"Ganesha Hand",price:"—",desc:"Intricately molded Ganesha blessing hand, perfect as a sacred desk ornament or mandir accent.", img:"images/Ganesha.hand"},
+  32:{name:"Guruji Chola 1",price:"—",desc:"Traditional handcrafted Chola cloth for sacred deity adornment.", img:"images/guruji.chola1"},
+  33:{name:"Guruji Chola 2",price:"—",desc:"Vibrant spiritual Chola piece featuring detailed embellishments.", img:"images/guruji.chola2"},
+  34:{name:"Guruji Chola 3",price:"—",desc:"Richly textured devotional Chola designed for pooja rituals.", img:"images/guruji.chola3"},
+  35:{name:"Guruji Chola 4",price:"—",desc:"Premium embroidered sacred fabric for spiritual occasions.", img:"images/guruji.chola4"},
+  36:{name:"Guruji Chola 5",price:"—",desc:"Elegantly woven Guruji Chola featuring delicate borders.", img:"images/guruji.chola5"},
+  37:{name:"Guruji Chola 6",price:"—",desc:"Classic ceremonial Chola tailored with traditional gold work.", img:"images/guruji.chola6"},
+  38:{name:"Guruji Chola 7",price:"—",desc:"Exquisite devotional Chola made with high-quality fabric.", img:"images/guruji.chola7"},
+  39:{name:"Guruji Chola 8",price:"—",desc:"Decorative Chola designed to add elegance to your shrine.", img:"images/guruji.chola8"},
+  40:{name:"Guruji Chola 9",price:"—",desc:"Sacred festival Chola for Guruji worship setup.", img:"images/guruji.chola9"},
+  41:{name:"Guruji Rakhi",price:"—",desc:"Specially crafted devotional Rakhi carrying divine blessings.", img:"images/guruji.rakhi"},
+  42:{name:"Minakari Collection",price:"—",desc:"Vibrant traditional Minakari art decorative piece for home altar.", img:"images/Minakari"},
+  43:{name:"Sinhasan Collection",price:"—",desc:"Royal handcrafted throne/sinhasan designed for idol seating.", img:"images/Sinhasan.collection"},
+  44:{name:"Blue Peacock Diya",price:"—",desc:"Artistic blue-enameled peacock diya for serene ambiance.", img:"images/bluepeacockdiya"},
+  45:{name:"Evil Eye Roli Chawal",price:"—",desc:"Evil eye themed Roli Chawal container set for traditional rituals.", img:"images/evileye.rolichawal"},
+  46:{name:"Hand Fan",price:"—",desc:"Decorative traditional hand fan (Pankha) for deity service.", img:"images/fan"},
+  47:{name:"Flower Candle",price:"—",desc:"Floral molded candle set for festive lighting and fragrance.", img:"images/flower.candle"},
+  48:{name:"Golden Diya",price:"—",desc:"Classic brass-finish golden diya designed for steady flame burning.", img:"images/golden.diya"},
+  49:{name:"Om Shubh Labh",price:"—",desc:"Auspicious Om and Shubh Labh door hanging / altar decor.", img:"images/omshubhlabh"},
+  50:{name:"Pink Toran",price:"—",desc:"Handmade pink entrance toran for a welcoming, blessed vibe.", img:"images/pinktoran"},
+  51:{name:"Elegant Lotus Toran",price:"—",desc:"Exquisitely crafted lotus-themed door hanging to bring elegance and traditional charm to your entrance.", img:"images/elegant.lotus.toran"},
+  52:{name:"German Silver Thali Set",price:"—",desc:"Complete German silver pooja thali set with beautifully crafted ritual essentials.", img:"images/german.silver.thali.set"},
+  53:{name:"Temple Design Shubh Labh",price:"—",desc:"Traditional temple-inspired Shubh Labh wall hanging for auspicious blessings.", img:"images/temple.design.shubh.labh."},
+  54:{name:"Studded Torans",price:"—",desc:"Decorated door toran embellished with intricate stone work and embellishments.", img:"images/studded.torans"}
 };
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+// RENDER WISHLIST ITEMS
+function displayWishlist() {
+  const container = document.getElementById("wishlist-container");
+  const emptyMsg = document.getElementById("empty-msg");
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-if (products[id]) {
-  document.getElementById("product-name").innerText = products[id].name;
-  document.getElementById("product-price").innerText = products[id].price;
-  document.getElementById("product-description").innerText = products[id].desc;
-  document.getElementById("product-image").src = products[id].img;
+  container.innerHTML = "";
+
+  if (wishlist.length === 0) {
+    emptyMsg.innerText = "Your wishlist is empty!";
+    return;
+  } else {
+    emptyMsg.innerText = "";
+  }
+
+  wishlist.forEach(id => {
+    if (products[id]) {
+      const item = products[id];
+      const cardHtml = `
+        <div class="col-6 col-md-4 col-lg-3 mb-4" id="item-${id}">
+          <div class="wishlist-card text-center">
+            <a href="product.html?id=${id}" class="text-decoration-none">
+              <img src="${item.img}" alt="${item.name}">
+              <h6>${item.name}</h6>
+              <p>${item.price}</p>
+            </a>
+            <button class="btn btn-sm btn-outline-danger mt-2" onclick="removeFromWishlist('${id}')">Remove 🗑️</button>
+          </div>
+        </div>
+      `;
+      container.innerHTML += cardHtml;
+    }
+  });
 }
 
-/* WISHLIST TOGGLE */
-function toggleWishlist() {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  const btn = document.getElementById("wishlist-btn");
-  const msg = document.getElementById("wishlist-msg");
-
-  if (wishlist.includes(id)) {
-    wishlist = wishlist.filter(item => item !== id);
-    btn.innerText = "🤍 Add to Wishlist";
-    msg.innerText = "Removed from wishlist";
-  } else {
-    wishlist.push(id);
-    btn.innerText = "❤️ Remove from Wishlist";
-    msg.innerText = "Added to wishlist";
-  }
-
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+// REMOVE ITEM FROM WISHLIST
+function removeFromWishlist(id) {
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishlist = wishlist.filter(item => item !== id);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  displayWishlist();
 }
 
-/* CHECK STATUS ON LOAD */
-(function checkWishlist() {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  if (wishlist.includes(id)) {
-    document.getElementById("wishlist-btn").innerText = "❤️ Remove from Wishlist";
-  }
-})();
-</script></body>
+// SHARE WISHLIST FUNCTIONALITY
+function shareWishlist() {
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  if (wishlist.length === 0) {
+    alert("Your wishlist is empty!");
+    return;
+  }
+  const shareText = "Check out my wishlist from The Mandir Company:\n" + wishlist.map(id => `- ${products[id]?.name || 'Item'}`).join("\n");
+  
+  if (navigator.share) {
+    navigator.share({
+      title: 'My Wishlist',
+      text: shareText,
+    }).catch(console.error);
+  } else {
+    navigator.clipboard.writeText(shareText);
+    alert("Wishlist items copied to clipboard!");
+  }
+}
+
+// INITIALIZE ON LOAD
+document.addEventListener("DOMContentLoaded", displayWishlist);
+</script>
+
+</body>
 </html>
