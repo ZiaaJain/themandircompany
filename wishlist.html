@@ -83,8 +83,8 @@
 
     <h1 class="text-center mb-4">My Wishlist ❤️</h1>
 
-    <!-- SHARE BUTTON -->
-    <div class="text-center mb-4">
+    <!-- SHARE BUTTON CONTAINER -->
+    <div id="share-container" class="text-center mb-4">
       <button class="btn btn-outline-secondary" onclick="shareWishlist()">
         Share Wishlist 💬
       </button>
@@ -93,7 +93,8 @@
     <!-- WISHLIST ITEMS CONTAINER -->
     <div id="wishlist-container" class="row"></div>
 
-    <p id="empty-msg" class="text-center mt-4 fw-bold"></p>
+    <!-- EMPTY WISHLIST MESSAGE -->
+    <p id="empty-msg" class="text-center mt-4 fw-bold fs-4"></p>
 
   </section>
 </div>
@@ -162,15 +163,22 @@ const products = {
 function displayWishlist() {
   const container = document.getElementById("wishlist-container");
   const emptyMsg = document.getElementById("empty-msg");
+  const shareContainer = document.getElementById("share-container");
+  
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  
+  // Clean string conversion comparison
+  wishlist = wishlist.map(String);
 
   container.innerHTML = "";
 
   if (wishlist.length === 0) {
     emptyMsg.innerText = "Your wishlist is empty!";
+    shareContainer.style.display = "none"; // Hide share button when empty
     return;
   } else {
     emptyMsg.innerText = "";
+    shareContainer.style.display = "block"; // Show share button when items exist
   }
 
   wishlist.forEach(id => {
@@ -196,28 +204,37 @@ function displayWishlist() {
 // REMOVE ITEM FROM WISHLIST
 function removeFromWishlist(id) {
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  wishlist = wishlist.filter(item => item !== id);
+  wishlist = wishlist.filter(item => String(item) !== String(id));
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
   displayWishlist();
 }
 
-// SHARE WISHLIST FUNCTIONALITY
+// SHARE WISHLIST FUNCTIONALITY WITH PRODUCT LINKS
 function shareWishlist() {
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
   if (wishlist.length === 0) {
     alert("Your wishlist is empty!");
     return;
   }
-  const shareText = "Check out my wishlist from The Mandir Company:\n" + wishlist.map(id => `- ${products[id]?.name || 'Item'}`).join("\n");
-  
+
+  // Base URL calculation (gets current domain/path automatically)
+  const baseUrl = window.location.origin + window.location.pathname.replace("wishlist.html", "product.html");
+
+  // Construct message with Item Name + Link
+  let shareText = "Check out my wishlist from The Mandir Company:\n\n";
+  shareText += wishlist
+    .filter(id => products[id])
+    .map(id => `• ${products[id].name}\nLink: ${baseUrl}?id=${id}`)
+    .join("\n\n");
+
   if (navigator.share) {
     navigator.share({
-      title: 'My Wishlist',
+      title: 'My Wishlist | The Mandir Company',
       text: shareText,
     }).catch(console.error);
   } else {
     navigator.clipboard.writeText(shareText);
-    alert("Wishlist items copied to clipboard!");
+    alert("Wishlist items and links copied to clipboard!");
   }
 }
 
