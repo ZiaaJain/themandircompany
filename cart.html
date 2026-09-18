@@ -62,22 +62,6 @@
       background-color: #b08b7d;
       color: white;
     }
-
-    /* Enhanced Empty Cart Styling */
-    .empty-cart-box {
-      background: white;
-      border-radius: 12px;
-      padding: 50px 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-      margin: 20px auto;
-      max-width: 500px;
-    }
-
-    .empty-cart-icon {
-      font-size: 4rem;
-      color: #c4a092;
-      margin-bottom: 15px;
-    }
   </style>
 </head>
 
@@ -92,7 +76,7 @@
         <a class="nav-link" href="bestsellers.html">← Back to Bestsellers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="wishlist.html">Wishlist</a>
+        <a class="nav-link" href="wishlist.html">Wishlist ❤️</a>
       </li>
     </ul>
   </div>
@@ -104,23 +88,11 @@
 
     <h1 class="text-center mb-4">Your Cart 🛒</h1>
 
-    <!-- EMPTY CART CONTAINER -->
-    <div id="empty-cart-wrapper" class="text-center" style="display: none;">
-      <div class="empty-cart-box">
-        <div class="empty-cart-icon">🛍️</div>
-        <h3 class="fw-bold mb-2">Your Cart is Empty</h3>
-        <p class="mb-4">Looks like you haven't added anything to your cart yet.</p>
-        <a href="bestsellers.html" class="btn btn-checkout px-4 py-2 fs-6">
-          Explore Products →
-        </a>
-      </div>
-    </div>
-
-    <!-- CART WITH ITEMS WRAPPER -->
     <div class="row" id="cart-wrapper">
       <!-- CART ITEMS -->
       <div class="col-lg-8">
         <div id="cart-container" class="row"></div>
+        <p id="empty-cart-msg" class="text-center mt-4 fw-bold fs-4"></p>
       </div>
 
       <!-- CART SUMMARY & CHECKOUT -->
@@ -209,8 +181,8 @@ function parsePrice(priceStr) {
 
 function displayCart() {
   const container = document.getElementById("cart-container");
-  const cartWrapper = document.getElementById("cart-wrapper");
-  const emptyWrapper = document.getElementById("empty-cart-wrapper");
+  const emptyMsg = document.getElementById("empty-cart-msg");
+  const summarySection = document.getElementById("summary-section");
   
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart = cart.map(String);
@@ -219,12 +191,12 @@ function displayCart() {
   let totalAmount = 0;
 
   if (cart.length === 0) {
-    cartWrapper.style.display = "none";
-    emptyWrapper.style.display = "block";
+    emptyMsg.innerText = "Your cart is currently empty!";
+    summarySection.style.display = "none";
     return;
   } else {
-    cartWrapper.style.display = "flex";
-    emptyWrapper.style.display = "none";
+    emptyMsg.innerText = "";
+    summarySection.style.display = "block";
   }
 
   cart.forEach(id => {
