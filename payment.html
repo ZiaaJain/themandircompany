@@ -236,7 +236,7 @@ function getCartData() {
       parsed.forEach(id => obj[String(id)] = 1);
       return obj;
     }
-    return parsed;
+    return typeof parsed === 'object' ? parsed : {};
   } catch(e) {
     return {};
   }
@@ -284,14 +284,20 @@ function triggerGPayPayment() {
   const payeeName = encodeURIComponent("The Mandir Company");
   const note = encodeURIComponent("Order Payment");
 
-  const gpayUrl = `tez://upi/pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
+  // Force Google Pay deep link across iOS and Android
+  const gpayAndroidUrl = `tez://upi/pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
+  const gpayIosUrl = `gpay://upi/pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
   const standardUpiUrl = `upi://pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
 
-  window.location.href = gpayUrl;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const targetGpayUrl = isIOS ? gpayIosUrl : gpayAndroidUrl;
+
+  // Attempt explicit GPay open first, fallback to standard UPI if app is uninstalled
+  window.location.href = targetGpayUrl;
 
   setTimeout(() => {
     window.location.href = standardUpiUrl;
-  }, 500);
+  }, 1000);
 }
 
 document.addEventListener("DOMContentLoaded", calculateTotal);
