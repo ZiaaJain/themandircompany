@@ -146,19 +146,20 @@
           <p class="mb-1 fw-bold">Total Amount Payable:</p>
           <h2 class="fw-bold mb-3" id="pay-total-val">₹0</h2>
 
-          <p class="mb-2">GPay / UPI Phone Number:</p>
+          <p class="mb-2">GPay / UPI Mobile Number:</p>
           <div class="pay-number-badge mb-3">
             📱 +91 9619918583
           </div>
 
+          <!-- REVISED GPAY BUTTON ACTION -->
           <div class="d-grid gap-2 my-3">
             <button class="btn btn-gpay py-3" onclick="triggerGPayPayment()">
-              Pay via Google Pay App 📲
+              Pay via Google Pay / UPI 📲
             </button>
           </div>
 
           <p class="small text-muted mt-3">
-            <strong>Note:</strong> Clicking the button will launch Google Pay directly on mobile pre-configured with the total payment amount.
+            <strong>Note:</strong> On mobile devices, clicking this launches Google Pay or your default UPI app pre-filled with the order payment details.
           </p>
         </div>
       </div>
@@ -268,6 +269,7 @@ function calculateTotal() {
   document.getElementById("pay-total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
 }
 
+/* REVISED GPAY / UPI TRIGGER FUNCTION */
 function triggerGPayPayment() {
   if (grandTotal <= 0) {
     alert("Your cart is empty. Please add items to your cart before proceeding to payment.");
@@ -280,24 +282,16 @@ function triggerGPayPayment() {
     return;
   }
 
-  const phoneNum = "9619918583";
+  // Set your verified UPI ID handle (e.g., 9619918583@okaxis, @okicici, @paytm, or @gpay)
+  const upiId = "9619918583@okaxis"; 
   const payeeName = encodeURIComponent("The Mandir Company");
   const note = encodeURIComponent("Order Payment");
 
-  // Force Google Pay deep link across iOS and Android
-  const gpayAndroidUrl = `tez://upi/pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
-  const gpayIosUrl = `gpay://upi/pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
-  const standardUpiUrl = `upi://pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
+  // Standard Universal UPI Deep Link
+  const upiUrl = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
 
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const targetGpayUrl = isIOS ? gpayIosUrl : gpayAndroidUrl;
-
-  // Attempt explicit GPay open first, fallback to standard UPI if app is uninstalled
-  window.location.href = targetGpayUrl;
-
-  setTimeout(() => {
-    window.location.href = standardUpiUrl;
-  }, 1000);
+  // Launch Google Pay / UPI App
+  window.location.href = upiUrl;
 }
 
 document.addEventListener("DOMContentLoaded", calculateTotal);
