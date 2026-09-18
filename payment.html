@@ -33,6 +33,11 @@
       margin-bottom: 25px;
     }
 
+    .form-control::placeholder {
+      color: #b0b0b0;
+      font-style: italic;
+    }
+
     .form-control:focus {
       border-color: #c4a092;
       box-shadow: 0 0 0 0.25rem rgba(196, 160, 146, 0.25);
@@ -88,35 +93,35 @@
       <div class="col-lg-7">
         <div class="checkout-card">
           <h4 class="fw-bold mb-4">📍 Shipping Address</h4>
-          <form id="address-form" onsubmit="event.preventDefault(); initiatePayment();">
+          <form id="address-form">
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Full Name *</label>
-                <input type="text" class="form-control" id="fullName" required placeholder="John Doe">
+                <input type="text" class="form-control" id="fullName" required placeholder="Please fill out this field">
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Phone Number *</label>
-                <input type="tel" class="form-control" id="phone" required placeholder="9876543210">
+                <input type="tel" class="form-control" id="phone" required placeholder="Please fill out this field">
               </div>
             </div>
 
             <div class="mb-3">
               <label class="form-label fw-bold">Street Address *</label>
-              <input type="text" class="form-control" id="address" required placeholder="Flat / House No., Colony, Street">
+              <input type="text" class="form-control" id="address" required placeholder="Please fill out this field">
             </div>
 
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label class="form-label fw-bold">City *</label>
-                <input type="text" class="form-control" id="city" required placeholder="Mumbai">
+                <input type="text" class="form-control" id="city" required placeholder="Please fill out this field">
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label fw-bold">State *</label>
-                <input type="text" class="form-control" id="state" required placeholder="Maharashtra">
+                <input type="text" class="form-control" id="state" required placeholder="Please fill out this field">
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label fw-bold">Pincode *</label>
-                <input type="text" class="form-control" id="pincode" required placeholder="400001">
+                <input type="text" class="form-control" id="pincode" required placeholder="Please fill out this field">
               </div>
             </div>
           </form>
@@ -126,23 +131,23 @@
       <!-- PAYMENT SUMMARY & ACTION -->
       <div class="col-lg-5">
         <div class="checkout-card text-center">
-          <h4 class="fw-bold mb-3">💳 Payment via Google Pay / UPI</h4>
-          <p>Total Amount Payable:</p>
+          <h4 class="fw-bold mb-3">💳 Payment via Google Pay</h4>
+          <p class="mb-1">Total Amount Payable:</p>
           <h2 class="fw-bold mb-3" id="pay-total-val">₹0</h2>
 
-          <p class="mb-2">GPay / PhonePe / Paytm UPI Number:</p>
+          <p class="mb-2">GPay / UPI Phone Number:</p>
           <div class="pay-number-badge mb-3">
             📱 +91 9619918583
           </div>
 
           <div class="d-grid gap-2 my-3">
-            <button class="btn btn-gpay py-3" onclick="triggerUPIPayment()">
-              Pay via GPay / UPI App 📲
+            <button class="btn btn-gpay py-3" onclick="triggerGPayPayment()">
+              Pay via Google Pay App 📲
             </button>
           </div>
 
           <p class="small text-muted mt-3">
-            <strong>Note:</strong> Clicking the button will launch your payment app on mobile with phone number and exact amount pre-configured.
+            <strong>Note:</strong> Clicking the button will launch Google Pay directly on mobile pre-configured with the total payment amount.
           </p>
         </div>
       </div>
@@ -223,7 +228,7 @@ function calculateTotal() {
   document.getElementById("pay-total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
 }
 
-function triggerUPIPayment() {
+function triggerGPayPayment() {
   const form = document.getElementById("address-form");
   if (!form.checkValidity()) {
     form.reportValidity();
@@ -233,12 +238,20 @@ function triggerUPIPayment() {
   const phoneNum = "9619918583";
   const payeeName = encodeURIComponent("The Mandir Company");
   const note = encodeURIComponent("Order Payment");
-  
-  // Standard UPI URI format targeting phone number / VPA
-  const upiUrl = `upi://pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
 
-  // Redirect / Trigger UPI App on mobile devices
-  window.location.href = upiUrl;
+  // Primary URL schema specifically targeting Google Pay (tez)
+  const gpayUrl = `tez://upi/pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
+  
+  // Standard generic fallback URI if GPay native scheme is not caught
+  const standardUpiUrl = `upi://pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
+
+  // Attempt opening Google Pay specifically
+  window.location.href = gpayUrl;
+
+  // Fallback after short delay if GPay schema is not supported by device
+  setTimeout(() => {
+    window.location.href = standardUpiUrl;
+  }, 500);
 }
 
 document.addEventListener("DOMContentLoaded", calculateTotal);
