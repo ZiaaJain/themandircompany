@@ -33,19 +33,46 @@
       padding: 15px;
     }
 
-    h1, h2, h3, h6, p {
+    h1, h2, h3, h6, p, label {
       color: #c4a092;
     }
 
     .btn-custom-cart {
       background-color: #c4a092;
       color: white;
-      border: none;
+      border: 1px solid #c4a092;
     }
 
     .btn-custom-cart:hover {
       background-color: #b08b7d;
       color: white;
+    }
+
+    .qty-btn {
+      border: 1px solid #c4a092;
+      color: #c4a092;
+      background: white;
+      font-weight: bold;
+      width: 38px;
+      height: 38px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .qty-btn:hover {
+      background-color: #fff6ea;
+    }
+
+    .qty-input {
+      width: 50px;
+      text-align: center;
+      border: 1px solid #c4a092;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #c4a092;
     }
 
     .status-msg {
@@ -95,11 +122,19 @@
         <h1 id="product-name" class="fw-bold mb-3"></h1>
         <h3 id="product-price" class="fw-bold mb-4"></h3>
 
+        <!-- QUANTITY SELECTOR -->
+        <div class="d-flex align-items-center gap-2 mb-4">
+          <label class="fw-bold me-2">Quantity:</label>
+          <button class="qty-btn" onclick="adjustQty(-1)">-</button>
+          <input type="text" id="qty-count" class="qty-input" value="1" readonly>
+          <button class="qty-btn" onclick="adjustQty(1)">+</button>
+        </div>
+
         <div class="d-flex flex-wrap gap-2 mb-3">
           <button
             id="cart-btn"
             class="btn btn-custom-cart px-4 py-2"
-            onclick="addToCart()"
+            onclick="toggleCart()"
           >
             🛒 Add to Cart
           </button>
@@ -184,22 +219,86 @@ if (products[id]) {
   document.getElementById("product-image").src = products[id].img;
 }
 
-function updateBadge() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  document.getElementById("cart-count-badge").innerText = cart.length;
+/* HELPER TO FETCH CART DATA */
+function getCart() {
+  let cartData = localStorage.getItem("cart");
+  if (!cartData) return {};
+  try {
+    let parsed = JSON.parse(cartData);
+    if (Array.isArray(parsed)) {
+      let obj = {};
+      parsed.forEach(itemId => obj[String(itemId)] = 1);
+      return obj;
+    }
+    return parsed;
+  } catch(e) {
+    return {};
+  }
 }
 
-/* ADD TO CART FUNCTIONALITY */
-function addToCart() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (!cart.map(String).includes(String(id))) {
-    cart.push(String(id));
-    localStorage.setItem("cart", JSON.stringify(cart));
-    document.getElementById("action-msg").innerText = "Added to Cart! 🛒";
+/* HELPER TO SAVE CART DATA */
+function saveCart(cartObj) {
+  localStorage.setItem("cart", JSON.stringify(cartObj));
+  updateBadge();
+}
+
+function updateBadge() {
+  let cartObj = getCart();
+  let totalCount = 0;
+  for (let key in cartObj) {
+    totalCount += parseInt(cartObj[key]) || 0;
+  }
+  document.getElementById("cart-count-badge").innerText = totalCount;
+}
+
+function renderCartUI() {
+  let cartObj = getCart();
+  const cartBtn = document.getElementById("cart-btn");
+  const qtyInput = document.getElementById("qty-count");
+
+  if (cartObj[String(id)]) {
+    qtyInput.value = cartObj[String(id)];
+    cartBtn.innerText = "🗑️ Remove from Cart";
+    cartBtn.className = "btn btn-outline-danger px-4 py-2";
   } else {
-    document.getElementById("action-msg").innerText = "Item is already in your cart!";
+    cartBtn.innerText = "🛒 Add to Cart";
+    cartBtn.className = "btn btn-custom-cart px-4 py-2";
   }
   updateBadge();
+}
+
+/* QUANTITY ADJUSTMENT */
+function adjustQty(amount) {
+  let qtyInput = document.getElementById("qty-count");
+  let currentVal = parseInt(qtyInput.value) || 1;
+  let newVal = currentVal + amount;
+  if (newVal < 1) newVal = 1;
+  qtyInput.value = newVal;
+
+  let cartObj = getCart();
+  if (cartObj[String(id)]) {
+    cartObj[String(id)] = newVal;
+    saveCart(cartObj);
+    document.getElementById("action-msg").innerText = "Cart quantity updated!";
+  }
+}
+
+/* TOGGLE ADD / REMOVE FROM CART */
+function toggleCart() {
+  let cartObj = getCart();
+  let qtyVal = parseInt(document.getElementById("qty-count").value) || 1;
+  const msg = document.getElementById("action-msg");
+
+  if (cartObj[String(id)]) {
+    delete cartObj[String(id)];
+    saveCart(cartObj);
+    msg.innerText = "Removed from Cart!";
+  } else {
+    cartObj[String(id)] = qtyVal;
+    saveCart(cartObj);
+    msg.innerText = "Added to Cart! 🛒";
+  }
+  renderCartUI();
 }
 
 /* WISHLIST TOGGLE */
@@ -221,13 +320,13 @@ function toggleWishlist() {
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
 }
 
-/* INITIAL CHECK */
-(function checkWishlist() {
+/* INITIAL SETUP */
+(function init() {
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
   if (wishlist.map(String).includes(String(id))) {
     document.getElementById("wishlist-btn").innerText = "❤️ Remove from Wishlist";
   }
-  updateBadge();
+  renderCartUI();
 })();
 </script>
 </body>
