@@ -97,31 +97,31 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Full Name *</label>
-                <input type="text" class="form-control" id="fullName" required placeholder="-">
+                <input type="text" class="form-control" id="fullName" required placeholder="Enter full name">
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Phone Number *</label>
-                <input type="tel" class="form-control" id="phone" required placeholder="-">
+                <input type="tel" class="form-control" id="phone" required placeholder="Enter phone number">
               </div>
             </div>
 
             <div class="mb-3">
               <label class="form-label fw-bold">Street Address *</label>
-              <input type="text" class="form-control" id="address" required placeholder="-">
+              <input type="text" class="form-control" id="address" required placeholder="Enter house no, street name">
             </div>
 
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label class="form-label fw-bold">City *</label>
-                <input type="text" class="form-control" id="city" required placeholder="-">
+                <input type="text" class="form-control" id="city" required placeholder="City">
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label fw-bold">State *</label>
-                <input type="text" class="form-control" id="state" required placeholder="-">
+                <input type="text" class="form-control" id="state" required placeholder="State">
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label fw-bold">Pincode *</label>
-                <input type="text" class="form-control" id="pincode" required placeholder="-">
+                <input type="text" class="form-control" id="pincode" required placeholder="Pincode">
               </div>
             </div>
           </form>
@@ -132,7 +132,18 @@
       <div class="col-lg-5">
         <div class="checkout-card text-center">
           <h4 class="fw-bold mb-3">💳 Payment via Google Pay</h4>
-          <p class="mb-1">Total Amount Payable:</p>
+          
+          <div class="d-flex justify-content-between px-3 my-1 text-muted fs-6">
+            <span>Subtotal:</span>
+            <span id="subtotal-display">₹0</span>
+          </div>
+          <div class="d-flex justify-content-between px-3 my-1 text-muted fs-6">
+            <span>Shipping:</span>
+            <span id="shipping-display">₹150</span>
+          </div>
+          <hr style="color: #c4a092;">
+
+          <p class="mb-1 fw-bold">Total Amount Payable:</p>
           <h2 class="fw-bold mb-3" id="pay-total-val">₹0</h2>
 
           <p class="mb-2">GPay / UPI Phone Number:</p>
@@ -209,26 +220,60 @@ const products = {
 };
 
 let grandTotal = 0;
+const SHIPPING_FEE = 150;
 
 function parsePrice(priceStr) {
   return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
 }
 
-function calculateTotal() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart = cart.map(String);
-  grandTotal = 0;
+function getCartData() {
+  let raw = localStorage.getItem("cart");
+  if (!raw) return {};
+  try {
+    let parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      let obj = {};
+      parsed.forEach(id => obj[String(id)] = 1);
+      return obj;
+    }
+    return parsed;
+  } catch(e) {
+    return {};
+  }
+}
 
-  cart.forEach(id => {
+function calculateTotal() {
+  let cartObj = getCartData();
+  let itemIds = Object.keys(cartObj);
+
+  let subtotalAmount = 0;
+
+  itemIds.forEach(id => {
     if (products[id]) {
-      grandTotal += parsePrice(products[id].price);
+      let qty = parseInt(cartObj[id]) || 1;
+      let unitPrice = parsePrice(products[id].price);
+      subtotalAmount += (unitPrice * qty);
     }
   });
 
+  if (subtotalAmount > 0) {
+    grandTotal = subtotalAmount + SHIPPING_FEE;
+    document.getElementById("shipping-display").innerText = "₹" + SHIPPING_FEE;
+  } else {
+    grandTotal = 0;
+    document.getElementById("shipping-display").innerText = "₹0";
+  }
+
+  document.getElementById("subtotal-display").innerText = "₹" + subtotalAmount.toLocaleString('en-IN');
   document.getElementById("pay-total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
 }
 
 function triggerGPayPayment() {
+  if (grandTotal <= 0) {
+    alert("Your cart is empty. Please add items to your cart before proceeding to payment.");
+    return;
+  }
+
   const form = document.getElementById("address-form");
   if (!form.checkValidity()) {
     form.reportValidity();
@@ -239,16 +284,11 @@ function triggerGPayPayment() {
   const payeeName = encodeURIComponent("The Mandir Company");
   const note = encodeURIComponent("Order Payment");
 
-  // Primary URL schema specifically targeting Google Pay (tez)
   const gpayUrl = `tez://upi/pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
-  
-  // Standard generic fallback URI if GPay native scheme is not caught
   const standardUpiUrl = `upi://pay?pa=${phoneNum}@okaxis&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
 
-  // Attempt opening Google Pay specifically
   window.location.href = gpayUrl;
 
-  // Fallback after short delay if GPay schema is not supported by device
   setTimeout(() => {
     window.location.href = standardUpiUrl;
   }, 500);
