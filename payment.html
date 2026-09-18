@@ -49,6 +49,7 @@
       font-weight: 600;
       border: none;
       font-size: 1.1rem;
+      text-decoration: none;
     }
 
     .btn-gpay:hover {
@@ -154,12 +155,12 @@
           <!-- REVISED GPAY BUTTON ACTION -->
           <div class="d-grid gap-2 my-3">
             <button class="btn btn-gpay py-3" onclick="triggerGPayPayment()">
-              Pay via Google Pay / UPI 📲
+              Pay via Google Pay 📲
             </button>
           </div>
 
           <p class="small text-muted mt-3">
-            <strong>Note:</strong> On mobile devices, clicking this launches Google Pay or your default UPI app pre-filled with the order payment details.
+            <strong>Note:</strong> Clicking this will redirect you to Google Pay.
           </p>
         </div>
       </div>
@@ -269,7 +270,7 @@ function calculateTotal() {
   document.getElementById("pay-total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
 }
 
-/* REVISED GPAY / UPI TRIGGER FUNCTION */
+/* REDIRECT TO GPAY ABOUT PAGE */
 function triggerGPayPayment() {
   if (grandTotal <= 0) {
     alert("Your cart is empty. Please add items to your cart before proceeding to payment.");
@@ -282,16 +283,7 @@ function triggerGPayPayment() {
     return;
   }
 
-  // Set your verified UPI ID handle (e.g., 9619918583@okaxis, @okicici, @paytm, or @gpay)
-  const upiId = "9619918583@okaxis"; 
-  const payeeName = encodeURIComponent("The Mandir Company");
-  const note = encodeURIComponent("Order Payment");
-
-  // Standard Universal UPI Deep Link
-  const upiUrl = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${grandTotal}&cu=INR&tn=${note}`;
-
-  // Launch Google Pay / UPI App
-  window.location.href = upiUrl;
+  window.location.href = "https://pay.google.com/intl/en_in/about/";
 }
 
 document.addEventListener("DOMContentLoaded", calculateTotal);
