@@ -4,94 +4,31 @@
   <meta charset="UTF-8">
   <title>Payment & Checkout | The Mandir Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
-
   <style>
-    body {
-      background-color: #fff6ea;
-      margin: 0;
-      padding: 0;
-    }
-
-    .page-content {
-      background-color: #fff6ea;
-      min-height: calc(100vh - 120px);
-      padding: 60px 0;
-    }
-
-    h1, h2, h3, h4, h5, h6, p, label {
-      color: #c4a092;
-    }
-
-    .checkout-card {
-      background: white;
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin-bottom: 25px;
-    }
-
-    .form-control::placeholder {
-      color: #b0b0b0;
-      font-style: italic;
-    }
-
-    .form-control:focus {
-      border-color: #c4a092;
-      box-shadow: 0 0 0 0.25rem rgba(196, 160, 146, 0.25);
-    }
-
-    .btn-whatsapp {
-      background-color: #25D366;
-      color: white;
-      font-weight: 600;
-      border: none;
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-whatsapp:hover {
-      background-color: #1da851;
-      color: white;
-    }
-
-    .pay-number-badge {
-      background-color: #fff6ea;
-      color: #c4a092;
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid #c4a092;
-      display: inline-block;
-    }
+    body { background-color: #fff6ea; margin: 0; padding: 0; }
+    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 60px 0; }
+    h1, h2, h3, h4, h5, h6, p, label { color: #c4a092; }
+    .checkout-card { background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 25px; }
+    .btn-confirm { background-color: #c4a092; color: white; font-weight: 600; border: none; font-size: 1.1rem; }
+    .btn-confirm:hover { background-color: #b08b7d; color: white; }
+    .info-box { background-color: #fffaf3; border: 1px solid #e0c8bf; border-radius: 6px; padding: 12px; }
   </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="index.html">The Mandir Company</a>
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="cart.html">← Back to Cart</a>
-      </li>
-    </ul>
   </div>
 </nav>
 
-<!-- MAIN CONTENT -->
 <div class="page-content">
   <section class="container">
-    <h1 class="text-center mb-4">Checkout & Payment</h1>
+    <h1 class="text-center mb-4">Checkout & Order Placement</h1>
 
     <div class="row">
-
-      <!-- ADDRESS DETAILS FORM -->
+      <!-- ADDRESS FORM -->
       <div class="col-lg-7">
         <div class="checkout-card">
           <h4 class="fw-bold mb-4">📍 Shipping Address</h4>
@@ -106,12 +43,10 @@
                 <input type="tel" class="form-control" id="phone" required placeholder="Enter phone number">
               </div>
             </div>
-
             <div class="mb-3">
               <label class="form-label fw-bold">Street Address *</label>
               <input type="text" class="form-control" id="address" required placeholder="Enter house no, street name">
             </div>
-
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label class="form-label fw-bold">City *</label>
@@ -130,11 +65,10 @@
         </div>
       </div>
 
-      <!-- PAYMENT SUMMARY & ACTION -->
+      <!-- SUMMARY & CONFIRM BUTTON -->
       <div class="col-lg-5">
         <div class="checkout-card text-center">
-          <h4 class="fw-bold mb-3">💳 Payment via Google Pay / UPI</h4>
-          
+          <h4 class="fw-bold mb-3">💳 Order Summary</h4>
           <div class="d-flex justify-content-between px-3 my-1 text-muted fs-6">
             <span>Subtotal:</span>
             <span id="subtotal-display">₹0</span>
@@ -148,185 +82,104 @@
           <p class="mb-1 fw-bold">Total Amount Payable:</p>
           <h2 class="fw-bold mb-3" id="pay-total-val">₹0</h2>
 
-          <p class="mb-2">GPay / Support Number:</p>
-          <div class="pay-number-badge mb-3">
-            📱 +91 9619918583
-          </div>
-
-          <!-- ACTION BUTTON -->
           <div class="d-grid gap-2 my-3">
-            <button class="btn btn-whatsapp py-3" onclick="triggerGPayPayment()">
-              Send Order via WhatsApp & Pay 📲
+            <button class="btn btn-confirm py-3" onclick="processOrder()">
+              Confirm Order 🛍️
             </button>
           </div>
 
-          <p class="small text-muted mt-3">
-            <strong>Note:</strong> Clicking this opens WhatsApp with your order summary pre-filled so you can receive immediate UPI payment instructions.
-          </p>
+          <div class="info-box text-start mt-3">
+            <p class="small mb-0" style="color: #6c5248;">
+              ℹ️ <strong>Next Steps:</strong> Once you confirm, your order is registered! Our team will reach out to you within <strong>48 hours</strong> to finalize your payment and shipping details.
+            </p>
+          </div>
         </div>
       </div>
-
     </div>
   </section>
 </div>
 
-<!-- FOOTER -->
-<footer class="text-center py-4 bg-light">
-  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
-</footer>
-
 <script>
-const products = {
-  1:{name:"German Silver Diya",price:"₹1,100"},
-  2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
-  3:{name:"Akhand Diya With Plate",price:"₹575"},
-  4:{name:"German Silver Dibbi",price:"₹185 each"},
-  5:{name:"Marble Tic Tac Toe",price:"₹1,600"},
-  6:{name:"Marble Agarbatti Stand",price:"₹550"},
-  7:{name:"Nakkashi Cup",price:"₹475"},
-  8:{name:"Elephant Akhand Diya",price:"₹850"},
-  9:{name:"Om Diya and Bell Set",price:"₹575"},
-  10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575"},
-  11:{name:"German Silver Pooja Set",price:"₹1,550"},
-  12:{name:"Antique Aarti Stand",price:"₹850"},
-  13:{name:"Lotus Handle Diya Set",price:"₹1,600"},
-  14:{name:"Cow Calf Set",price:"₹250 each"},
-  15:{name:"German Silver Bell",price:"₹270 each"},
-  16:{name:"Nakkashi Swastik Diya",price:"₹399"},
-  17:{name:"Radha Krishna Tilak Set",price:"₹850"},
-  18:{name:"LED Krishna Box Set",price:"₹850 each"},
-  19:{name:"Marble Platter with Gold Inlay",price:"₹1,880"},
-  20:{name:"Akhand Diya With Plate Set",price:"₹575"},
-  21:{name:"Nakkashi Agarbatti/Dhupatti Stand",price:"₹350"},
-  22:{name:"Agate & Marble Ganesha Stand",price:"₹350"},
-  23:{name:"Nimbu Mirchi Evil Eye",price:"₹650"},
-  24:{name:"Buddha Diya Base",price:"₹599"},
-  25:{name:"Evil Eye Candle Set",price:"₹675"},
-  26:{name:"Guruji Chola 1",price:"₹11,000"},
-  27:{name:"Guruji Chola 2",price:"₹17,000"},
-  28:{name:"Guruji Chola 3",price:"₹11,000"},
-  29:{name:"Guruji Chola 4",price:"₹10,000"},
-  30:{name:"Guruji Chola 5",price:"₹14,000"},
-  31:{name:"Guruji Chola 6",price:"₹9,999"},
-  32:{name:"Guruji Chola 7",price:"₹14,000"},
-  33:{name:"Guruji Chola 8",price:"₹11,000"},
-  34:{name:"Guruji Chola 9",price:"₹12,000"},
-  35:{name:"Evil Eye Roli Chawal",price:"₹250 each"},
-  36:{name:"Hand Fan",price:"₹250"},
-  37:{name:"Flower Candle",price:"₹299 each"},
-  38:{name:"Om Shubh Labh",price:"₹699"},
-  39:{name:"Pink Toran",price:"₹3,500"},
-  40:{name:"Elegant Lotus Toran",price:"₹2,550"},
-  41:{name:"German Silver Thali Set",price:"₹2,500"},
-  42:{name:"Temple Design Shubh Labh",price:"₹450"},
-  43:{name:"Studded Torans",price:"₹2,550"}
-};
+const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
+const products = {
+  1:{name:"German Silver Diya",price:"₹1,100"}, 2:{name:"Marble Flower Diya",price:"₹850"},
+  3:{name:"Akhand Diya With Plate",price:"₹575"}, 4:{name:"German Silver Dibbi",price:"₹185"}
+};
 let grandTotal = 0;
 const SHIPPING_FEE = 150;
 
-function parsePrice(priceStr) {
-  return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  if ("Notification" in window && Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+  calculateTotal();
+});
+
+function parsePrice(priceStr) { return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0; }
 
 function getCartData() {
   let raw = localStorage.getItem("cart");
   if (!raw) return {};
-  try {
-    let parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      let obj = {};
-      parsed.forEach(id => obj[String(id)] = 1);
-      return obj;
-    }
-    return typeof parsed === 'object' ? parsed : {};
-  } catch(e) {
-    return {};
-  }
+  try { return JSON.parse(raw); } catch(e) { return {}; }
 }
 
 function calculateTotal() {
   let cartObj = getCartData();
-  let itemIds = Object.keys(cartObj);
-
   let subtotalAmount = 0;
-
-  itemIds.forEach(id => {
-    if (products[id]) {
-      let qty = parseInt(cartObj[id]) || 1;
-      let unitPrice = parsePrice(products[id].price);
-      subtotalAmount += (unitPrice * qty);
-    }
+  Object.keys(cartObj).forEach(id => {
+    if (products[id]) subtotalAmount += (parsePrice(products[id].price) * (cartObj[id] || 1));
   });
-
-  if (subtotalAmount > 0) {
-    grandTotal = subtotalAmount + SHIPPING_FEE;
-    document.getElementById("shipping-display").innerText = "₹" + SHIPPING_FEE;
-  } else {
-    grandTotal = 0;
-    document.getElementById("shipping-display").innerText = "₹0";
-  }
-
+  grandTotal = subtotalAmount > 0 ? subtotalAmount + SHIPPING_FEE : 0;
   document.getElementById("subtotal-display").innerText = "₹" + subtotalAmount.toLocaleString('en-IN');
   document.getElementById("pay-total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
 }
 
-function triggerGPayPayment() {
-  if (grandTotal <= 0) {
-    alert("Your cart is empty. Please add items before proceeding.");
-    return;
+function triggerDeviceNotification() {
+  if ("Notification" in window && Notification.permission === "granted") {
+    new Notification("The Mandir Company", {
+      body: "Your order is placed! We will reach out within 48 hours for payment details.",
+      icon: "https://cdn-icons-png.flaticon.com/512/190/190411.png"
+    });
   }
-
-  const form = document.getElementById("address-form");
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
-
-  // Gather Form Inputs
-  const fullName = document.getElementById("fullName").value;
-  const phone = document.getElementById("phone").value;
-  const address = document.getElementById("address").value;
-  const city = document.getElementById("city").value;
-  const state = document.getElementById("state").value;
-  const pincode = document.getElementById("pincode").value;
-
-  // Gather Selected Cart Items
-  let cartObj = getCartData();
-  let itemSummary = [];
-  
-  Object.keys(cartObj).forEach(id => {
-    if (products[id]) {
-      let qty = cartObj[id];
-      itemSummary.push(`• ${products[id].name} (Qty: ${qty}) - ${products[id].price}`);
-    }
-  });
-
-  // Construct WhatsApp Message
-  let message = `*NEW ORDER - The Mandir Company*\n\n`;
-  message += `*Customer Details:*\n`;
-  message += `👤 Name: ${fullName}\n`;
-  message += `📞 Phone: ${phone}\n`;
-  message += `📍 Address: ${address}, ${city}, ${state} - ${pincode}\n\n`;
-  message += `*Items Ordered:*\n${itemSummary.join('\n')}\n\n`;
-  message += `*Subtotal:* ₹${(grandTotal - SHIPPING_FEE).toLocaleString('en-IN')}\n`;
-  message += `*Shipping:* ₹${SHIPPING_FEE}\n`;
-  message += `*Grand Total:* ₹${grandTotal.toLocaleString('en-IN')}\n\n`;
-  message += `Please confirm my order and share GPay payment details.`;
-
-  // Target WhatsApp Number
-  const recipientNumber = "919619918583";
-  const encodedMessage = encodeURIComponent(message);
-  
-  // Clear cart
-  localStorage.removeItem("cart");
-
-  // Open WhatsApp
-  window.open(`https://wa.me/${recipientNumber}?text=${encodedMessage}`, '_blank');
 }
 
-document.addEventListener("DOMContentLoaded", calculateTotal);
-</script>
+async function processOrder() {
+  if (grandTotal <= 0) { alert("Your cart is empty."); return; }
+  const form = document.getElementById("address-form");
+  if (!form.checkValidity()) { form.reportValidity(); return; }
 
+  let cartObj = getCartData();
+  let itemSummary = [];
+  Object.keys(cartObj).forEach(id => {
+    if (products[id]) itemSummary.push(`${products[id].name} (Qty: ${cartObj[id]})`);
+  });
+
+  const orderPayload = {
+    orderId: "TMC-" + Math.floor(100000 + Math.random() * 900000),
+    date: new Date().toLocaleString("en-IN"),
+    fullName: document.getElementById("fullName").value,
+    phone: document.getElementById("phone").value,
+    address: `${document.getElementById("address").value}, ${document.getElementById("city").value}, ${document.getElementById("state").value} - ${document.getElementById("pincode").value}`,
+    items: itemSummary.join("; "),
+    total: "₹" + grandTotal.toLocaleString('en-IN')
+  };
+
+  triggerDeviceNotification();
+  sessionStorage.setItem("latestOrder", JSON.stringify(orderPayload));
+
+  try {
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderPayload)
+    });
+  } catch(e) { console.error(e); }
+
+  localStorage.removeItem("cart");
+  window.location.href = "confirmation.html";
+}
+</script>
 </body>
 </html>
