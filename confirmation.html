@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmed | The Mandir Company</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #fff6ea; }
+    .card-confirm { background: white; padding: 40px; border-radius: 12px; max-width: 620px; margin: 60px auto; border: 1px solid #c4a092; }
+    .btn-whatsapp { background-color: #25D366; color: white; font-weight: 600; font-size: 1rem; border: none; }
+    .btn-whatsapp:hover { background-color: #1eb956; color: white; }
+    .timeline-notice { background-color: #fffaf3; border-left: 4px solid #c4a092; padding: 15px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <div class="card-confirm shadow-sm">
+      <div class="display-3 text-success mb-3">✓</div>
+      <h2 style="color: #c4a092;" class="fw-bold">Order Registered!</h2>
+      <p class="text-muted">Thank you for ordering with The Mandir Company.</p>
+      
+      <div class="alert alert-light border my-4 text-start" id="receipt"></div>
+
+      <!-- 48 HOURS NOTICE -->
+      <div class="timeline-notice text-start my-4">
+        <h6 class="fw-bold mb-1" style="color: #8c6152;">📞 What happens next?</h6>
+        <p class="small text-muted mb-0">
+          Our team will reach out to you within <strong>48 hours</strong> on your provided phone number to confirm your order details and payment methods.
+        </p>
+      </div>
+
+      <!-- IMMEDIATE WHATSAPP OPTION -->
+      <div class="my-4 pt-2 border-top">
+        <p class="small fw-bold text-muted mb-2">Want to reach out immediately?</p>
+        <button id="wa-btn" class="btn btn-whatsapp py-2 px-4 shadow-sm" onclick="sendWhatsAppMessage()">
+          💬 Send Order Details via WhatsApp
+        </button>
+      </div>
+
+      <a href="index.html" class="btn btn-outline-secondary mt-2">Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    let order = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      order = JSON.parse(sessionStorage.getItem("latestOrder"));
+      if (!order) { window.location.href = "index.html"; return; }
+      
+      document.getElementById("receipt").innerHTML = `
+        <p class="mb-1"><strong>Order ID:</strong> ${order.orderId}</p>
+        <p class="mb-1"><strong>Customer:</strong> ${order.fullName}</p>
+        <p class="mb-1"><strong>Phone:</strong> ${order.phone}</p>
+        <p class="mb-1"><strong>Address:</strong> ${order.address}</p>
+        <p class="mb-1"><strong>Items:</strong> ${order.items}</p>
+        <p class="mb-0"><strong>Total Amount:</strong> ${order.total}</p>
+      `;
+    });
+
+    function sendWhatsAppMessage() {
+      if (!order) return;
+
+      const sellerWhatsApp = "919619918583";
+      let msg = `*NEW ORDER INQUIRY - The Mandir Company*\n\n`;
+      msg += `*Order ID:* ${order.orderId}\n`;
+      msg += `*Name:* ${order.fullName}\n`;
+      msg += `*Phone:* ${order.phone}\n`;
+      msg += `*Address:* ${order.address}\n`;
+      msg += `*Items:* ${order.items}\n`;
+      msg += `*Total Amount:* ${order.total}\n\n`;
+      msg += `Hi! I placed an order on your site and would like to confirm my payment details.`;
+
+      const waUrl = `https://wa.me/${sellerWhatsApp}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, "_blank");
+    }
+  </script>
+</body>
+</html>
