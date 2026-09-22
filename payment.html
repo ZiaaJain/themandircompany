@@ -121,8 +121,8 @@
 </footer>
 
 <script>
-// Deployed Google Apps Script Web App URL:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBRG85J4T-bUpSyJyPvQ8knqyFXFiPug2GRCBQqUPbWgSA4LZ6iUqx3CR7uTyIYluJOQ/exec";
+// Deployed Google Apps Script Web App URL with latest Deployment ID:
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgqe4izueaHY55PEQKjLGuJxvTYZ1fzx4Lzg6TIsmXqoc_4XAUQx1eYbangFRU2IHuTQ/exec";
 
 const products = {
   1:{name:"German Silver Diya",price:"₹1,100"},
@@ -263,21 +263,17 @@ async function processOrder() {
   };
 
   try {
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
+    await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(orderPayload)
     });
     
-    const result = await response.json();
-    if (result && result.orderId) {
-      orderPayload.orderId = result.orderId;
-    } else {
-      orderPayload.orderId = "#1";
-    }
+    orderPayload.orderId = "#" + Math.floor(100 + Math.random() * 900);
   } catch(e) {
     console.error("Order submit notice:", e);
-    orderPayload.orderId = "#" + Math.floor(100 + Math.random() * 900);
+    orderPayload.orderId = "#1";
   }
 
   sessionStorage.setItem("latestOrder", JSON.stringify(orderPayload));
