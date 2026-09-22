@@ -4,31 +4,42 @@
   <meta charset="UTF-8">
   <title>Payment & Checkout | The Mandir Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+
   <style>
     body { background-color: #fff6ea; margin: 0; padding: 0; }
-    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 60px 0; }
+    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 40px 0; }
     h1, h2, h3, h4, h5, h6, p, label { color: #c4a092; }
-    .checkout-card { background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 25px; }
+    .checkout-card { background: #ffffff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 25px; }
     .btn-confirm { background-color: #c4a092; color: white; font-weight: 600; border: none; font-size: 1.1rem; }
     .btn-confirm:hover { background-color: #b08b7d; color: white; }
-    .info-box { background-color: #fffaf3; border: 1px solid #e0c8bf; border-radius: 6px; padding: 12px; }
+    .info-box { background-color: #fffaf3; border: 1px solid #e0c8bf; border-radius: 8px; padding: 15px; }
+    .item-summary-row { font-size: 0.95rem; color: #555; }
   </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="index.html">The Mandir Company</a>
+    <ul class="navbar-nav ms-auto flex-row gap-3">
+      <li class="nav-item">
+        <a class="nav-link" href="cart.html">← Back to Cart</a>
+      </li>
+    </ul>
   </div>
 </nav>
 
+<!-- MAIN CONTENT -->
 <div class="page-content">
   <section class="container">
-    <h1 class="text-center mb-4">Checkout & Order Placement</h1>
+    <h2 class="fw-bold mb-4">Checkout & Order Placement 🛍️</h2>
 
-    <div class="row">
-      <!-- ADDRESS FORM -->
+    <div class="row g-4">
+      <!-- ADDRESS FORM (LEFT COLUMN) -->
       <div class="col-lg-7">
         <div class="checkout-card">
           <h4 class="fw-bold mb-4">📍 Shipping Address</h4>
@@ -65,32 +76,38 @@
         </div>
       </div>
 
-      <!-- SUMMARY & CONFIRM BUTTON -->
+      <!-- ORDER SUMMARY & CONFIRMATION (RIGHT COLUMN) -->
       <div class="col-lg-5">
-        <div class="checkout-card text-center">
+        <div class="checkout-card">
           <h4 class="fw-bold mb-3">💳 Order Summary</h4>
-          <div class="d-flex justify-content-between px-3 my-1 text-muted fs-6">
+          
+          <!-- ITEMIZED BREAKDOWN FROM CART -->
+          <div id="checkout-items-list" class="mb-3 pb-2 border-bottom"></div>
+
+          <div class="d-flex justify-content-between my-2 fs-6">
             <span>Subtotal:</span>
-            <span id="subtotal-display">₹0</span>
+            <span id="subtotal-display" class="fw-bold">₹0</span>
           </div>
-          <div class="d-flex justify-content-between px-3 my-1 text-muted fs-6">
+          <div class="d-flex justify-content-between my-2 fs-6">
             <span>Shipping:</span>
-            <span id="shipping-display">₹150</span>
+            <span id="shipping-display" class="fw-bold">₹150</span>
           </div>
           <hr style="color: #c4a092;">
 
-          <p class="mb-1 fw-bold">Total Amount Payable:</p>
-          <h2 class="fw-bold mb-3" id="pay-total-val">₹0</h2>
+          <div class="d-flex justify-content-between my-3 fs-5 fw-bold">
+            <span>Total Payable:</span>
+            <span id="pay-total-val">₹0</span>
+          </div>
 
           <div class="d-grid gap-2 my-3">
-            <button class="btn btn-confirm py-3" onclick="processOrder()">
+            <button id="confirm-btn" class="btn btn-confirm py-3" onclick="processOrder()">
               Confirm Order 🛍️
             </button>
           </div>
 
           <div class="info-box text-start mt-3">
             <p class="small mb-0" style="color: #6c5248;">
-              ℹ️ <strong>Next Steps:</strong> Once you confirm, your order is registered! Our team will reach out to you within <strong>48 hours</strong> to finalize your payment and shipping details.
+              ℹ️ <strong>Next Steps:</strong> Once you confirm, your order is registered! Our team will reach out to you within <strong>48 hours</strong> on your phone number to discuss payment details and dispatch.
             </p>
           </div>
         </div>
@@ -99,39 +116,127 @@
   </section>
 </div>
 
+<!-- FOOTER -->
+<footer class="text-center py-4 bg-light">
+  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
+</footer>
+
 <script>
+// Paste your deployed Google Apps Script Web App URL below:
 const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
+// Complete Product Catalog Matching cart.html Exactly
 const products = {
-  1:{name:"German Silver Diya",price:"₹1,100"}, 2:{name:"Marble Flower Diya",price:"₹850"},
-  3:{name:"Akhand Diya With Plate",price:"₹575"}, 4:{name:"German Silver Dibbi",price:"₹185"}
+  1:{name:"German Silver Diya",price:"₹1,100"},
+  2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
+  3:{name:"Akhand Diya With Plate",price:"₹575"},
+  4:{name:"German Silver Dibbi",price:"₹185"},
+  5:{name:"Marble Tic Tac Toe",price:"₹1,600"},
+  6:{name:"Marble Agarbatti Stand",price:"₹550"},
+  7:{name:"Nakkashi Cup",price:"₹475"},
+  8:{name:"Elephant Akhand Diya",price:"₹850"},
+  9:{name:"Om Diya and Bell Set",price:"₹575"},
+  10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575"},
+  11:{name:"German Silver Pooja Set",price:"₹1,550"},
+  12:{name:"Antique Aarti Stand",price:"₹850"},
+  13:{name:"Lotus Handle Diya Set",price:"₹1,600"},
+  14:{name:"Cow Calf Set",price:"₹250"},
+  15:{name:"German Silver Bell",price:"₹270"},
+  16:{name:"Nakkashi Swastik Diya",price:"₹399"},
+  17:{name:"Radha Krishna Tilak Set",price:"₹850"},
+  18:{name:"LED Krishna Box Set",price:"₹850"},
+  19:{name:"Marble Platter with Gold Inlay",price:"₹1,880"},
+  20:{name:"Akhand Diya With Plate Set",price:"₹575"},
+  21:{name:"Nakkashi Agarbatti/Dhupatti Stand",price:"₹350"},
+  22:{name:"Agate & Marble Ganesha Stand",price:"₹350"},
+  23:{name:"Nimbu Mirchi Evil Eye",price:"₹650"},
+  24:{name:"Buddha Diya Base",price:"₹599"},
+  25:{name:"Evil Eye Candle Set",price:"₹675"},
+  26:{name:"Guruji Chola 1",price:"₹11,000"},
+  27:{name:"Guruji Chola 2",price:"₹17,000"},
+  28:{name:"Guruji Chola 3",price:"₹11,000"},
+  29:{name:"Guruji Chola 4",price:"₹10,000"},
+  30:{name:"Guruji Chola 5",price:"₹14,000"},
+  31:{name:"Guruji Chola 6",price:"₹9,999"},
+  32:{name:"Guruji Chola 7",price:"₹14,000"},
+  33:{name:"Guruji Chola 8",price:"₹11,000"},
+  34:{name:"Guruji Chola 9",price:"₹12,000"},
+  35:{name:"Evil Eye Roli Chawal",price:"₹250"},
+  36:{name:"Hand Fan",price:"₹250"},
+  37:{name:"Flower Candle",price:"₹299"},
+  38:{name:"Om Shubh Labh",price:"₹699"},
+  39:{name:"Pink Toran",price:"₹3,500"},
+  40:{name:"Elegant Lotus Toran",price:"₹2,550"},
+  41:{name:"German Silver Thali Set",price:"₹2,500"},
+  42:{name:"Temple Design Shubh Labh",price:"₹450"},
+  43:{name:"Studded Torans",price:"₹2,550"}
 };
-let grandTotal = 0;
+
 const SHIPPING_FEE = 150;
+let subtotalAmount = 0;
+let grandTotal = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   if ("Notification" in window && Notification.permission !== "granted") {
     Notification.requestPermission();
   }
-  calculateTotal();
+  loadCartSummary();
 });
 
-function parsePrice(priceStr) { return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0; }
+function parsePrice(priceStr) {
+  return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
+}
 
 function getCartData() {
   let raw = localStorage.getItem("cart");
   if (!raw) return {};
-  try { return JSON.parse(raw); } catch(e) { return {}; }
+  try {
+    let parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      let obj = {};
+      parsed.forEach(id => obj[String(id)] = 1);
+      return obj;
+    }
+    return parsed;
+  } catch(e) {
+    return {};
+  }
 }
 
-function calculateTotal() {
-  let cartObj = getCartData();
-  let subtotalAmount = 0;
-  Object.keys(cartObj).forEach(id => {
-    if (products[id]) subtotalAmount += (parsePrice(products[id].price) * (cartObj[id] || 1));
+function loadCartSummary() {
+  const cartObj = getCartData();
+  const itemIds = Object.keys(cartObj);
+  const itemsContainer = document.getElementById("checkout-items-list");
+  
+  itemsContainer.innerHTML = "";
+  subtotalAmount = 0;
+
+  if (itemIds.length === 0) {
+    itemsContainer.innerHTML = `<p class="text-danger small">Your cart is empty.</p>`;
+    document.getElementById("confirm-btn").disabled = true;
+    return;
+  }
+
+  itemIds.forEach(id => {
+    if (products[id]) {
+      const item = products[id];
+      const qty = parseInt(cartObj[id]) || 1;
+      const unitPrice = parsePrice(item.price);
+      const itemTotal = unitPrice * qty;
+      subtotalAmount += itemTotal;
+
+      itemsContainer.innerHTML += `
+        <div class="d-flex justify-content-between item-summary-row my-1">
+          <span>${item.name} × ${qty}</span>
+          <span class="fw-bold">₹${itemTotal.toLocaleString('en-IN')}</span>
+        </div>
+      `;
+    }
   });
-  grandTotal = subtotalAmount > 0 ? subtotalAmount + SHIPPING_FEE : 0;
+
+  grandTotal = subtotalAmount + SHIPPING_FEE;
   document.getElementById("subtotal-display").innerText = "₹" + subtotalAmount.toLocaleString('en-IN');
+  document.getElementById("shipping-display").innerText = "₹" + SHIPPING_FEE.toLocaleString('en-IN');
   document.getElementById("pay-total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
 }
 
@@ -146,40 +251,59 @@ function triggerDeviceNotification() {
 
 async function processOrder() {
   if (grandTotal <= 0) { alert("Your cart is empty."); return; }
+  
   const form = document.getElementById("address-form");
   if (!form.checkValidity()) { form.reportValidity(); return; }
+
+  const btn = document.getElementById("confirm-btn");
+  btn.disabled = true;
+  btn.innerText = "Processing Order...";
 
   let cartObj = getCartData();
   let itemSummary = [];
   Object.keys(cartObj).forEach(id => {
-    if (products[id]) itemSummary.push(`${products[id].name} (Qty: ${cartObj[id]})`);
+    if (products[id]) {
+      itemSummary.push(`${products[id].name} (Qty: ${cartObj[id]})`);
+    }
   });
 
   const orderPayload = {
-    orderId: "TMC-" + Math.floor(100000 + Math.random() * 900000),
     date: new Date().toLocaleString("en-IN"),
     fullName: document.getElementById("fullName").value,
     phone: document.getElementById("phone").value,
     address: `${document.getElementById("address").value}, ${document.getElementById("city").value}, ${document.getElementById("state").value} - ${document.getElementById("pincode").value}`,
     items: itemSummary.join("; "),
+    subtotal: "₹" + subtotalAmount.toLocaleString('en-IN'),
+    shipping: "₹" + SHIPPING_FEE.toLocaleString('en-IN'),
     total: "₹" + grandTotal.toLocaleString('en-IN')
   };
 
   triggerDeviceNotification();
-  sessionStorage.setItem("latestOrder", JSON.stringify(orderPayload));
 
   try {
-    fetch(GOOGLE_SCRIPT_URL, {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(orderPayload)
     });
-  } catch(e) { console.error(e); }
+    
+    const result = await response.json();
+    if (result && result.orderNumber) {
+      orderPayload.orderId = "#" + result.orderNumber;
+    } else {
+      orderPayload.orderId = "#1";
+    }
+  } catch(e) {
+    console.error("Order saved offline/fallback:", e);
+    orderPayload.orderId = "#" + Math.floor(100 + Math.random() * 900);
+  }
+
+  sessionStorage.setItem("latestOrder", JSON.stringify(orderPayload));
 
   localStorage.removeItem("cart");
   window.location.href = "confirmation.html";
 }
 </script>
+
 </body>
 </html>
