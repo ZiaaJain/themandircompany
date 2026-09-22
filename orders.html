@@ -102,7 +102,7 @@
 
 <script>
 // Deployed Google Apps Script Web App URL:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9oc34balq9w-AlESFXIBjbK6atO1j26Os1izvwxD5YtN9AnwyEEEVjj4_wSTWFwniGA/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxX8gxiaq7S5uPuGlorRhNMPXSBTiaHiqm-uWK8J7hriVH1vTJL6J8KM8wQkoHLjq-Msw/exec";
 
 document.addEventListener("DOMContentLoaded", fetchOrders);
 
@@ -139,7 +139,8 @@ async function fetchOrders() {
     tableBody.innerHTML = `
       <tr>
         <td colspan="8" class="text-center py-4 text-danger">
-          ⚠️ Unable to fetch orders. Make sure your <code>GOOGLE_SCRIPT_URL</code> is correct and deployed as "Anyone".
+          ⚠️ Unable to fetch orders. Make sure your <code>"https://script.google.com/macros/s/AKfycbxX8gxiaq7S5uPuGlorRhNMPXSBTiaHiqm-uWK8J7hriVH1vTJL6J8KM8wQkoHLjq-Msw/exec";
+</code> is correct and deployed as "Anyone".
         </td>
       </tr>
     `;
