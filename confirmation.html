@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
 
   <title>Order Confirmed | The Mandir Company</title>
@@ -20,102 +21,450 @@
     rel="stylesheet"
   >
 
+
   <style>
+
+    /* =========================
+       BASE
+    ========================== */
 
     body {
       background-color: #fff6ea;
       margin: 0;
       padding: 0;
+      color: #c4a092;
     }
+
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    .custom-navbar {
+      background-color: #f8f9fa !important;
+    }
+
+    .custom-navbar .navbar-brand,
+    .custom-navbar .nav-link {
+      color: #c4a092 !important;
+      font-weight: 400 !important;
+    }
+
+    .custom-navbar .nav-link:hover {
+      color: #a37d6f !important;
+    }
+
+    .custom-navbar .navbar-toggler {
+      border-color: #c4a092;
+    }
+
+    .custom-navbar .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+
+    /* =========================
+       PAGE
+    ========================== */
 
     .page-content {
       background-color: #fff6ea;
       min-height: calc(100vh - 120px);
-      padding: 50px 0;
+      padding: 60px 0 75px;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
-      color: #c4a092;
-    }
+
+    /* =========================
+       CONFIRMATION CARD
+    ========================== */
 
     .confirmation-card {
       background: #ffffff;
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      max-width: 650px;
+      border-radius: 16px;
+      padding: 42px;
+      box-shadow: 0 5px 22px rgba(0, 0, 0, 0.04);
+      max-width: 700px;
       margin: 0 auto;
     }
 
-    .check-icon {
-      font-size: 4rem;
-      color: #28a745;
-      margin-bottom: 15px;
+
+    /* =========================
+       SUCCESS HEADER
+    ========================== */
+
+    .success-symbol {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background-color: #fff6ea;
+
+      font-size: 2rem;
+
+      box-shadow:
+        0 3px 12px rgba(196, 160, 146, 0.12);
     }
+
+
+    .confirmation-heading {
+      color: #c4a092;
+      font-size: clamp(1.8rem, 4vw, 2.35rem);
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      margin-bottom: 10px;
+    }
+
+
+    .confirmation-subheading {
+      color: #c4a092;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+
+    .title-line {
+      width: 45px;
+      height: 1px;
+      background-color: #c4a092;
+      margin: 14px auto 22px;
+      opacity: 0.65;
+    }
+
+
+    /* =========================
+       ORDER DETAILS
+    ========================== */
+
+    .order-details-box {
+      background-color: #fffaf3;
+      border: 1px solid #e0c8bf;
+      border-radius: 12px;
+      padding: 23px;
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+
+    .order-details-box hr {
+      color: #c4a092;
+      opacity: 0.45;
+      margin: 18px 0;
+    }
+
+
+    .order-details-box p,
+    .order-details-box span {
+      color: #6c5248;
+    }
+
+
+    .order-label {
+      color: #c4a092 !important;
+      font-weight: 500;
+    }
+
+
+    .success-order-id {
+      color: #c4a092 !important;
+      font-weight: 600;
+    }
+
+
+    /* =========================
+       LOADING
+    ========================== */
+
+    .loading {
+      text-align: center;
+      color: #a98f86;
+      padding: 15px;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       ERROR
+    ========================== */
+
+    .error-message {
+      color: #a37d6f;
+      text-align: center;
+      padding: 15px;
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       WHAT HAPPENS NEXT
+    ========================== */
+
+    .next-steps-box {
+      background-color: #fffaf3;
+      border: 1px solid #e0c8bf;
+      border-radius: 10px;
+      padding: 18px 20px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+
+    .next-steps-title {
+      color: #c4a092;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+
+    .next-steps-text {
+      color: #6c5248 !important;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+
+    /* =========================
+       HOME BUTTON
+    ========================== */
 
     .btn-home {
       background-color: #c4a092;
       color: white;
-      font-weight: 600;
+      font-weight: 500;
       border: none;
+      border-radius: 8px;
       padding: 12px 28px;
+      transition: all 0.2s ease;
     }
+
 
     .btn-home:hover {
       background-color: #b08b7d;
       color: white;
+      transform: translateY(-1px);
     }
 
-    .order-details-box {
-      background-color: #fffaf3;
-      border: 1px dashed #c4a092;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: left;
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      background-color: #f8f9fa !important;
     }
 
-    .loading {
-      text-align: center;
-      color: #999;
-      padding: 20px;
+
+    footer p {
+      color: #c4a092;
+      margin: 0;
     }
 
-    .error-message {
-      color: #b02a37;
-      text-align: center;
-      padding: 20px;
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 767px) {
+
+      .page-content {
+        padding: 42px 0 55px;
+      }
+
+
+      .confirmation-card {
+        padding: 30px 20px;
+        border-radius: 13px;
+      }
+
+
+      .success-symbol {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+        margin-bottom: 18px;
+      }
+
+
+      .confirmation-heading {
+        font-size: 1.9rem;
+      }
+
+
+      .confirmation-subheading {
+        font-size: 0.92rem;
+      }
+
+
+      .order-details-box {
+        padding: 18px;
+      }
+
+
+      .next-steps-box {
+        padding: 16px;
+      }
+
+
+      .btn-home {
+        width: 100%;
+        padding: 12px 20px;
+      }
+
     }
 
-    .success-order-id {
-      color: #333;
-      font-weight: 700;
+
+    /* =========================
+       TABLET / IPAD
+    ========================== */
+
+    @media (min-width: 768px) and (max-width: 991px) {
+
+      .confirmation-card {
+        max-width: 650px;
+        padding: 36px;
+      }
+
     }
 
   </style>
+
 </head>
 
+
 <body>
+
 
 <!-- =====================================================
      NAVBAR
 ===================================================== -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg custom-navbar">
 
   <div class="container">
 
     <a
-      class="navbar-brand"
+      class="navbar-brand d-flex align-items-center"
       href="index.html"
     >
+
+      <img
+        src="images/The Mandir Company.jpeg"
+        alt="The Mandir Company Logo"
+        width="40"
+        height="40"
+        class="d-inline-block align-text-top me-2"
+        style="object-fit: contain;"
+      >
+
       The Mandir Company
+
     </a>
+
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+
+    <div
+      class="collapse navbar-collapse"
+      id="navbarNav"
+    >
+
+      <ul class="navbar-nav ms-auto">
+
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            href="index.html"
+          >
+            Home
+          </a>
+
+        </li>
+
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            href="about.html"
+          >
+            About
+          </a>
+
+        </li>
+
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            href="bestsellers.html"
+          >
+            Bestsellers
+          </a>
+
+        </li>
+
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            href="wishlist.html"
+          >
+            Wishlist
+          </a>
+
+        </li>
+
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            href="guruji.html"
+          >
+            Guruji
+          </a>
+
+        </li>
+
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            href="cart.html"
+          >
+            Cart
+          </a>
+
+        </li>
+
+
+      </ul>
+
+    </div>
 
   </div>
 
@@ -128,21 +477,37 @@
 
 <div class="page-content">
 
-  <div class="container text-center">
+  <div class="container">
 
     <div class="confirmation-card">
 
-      <div class="check-icon">
+
+      <!-- =========================
+           SUCCESS HEADER
+      ========================== -->
+
+      <div class="success-symbol">
         🎉
       </div>
 
-      <h2 class="fw-bold mb-2">
-        Order Received!
-      </h2>
 
-      <p class="mb-4 text-muted">
+      <h1 class="confirmation-heading">
+        Order Received!
+      </h1>
+
+
+      <div class="title-line"></div>
+
+
+      <p class="confirmation-subheading">
+
         Thank you for shopping with
         <strong>The Mandir Company</strong>.
+
+        <br>
+
+        Your order has been successfully received.
+
       </p>
 
 
@@ -151,7 +516,7 @@
       ================================================= -->
 
       <div
-        class="order-details-box mb-4"
+        class="order-details-box"
         id="order-info-container"
       >
 
@@ -166,23 +531,23 @@
            WHAT HAPPENS NEXT
       ================================================= -->
 
-      <div
-        class="alert alert-info text-start small mb-4"
-        role="alert"
-        style="
-          background-color:#f1f8ff;
-          border-color:#b6d4fe;
-          color:#084298;
-        "
-      >
+      <div class="next-steps-box">
 
-        📞
-        <strong>What happens next?</strong>
+        <div class="next-steps-title">
 
-        Our team will review your order details
-        and contact you via phone/WhatsApp within
-        <strong>48 hours</strong>
-        to finalize payment confirmation and dispatch.
+          📞 What happens next?
+
+        </div>
+
+
+        <p class="next-steps-text small">
+
+          Our team will review your order details
+          and contact you via phone/WhatsApp within
+          <strong>48 hours</strong>
+          to finalize payment confirmation and dispatch.
+
+        </p>
 
       </div>
 
@@ -193,10 +558,13 @@
 
       <a
         href="index.html"
-        class="btn btn-home fs-6"
+        class="btn btn-home"
       >
+
         Continue Shopping 🛍️
+
       </a>
+
 
     </div>
 
@@ -212,8 +580,10 @@
 <footer class="text-center py-4 bg-light">
 
   <p>
+
     &copy; 2026 The Mandir Company.
     All rights reserved.
+
   </p>
 
 </footer>
@@ -225,6 +595,7 @@
 
 <script>
 
+
 /*
 ==========================================================
 GOOGLE APPS SCRIPT URL
@@ -233,34 +604,33 @@ GOOGLE APPS SCRIPT URL
 
 const GOOGLE_SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbwf6UpZm6YnLIeyAgz8r4j0YEUOcKqEfXySgL8EUpP7UeMGFw4h__JPJnm-j1zomr67tw/exec";
+
+
 /*
 ==========================================================
 GET ORDER ID FROM URL
-Example:
-
-confirmation.html?orderId=%231
-
-becomes:
-
-#1
 ==========================================================
 */
 
 const urlParams =
-  new URLSearchParams(window.location.search);
+  new URLSearchParams(
+    window.location.search
+  );
+
 
 const orderId =
   urlParams.get("orderId");
 
 
 const container =
-  document.getElementById("order-info-container");
+  document.getElementById(
+    "order-info-container"
+  );
 
 
 /*
 ==========================================================
 ESCAPE HTML
-Prevents special characters from breaking the page.
 ==========================================================
 */
 
@@ -287,11 +657,19 @@ function showOrder(order) {
   if (!order) {
 
     container.innerHTML = `
+
       <div class="error-message">
-        <strong>Order details could not be found.</strong>
+
+        <strong>
+          Order details could not be found.
+        </strong>
+
         <br>
+
         Please contact The Mandir Company.
+
       </div>
+
     `;
 
     return;
@@ -301,9 +679,9 @@ function showOrder(order) {
 
   container.innerHTML = `
 
-    <div class="d-flex justify-content-between mb-2">
+    <div class="d-flex justify-content-between mb-3">
 
-      <span class="fw-bold">
+      <span class="order-label">
         Order ID:
       </span>
 
@@ -316,23 +694,23 @@ function showOrder(order) {
 
     <div class="d-flex justify-content-between mb-2">
 
-      <span>
+      <span class="order-label">
         Date:
       </span>
 
-      <span class="text-secondary">
+      <span>
         ${escapeHtml(order.date)}
       </span>
 
     </div>
 
 
-    <hr style="color:#c4a092;">
+    <hr>
 
 
-    <p class="mb-1">
+    <p class="mb-2">
 
-      <strong>
+      <strong class="order-label">
         Customer Name:
       </strong>
 
@@ -341,9 +719,9 @@ function showOrder(order) {
     </p>
 
 
-    <p class="mb-1">
+    <p class="mb-2">
 
-      <strong>
+      <strong class="order-label">
         Phone Number:
       </strong>
 
@@ -354,7 +732,7 @@ function showOrder(order) {
 
     <p class="mb-3">
 
-      <strong>
+      <strong class="order-label">
         Delivery Address:
       </strong>
 
@@ -363,19 +741,22 @@ function showOrder(order) {
     </p>
 
 
-    <hr style="color:#c4a092;">
+    <hr>
 
 
-    <p class="mb-1">
+    <p class="mb-2">
 
-      <strong>
+      <strong class="order-label">
         Items Ordered:
       </strong>
 
     </p>
 
 
-    <p class="small text-muted mb-3">
+    <p
+      class="small mb-3"
+      style="line-height:1.7;"
+    >
 
       ${escapeHtml(order.items)}
 
@@ -384,14 +765,13 @@ function showOrder(order) {
 
     <div
       class="d-flex justify-content-between fw-bold fs-5"
-      style="color:#c4a092;"
     >
 
-      <span>
+      <span class="order-label">
         Total Amount:
       </span>
 
-      <span>
+      <span class="success-order-id">
         ${escapeHtml(order.total)}
       </span>
 
@@ -437,9 +817,6 @@ if (!orderId) {
 /*
 ==========================================================
 JSONP CALLBACK
-
-This avoids cross-origin fetch problems between
-GitHub Pages and Google Apps Script.
 ==========================================================
 */
 
@@ -540,6 +917,12 @@ if (orderId) {
 }
 
 </script>
+
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
 
 </body>
 </html>
