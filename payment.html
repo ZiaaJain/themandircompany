@@ -9,9 +9,22 @@
   <link href="styles.css" rel="stylesheet">
 
   <style>
-    body { background-color: #fff6ea; margin: 0; padding: 0; }
 
-    /* Custom Light Grey Navbar Styling with Thinner Font */
+    /* =========================
+       BASE
+    ========================== */
+
+    body {
+      background-color: #fff6ea;
+      margin: 0;
+      padding: 0;
+      color: #c4a092;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
     .custom-navbar {
       background-color: #f8f9fa !important;
     }
@@ -26,52 +39,427 @@
       color: #a37d6f !important;
     }
 
-    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 40px 0; }
-    h1, h2, h3, h4, h5, h6, p, label { color: #c4a092; }
-    .checkout-card { background: #ffffff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 25px; }
-    .btn-confirm { background-color: #c4a092; color: white; font-weight: 600; border: none; font-size: 1.1rem; }
-    .btn-confirm:hover { background-color: #b08b7d; color: white; }
-    .info-box { background-color: #fffaf3; border: 1px solid #e0c8bf; border-radius: 8px; padding: 15px; }
-    .item-summary-row { font-size: 0.95rem; color: #555; }
+    .custom-navbar .navbar-toggler {
+      border-color: #c4a092;
+    }
+
+    .custom-navbar .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* =========================
+       PAGE
+    ========================== */
+
+    .page-content {
+      background-color: #fff6ea;
+      min-height: calc(100vh - 120px);
+      padding: 55px 0 70px;
+    }
+
+    /* =========================
+       PAGE HEADING
+    ========================== */
+
+    .checkout-heading {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .checkout-heading-small {
+      color: #c4a092;
+      font-size: 0.72rem;
+      letter-spacing: 2.5px;
+      font-weight: 400;
+      margin-bottom: 10px;
+      opacity: 0.75;
+    }
+
+    .checkout-heading h1 {
+      color: #c4a092;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    .title-line {
+      width: 45px;
+      height: 1px;
+      background-color: #c4a092;
+      margin: 14px auto 0;
+      opacity: 0.65;
+    }
+
+    /* =========================
+       CHECKOUT CARDS
+    ========================== */
+
+    .checkout-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.035);
+      margin-bottom: 25px;
+      height: 100%;
+    }
+
+    .checkout-card h4 {
+      color: #c4a092;
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+    }
+
+    .checkout-card h4::after {
+      content: "";
+      display: block;
+      width: 35px;
+      height: 1px;
+      background-color: #c4a092;
+      margin-top: 10px;
+      opacity: 0.65;
+    }
+
+    /* =========================
+       FORM
+    ========================== */
+
+    .form-label {
+      color: #c4a092 !important;
+      font-size: 0.9rem;
+      font-weight: 500 !important;
+      margin-bottom: 7px;
+    }
+
+    .form-control {
+      border: 1px solid #e5d3cc;
+      border-radius: 8px;
+      padding: 11px 13px;
+      color: #6c5248;
+      background-color: #fffdfb;
+      box-shadow: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-control::placeholder {
+      color: #b9a6a0;
+      font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+      border-color: #c4a092;
+      box-shadow: 0 0 0 3px rgba(196, 160, 146, 0.12);
+      background-color: #ffffff;
+    }
+
+    /* =========================
+       ORDER SUMMARY
+    ========================== */
+
+    .summary-card {
+      position: sticky;
+      top: 20px;
+    }
+
+    .checkout-items {
+      padding: 14px 0 16px;
+      border-bottom: 1px solid #eadbd5;
+    }
+
+    .item-summary-row {
+      font-size: 0.9rem;
+      color: #6c625e;
+      padding: 6px 0;
+      gap: 15px;
+    }
+
+    .item-summary-row span:first-child {
+      line-height: 1.45;
+    }
+
+    .item-summary-row span:last-child {
+      white-space: nowrap;
+      color: #6c5248;
+    }
+
+    .price-row {
+      color: #6c5248;
+      font-size: 0.95rem;
+    }
+
+    .price-row span:last-child {
+      color: #6c5248;
+      font-weight: 600;
+    }
+
+    .total-row {
+      color: #c4a092;
+      font-size: 1.15rem;
+      font-weight: 600;
+      padding-top: 5px;
+    }
+
+    .total-row span:last-child {
+      font-size: 1.25rem;
+    }
+
+    /* =========================
+       CONFIRM BUTTON
+    ========================== */
+
+    .btn-confirm {
+      background-color: #c4a092;
+      color: white;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      padding: 13px 20px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-confirm:hover {
+      background-color: #b08b7d;
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .btn-confirm:disabled {
+      background-color: #d8c5bd;
+      color: white;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* =========================
+       INFO BOX
+    ========================== */
+
+    .info-box {
+      background-color: #fffaf3;
+      border: 1px solid #e0c8bf;
+      border-radius: 9px;
+      padding: 16px;
+    }
+
+    .info-box p {
+      color: #6c5248 !important;
+      line-height: 1.65;
+    }
+
+    /* =========================
+       EMPTY CART
+    ========================== */
+
+    .empty-cart-message {
+      background-color: #fffaf3;
+      border: 1px solid #e0c8bf;
+      border-radius: 9px;
+      padding: 16px;
+    }
+
+    .empty-cart-message p {
+      color: #a37d6f !important;
+      margin: 0;
+    }
+
+    /* =========================
+       BACK TO CART
+    ========================== */
+
+    .back-cart {
+      color: #c4a092 !important;
+      font-size: 0.95rem;
+    }
+
+    .back-cart:hover {
+      color: #a37d6f !important;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      background-color: #f8f9fa !important;
+    }
+
+    footer p {
+      color: #c4a092;
+      margin: 0;
+    }
+
+    /* =========================
+       TABLET / IPAD
+    ========================== */
+
+    @media (min-width: 768px) and (max-width: 991px) {
+
+      .page-content {
+        padding: 45px 0 60px;
+      }
+
+      .checkout-card {
+        padding: 27px;
+      }
+
+      .summary-card {
+        position: static;
+      }
+
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 767px) {
+
+      .page-content {
+        padding: 40px 0 50px;
+      }
+
+      .checkout-heading {
+        margin-bottom: 32px;
+      }
+
+      .checkout-heading-small {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+      }
+
+      .checkout-heading h1 {
+        font-size: 1.9rem;
+      }
+
+      .checkout-card {
+        padding: 23px 20px;
+        border-radius: 12px;
+      }
+
+      .checkout-card h4 {
+        font-size: 1.2rem;
+      }
+
+      .summary-card {
+        position: static;
+      }
+
+      .item-summary-row {
+        font-size: 0.86rem;
+      }
+
+      .btn-confirm {
+        padding: 12px 18px;
+      }
+
+    }
+
   </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
+
+<!-- =========================
+     NAVBAR
+========================== -->
+
 <nav class="navbar navbar-expand-lg custom-navbar">
+
   <div class="container">
+
     <a class="navbar-brand d-flex align-items-center" href="index.html">
-      <img src="images/The Mandir Company.jpeg" alt="The Mandir Company Logo" width="40" height="40" class="d-inline-block align-text-top me-2" style="object-fit: contain;">
+
+      <img
+        src="images/The Mandir Company.jpeg"
+        alt="The Mandir Company Logo"
+        width="40"
+        height="40"
+        class="d-inline-block align-text-top me-2"
+        style="object-fit: contain;"
+      >
+
       The Mandir Company
+
     </a>
+
+
     <ul class="navbar-nav ms-auto flex-row gap-3">
+
       <li class="nav-item">
-        <a class="nav-link" href="cart.html">← Back to Cart</a>
+
+        <a
+          class="nav-link back-cart"
+          href="cart.html"
+        >
+          ← Back to Cart
+        </a>
+
       </li>
+
     </ul>
+
   </div>
+
 </nav>
 
-<!-- MAIN CONTENT -->
+
+<!-- =========================
+     MAIN CONTENT
+========================== -->
+
 <div class="page-content">
+
   <section class="container">
-    <h2 class="fw-bold mb-4">Checkout & Order Placement 🛍️</h2>
+
+
+    <!-- HEADING -->
+
+    <div class="checkout-heading">
+
+      <p class="checkout-heading-small">
+        COMPLETE YOUR ORDER
+      </p>
+
+      <h1>
+        Checkout &amp; Order Placement 🛍️
+      </h1>
+
+      <div class="title-line"></div>
+
+    </div>
+
 
     <div class="row g-4">
 
-      <!-- ADDRESS FORM (LEFT COLUMN) -->
+
+      <!-- =========================
+           ADDRESS FORM
+      ========================== -->
+
       <div class="col-lg-7">
+
         <div class="checkout-card">
 
-          <h4 class="fw-bold mb-4">📍 Shipping Address</h4>
+          <h4>
+            📍 Shipping Address
+          </h4>
+
 
           <form id="address-form">
 
+
             <div class="row">
+
 
               <div class="col-md-6 mb-3">
 
-                <label class="form-label fw-bold">
+                <label
+                  class="form-label"
+                  for="fullName"
+                >
                   Full Name *
                 </label>
 
@@ -85,9 +473,13 @@
 
               </div>
 
+
               <div class="col-md-6 mb-3">
 
-                <label class="form-label fw-bold">
+                <label
+                  class="form-label"
+                  for="phone"
+                >
                   Phone Number *
                 </label>
 
@@ -103,9 +495,13 @@
 
             </div>
 
+
             <div class="mb-3">
 
-              <label class="form-label fw-bold">
+              <label
+                class="form-label"
+                for="address"
+              >
                 Street Address *
               </label>
 
@@ -119,11 +515,16 @@
 
             </div>
 
+
             <div class="row">
+
 
               <div class="col-md-4 mb-3">
 
-                <label class="form-label fw-bold">
+                <label
+                  class="form-label"
+                  for="city"
+                >
                   City *
                 </label>
 
@@ -137,9 +538,13 @@
 
               </div>
 
+
               <div class="col-md-4 mb-3">
 
-                <label class="form-label fw-bold">
+                <label
+                  class="form-label"
+                  for="state"
+                >
                   State *
                 </label>
 
@@ -153,9 +558,13 @@
 
               </div>
 
+
               <div class="col-md-4 mb-3">
 
-                <label class="form-label fw-bold">
+                <label
+                  class="form-label"
+                  for="pincode"
+                >
                   Pincode *
                 </label>
 
@@ -171,59 +580,75 @@
 
             </div>
 
+
           </form>
 
         </div>
+
       </div>
 
 
-      <!-- ORDER SUMMARY & CONFIRMATION -->
+      <!-- =========================
+           ORDER SUMMARY
+      ========================== -->
+
       <div class="col-lg-5">
 
-        <div class="checkout-card">
+        <div class="checkout-card summary-card">
 
-          <h4 class="fw-bold mb-3">
+
+          <h4>
             💳 Order Summary
           </h4>
 
+
           <div
             id="checkout-items-list"
-            class="mb-3 pb-2 border-bottom">
+            class="checkout-items mb-3"
+          >
           </div>
 
 
-          <div class="d-flex justify-content-between my-2 fs-6">
+          <div class="d-flex justify-content-between price-row my-2">
 
-            <span>Subtotal:</span>
+            <span>
+              Subtotal:
+            </span>
 
             <span
               id="subtotal-display"
-              class="fw-bold">
+            >
               ₹0
             </span>
 
           </div>
 
 
-          <div class="d-flex justify-content-between my-2 fs-6">
+          <div class="d-flex justify-content-between price-row my-2">
 
-            <span>Shipping:</span>
+            <span>
+              Shipping:
+            </span>
 
             <span
               id="shipping-display"
-              class="fw-bold">
+            >
               ₹150
             </span>
 
           </div>
 
 
-          <hr style="color: #c4a092;">
+          <hr
+            style="color: #c4a092; opacity: 0.5;"
+          >
 
 
-          <div class="d-flex justify-content-between my-3 fs-5 fw-bold">
+          <div class="d-flex justify-content-between total-row my-3">
 
-            <span>Total Payable:</span>
+            <span>
+              Total Payable:
+            </span>
 
             <span id="pay-total-val">
               ₹0
@@ -232,15 +657,14 @@
           </div>
 
 
-          <div class="d-grid gap-2 my-3">
+          <div class="d-grid my-3">
 
             <button
               id="confirm-btn"
-              class="btn btn-confirm py-3"
-              onclick="processOrder()">
-
+              class="btn btn-confirm"
+              onclick="processOrder()"
+            >
               Confirm Order 🛍️
-
             </button>
 
           </div>
@@ -248,9 +672,7 @@
 
           <div class="info-box text-start mt-3">
 
-            <p
-              class="small mb-0"
-              style="color: #6c5248;">
+            <p class="small mb-0">
 
               ℹ️ <strong>Next Steps:</strong>
               Once you confirm, your order is registered!
@@ -262,6 +684,7 @@
 
           </div>
 
+
         </div>
 
       </div>
@@ -269,10 +692,14 @@
     </div>
 
   </section>
+
 </div>
 
 
-<!-- FOOTER -->
+<!-- =========================
+     FOOTER
+========================== -->
+
 <footer class="text-center py-4 bg-light">
 
   <p>
@@ -289,7 +716,10 @@
 // GOOGLE APPS SCRIPT WEB APP URL
 // =====================================================
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf6UpZm6YnLIeyAgz8r4j0YEUOcKqEfXySgL8EUpP7UeMGFw4h__JPJnm-j1zomr67tw/exec";
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwf6UpZm6YnLIeyAgz8r4j0YEUOcKqEfXySgL8EUpP7UeMGFw4h__JPJnm-j1zomr67tw/exec";
+
+
 // =====================================================
 // PRODUCTS
 // =====================================================
@@ -297,89 +727,47 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf6UpZm6YnLI
 const products = {
 
   1:{name:"German Silver Diya",price:"₹1,100"},
-
   2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
-
   3:{name:"Akhand Diya With Plate",price:"₹575"},
-
   4:{name:"German Silver Dibbi",price:"₹185"},
-
   5:{name:"Marble Tic Tac Toe",price:"₹1,600"},
-
   6:{name:"Marble Agarbatti Stand",price:"₹550"},
-
   7:{name:"Nakkashi Cup",price:"₹475"},
-
   8:{name:"Elephant Akhand Diya",price:"₹850"},
-
   9:{name:"Om Diya and Bell Set",price:"₹575"},
-
   10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575"},
-
   11:{name:"German Silver Pooja Set",price:"₹1,550"},
-
   12:{name:"Antique Aarti Stand",price:"₹850"},
-
   13:{name:"Lotus Handle Diya Set",price:"₹1,600"},
-
   14:{name:"Cow Calf Set",price:"₹250"},
-
   15:{name:"German Silver Bell",price:"₹270"},
-
   16:{name:"Nakkashi Swastik Diya",price:"₹399"},
-
   17:{name:"Radha Krishna Tilak Set",price:"₹850"},
-
   18:{name:"LED Krishna Box Set",price:"₹850"},
-
   19:{name:"Marble Platter with Gold Inlay",price:"₹1,880"},
-
   20:{name:"Akhand Diya With Plate Set",price:"₹575"},
-
   21:{name:"Nakkashi Agarbatti/Dhupatti Stand",price:"₹350"},
-
   22:{name:"Agate & Marble Ganesha Stand",price:"₹350"},
-
   23:{name:"Nimbu Mirchi Evil Eye",price:"₹650"},
-
   24:{name:"Buddha Diya Base",price:"₹599"},
-
   25:{name:"Evil Eye Candle Set",price:"₹675"},
-
   26:{name:"Guruji Chola 1",price:"₹11,000"},
-
   27:{name:"Guruji Chola 2",price:"₹17,000"},
-
   28:{name:"Guruji Chola 3",price:"₹11,000"},
-
   29:{name:"Guruji Chola 4",price:"₹10,000"},
-
   30:{name:"Guruji Chola 5",price:"₹14,000"},
-
   31:{name:"Guruji Chola 6",price:"₹9,999"},
-
   32:{name:"Guruji Chola 7",price:"₹14,000"},
-
   33:{name:"Guruji Chola 8",price:"₹11,000"},
-
   34:{name:"Guruji Chola 9",price:"₹12,000"},
-
   35:{name:"Evil Eye Roli Chawal",price:"₹250"},
-
   36:{name:"Hand Fan",price:"₹250"},
-
   37:{name:"Flower Candle",price:"₹299"},
-
   38:{name:"Om Shubh Labh",price:"₹699"},
-
   39:{name:"Pink Toran",price:"₹3,500"},
-
   40:{name:"Elegant Lotus Toran",price:"₹2,550"},
-
   41:{name:"German Silver Thali Set",price:"₹2,500"},
-
   42:{name:"Temple Design Shubh Labh",price:"₹450"},
-
   43:{name:"Studded Torans",price:"₹2,550"}
 
 };
@@ -489,10 +877,13 @@ function loadCartSummary() {
 
   if (itemIds.length === 0) {
 
-    itemsContainer.innerHTML =
-      `<p class="text-danger small">
-        Your cart is empty.
-      </p>`;
+    itemsContainer.innerHTML = `
+      <div class="empty-cart-message">
+        <p class="small">
+          Your cart is empty.
+        </p>
+      </div>
+    `;
 
 
     document.getElementById(
@@ -531,7 +922,7 @@ function loadCartSummary() {
 
       itemsContainer.innerHTML += `
 
-        <div class="d-flex justify-content-between item-summary-row my-1">
+        <div class="d-flex justify-content-between item-summary-row">
 
           <span>
             ${item.name} × ${qty}
@@ -849,6 +1240,7 @@ async function processOrder() {
 
 
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
