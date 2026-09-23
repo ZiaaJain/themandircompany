@@ -1,368 +1,346 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Payment & Checkout | The Mandir Company</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+const SPREADSHEET_ID = "1-N-XlBC0haaR5i7O3U1XHGDT9_zNHHUVl4Dz-qsalkI";
+const SHEET_NAME = "The Mandir Company Website";
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
 
-  <style>
-    body { background-color: #fff6ea; margin: 0; padding: 0; }
-    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 40px 0; }
-    h1, h2, h3, h4, h5, h6, p, label { color: #c4a092; }
-    .checkout-card { background: #ffffff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 25px; }
-    .btn-confirm { background-color: #c4a092; color: white; font-weight: 600; border: none; font-size: 1.1rem; }
-    .btn-confirm:hover { background-color: #b08b7d; color: white; }
-    .info-box { background-color: #fffaf3; border: 1px solid #e0c8bf; border-radius: 8px; padding: 15px; }
-    .item-summary-row { font-size: 0.95rem; color: #555; }
-  </style>
-</head>
-<body>
-
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">The Mandir Company</a>
-    <ul class="navbar-nav ms-auto flex-row gap-3">
-      <li class="nav-item">
-        <a class="nav-link" href="cart.html">← Back to Cart</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<!-- MAIN CONTENT -->
-<div class="page-content">
-  <section class="container">
-    <h2 class="fw-bold mb-4">Checkout & Order Placement 🛍️</h2>
-
-    <div class="row g-4">
-      <!-- ADDRESS FORM (LEFT COLUMN) -->
-      <div class="col-lg-7">
-        <div class="checkout-card">
-          <h4 class="fw-bold mb-4">📍 Shipping Address</h4>
-          <form id="address-form">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Full Name *</label>
-                <input type="text" class="form-control" id="fullName" required placeholder="Enter full name">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Phone Number *</label>
-                <input type="tel" class="form-control" id="phone" required placeholder="Enter phone number">
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label fw-bold">Street Address *</label>
-              <input type="text" class="form-control" id="address" required placeholder="Enter house no, street name">
-            </div>
-            <div class="row">
-              <div class="col-md-4 mb-3">
-                <label class="form-label fw-bold">City *</label>
-                <input type="text" class="form-control" id="city" required placeholder="City">
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="form-label fw-bold">State *</label>
-                <input type="text" class="form-control" id="state" required placeholder="State">
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="form-label fw-bold">Pincode *</label>
-                <input type="text" class="form-control" id="pincode" required placeholder="Pincode">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- ORDER SUMMARY & CONFIRMATION (RIGHT COLUMN) -->
-      <div class="col-lg-5">
-        <div class="checkout-card">
-          <h4 class="fw-bold mb-3">💳 Order Summary</h4>
-          
-          <div id="checkout-items-list" class="mb-3 pb-2 border-bottom"></div>
-
-          <div class="d-flex justify-content-between my-2 fs-6">
-            <span>Subtotal:</span>
-            <span id="subtotal-display" class="fw-bold">₹0</span>
-          </div>
-
-          <div class="d-flex justify-content-between my-2 fs-6">
-            <span>Shipping:</span>
-            <span id="shipping-display" class="fw-bold">₹150</span>
-          </div>
-
-          <hr style="color: #c4a092;">
-
-          <div class="d-flex justify-content-between my-3 fs-5 fw-bold">
-            <span>Total Payable:</span>
-            <span id="pay-total-val">₹0</span>
-          </div>
-
-          <div class="d-grid gap-2 my-3">
-            <button id="confirm-btn" class="btn btn-confirm py-3" onclick="processOrder()">
-              Confirm Order 🛍️
-            </button>
-          </div>
-
-          <div class="info-box text-start mt-3">
-            <p class="small mb-0" style="color: #6c5248;">
-              ℹ️ <strong>Next Steps:</strong> Once you confirm, your order is registered! Our team will reach out to you within <strong>48 hours</strong> on your phone number to discuss payment details and dispatch.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- FOOTER -->
-<footer class="text-center py-4 bg-light">
-  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
-</footer>
-
-<script>
-
-// Deployed Google Apps Script Web App URL
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/u/2/s/AKfycbwWsFYMIj6SZhNYrShPcSUR-P-lPTw0SZee75Us5IL5LSj6nEIOLBJH2EkIJ96CLogRlA/exec";
-
-const products = {
-  1:{name:"German Silver Diya",price:"₹1,100"},
-  2:{name:"Marble & Metal Flower Diya Holder",price:"₹850"},
-  3:{name:"Akhand Diya With Plate",price:"₹575"},
-  4:{name:"German Silver Dibbi",price:"₹185"},
-  5:{name:"Marble Tic Tac Toe",price:"₹1,600"},
-  6:{name:"Marble Agarbatti Stand",price:"₹550"},
-  7:{name:"Nakkashi Cup",price:"₹475"},
-  8:{name:"Elephant Akhand Diya",price:"₹850"},
-  9:{name:"Om Diya and Bell Set",price:"₹575"},
-  10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575"},
-  11:{name:"German Silver Pooja Set",price:"₹1,550"},
-  12:{name:"Antique Aarti Stand",price:"₹850"},
-  13:{name:"Lotus Handle Diya Set",price:"₹1,600"},
-  14:{name:"Cow Calf Set",price:"₹250"},
-  15:{name:"German Silver Bell",price:"₹270"},
-  16:{name:"Nakkashi Swastik Diya",price:"₹399"},
-  17:{name:"Radha Krishna Tilak Set",price:"₹850"},
-  18:{name:"LED Krishna Box Set",price:"₹850"},
-  19:{name:"Marble Platter with Gold Inlay",price:"₹1,880"},
-  20:{name:"Akhand Diya With Plate Set",price:"₹575"},
-  21:{name:"Nakkashi Agarbatti/Dhupatti Stand",price:"₹350"},
-  22:{name:"Agate & Marble Ganesha Stand",price:"₹350"},
-  23:{name:"Nimbu Mirchi Evil Eye",price:"₹650"},
-  24:{name:"Buddha Diya Base",price:"₹599"},
-  25:{name:"Evil Eye Candle Set",price:"₹675"},
-  26:{name:"Guruji Chola 1",price:"₹11,000"},
-  27:{name:"Guruji Chola 2",price:"₹17,000"},
-  28:{name:"Guruji Chola 3",price:"₹11,000"},
-  29:{name:"Guruji Chola 4",price:"₹10,000"},
-  30:{name:"Guruji Chola 5",price:"₹14,000"},
-  31:{name:"Guruji Chola 6",price:"₹9,999"},
-  32:{name:"Guruji Chola 7",price:"₹14,000"},
-  33:{name:"Guruji Chola 8",price:"₹11,000"},
-  34:{name:"Guruji Chola 9",price:"₹12,000"},
-  35:{name:"Evil Eye Roli Chawal",price:"₹250"},
-  36:{name:"Hand Fan",price:"₹250"},
-  37:{name:"Flower Candle",price:"₹299"},
-  38:{name:"Om Shubh Labh",price:"₹699"},
-  39:{name:"Pink Toran",price:"₹3,500"},
-  40:{name:"Elegant Lotus Toran",price:"₹2,550"},
-  41:{name:"German Silver Thali Set",price:"₹2,500"},
-  42:{name:"Temple Design Shubh Labh",price:"₹450"},
-  43:{name:"Studded Torans",price:"₹2,550"}
-};
-
-const SHIPPING_FEE = 150;
-let subtotalAmount = 0;
-let grandTotal = 0;
-
-document.addEventListener("DOMContentLoaded", loadCartSummary);
-
-function parsePrice(priceStr) {
-  return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
-}
-
-function getCartData() {
-  let raw = localStorage.getItem("cart");
-
-  if (!raw) return {};
-
-  try {
-    let parsed = JSON.parse(raw);
-
-    if (Array.isArray(parsed)) {
-      let obj = {};
-      parsed.forEach(id => obj[String(id)] = 1);
-      return obj;
-    }
-
-    return parsed;
-
-  } catch(e) {
-    return {};
-  }
-}
-
-function loadCartSummary() {
-  const cartObj = getCartData();
-  const itemIds = Object.keys(cartObj);
-  const itemsContainer = document.getElementById("checkout-items-list");
-  
-  itemsContainer.innerHTML = "";
-  subtotalAmount = 0;
-
-  if (itemIds.length === 0) {
-    itemsContainer.innerHTML = `<p class="text-danger small">Your cart is empty.</p>`;
-    document.getElementById("confirm-btn").disabled = true;
-    return;
-  }
-
-  itemIds.forEach(id => {
-    if (products[id]) {
-      const item = products[id];
-      const qty = parseInt(cartObj[id]) || 1;
-      const unitPrice = parsePrice(item.price);
-      const itemTotal = unitPrice * qty;
-
-      subtotalAmount += itemTotal;
-
-      itemsContainer.innerHTML += `
-        <div class="d-flex justify-content-between item-summary-row my-1">
-          <span>${item.name} × ${qty}</span>
-          <span class="fw-bold">₹${itemTotal.toLocaleString('en-IN')}</span>
-        </div>
-      `;
-    }
-  });
-
-  grandTotal = subtotalAmount + SHIPPING_FEE;
-
-  document.getElementById("subtotal-display").innerText =
-    "₹" + subtotalAmount.toLocaleString('en-IN');
-
-  document.getElementById("shipping-display").innerText =
-    "₹" + SHIPPING_FEE.toLocaleString('en-IN');
-
-  document.getElementById("pay-total-val").innerText =
-    "₹" + grandTotal.toLocaleString('en-IN');
-}
-
-async function processOrder() {
-
-  if (grandTotal <= 0) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  const form = document.getElementById("address-form");
-
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
-
-  const btn = document.getElementById("confirm-btn");
-
-  btn.disabled = true;
-  btn.innerText = "Processing Order...";
-
-  let cartObj = getCartData();
-  let itemSummary = [];
-
-  Object.keys(cartObj).forEach(id => {
-    if (products[id]) {
-      itemSummary.push(
-        `${products[id].name} (Qty: ${cartObj[id]})`
-      );
-    }
-  });
-
-  const orderPayload = {
-    date: new Date().toLocaleString("en-IN"),
-
-    fullName:
-      document.getElementById("fullName").value.trim(),
-
-    phone:
-      document.getElementById("phone").value.trim(),
-
-    address:
-      `${document.getElementById("address").value.trim()}, ` +
-      `${document.getElementById("city").value.trim()}, ` +
-      `${document.getElementById("state").value.trim()} - ` +
-      `${document.getElementById("pincode").value.trim()}`,
-
-    items: itemSummary.join("; "),
-
-    subtotal:
-      "₹" + subtotalAmount.toLocaleString('en-IN'),
-
-    shipping:
-      "₹" + SHIPPING_FEE.toLocaleString('en-IN'),
-
-    total:
-      "₹" + grandTotal.toLocaleString('en-IN')
-  };
+// ===============================
+// RECEIVE NEW ORDER
+// ===============================
+function doPost(e) {
 
   try {
 
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify(orderPayload)
-    });
+    if (!e || !e.parameter) {
+      throw new Error("No order data was received.");
+    }
 
-    if (!response.ok) {
+    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+
+    const sheet = spreadsheet.getSheetByName(SHEET_NAME);
+
+    if (!sheet) {
       throw new Error(
-        "Google Apps Script returned HTTP " + response.status
+        'Sheet "' + SHEET_NAME + '" was not found.'
       );
     }
 
-    const result = await response.json();
 
-    console.log("Google Apps Script response:", result);
+    // Get order information from the form POST
+    const data = {
 
-    if (
-      !result ||
-      result.result !== "success" ||
-      !result.orderId
-    ) {
-      throw new Error(
-        result && result.error
-          ? result.error
-          : "Google Sheets did not confirm the order."
-      );
+      date: e.parameter.date || "",
+
+      fullName: e.parameter.fullName || "",
+
+      phone: e.parameter.phone || "",
+
+      address: e.parameter.address || "",
+
+      items: e.parameter.items || "",
+
+      subtotal: e.parameter.subtotal || "",
+
+      shipping: e.parameter.shipping || "",
+
+      total: e.parameter.total || ""
+
+    };
+
+
+    // ===============================
+    // CREATE ORDER NUMBER
+    // ===============================
+
+    const lastRow = sheet.getLastRow();
+
+    let orderNumber;
+
+    if (lastRow <= 1) {
+
+      orderNumber = 1;
+
+    } else {
+
+      orderNumber = lastRow;
+
     }
 
-    // Use the REAL order ID returned by Google Apps Script
-    orderPayload.orderId = result.orderId;
+    const orderId = "#" + orderNumber;
 
-    // Save order information for confirmation page
-    sessionStorage.setItem(
-      "latestOrder",
-      JSON.stringify(orderPayload)
-    );
 
-    // Clear cart ONLY after successful submission
-    localStorage.removeItem("cart");
+    // ===============================
+    // ADD ORDER TO GOOGLE SHEET
+    // ===============================
 
-    window.location.href = "confirmation.html";
+    sheet.appendRow([
 
-  } catch (e) {
+      orderId,
 
-    console.error("ORDER SUBMISSION FAILED:", e);
+      data.date,
 
-    alert(
-      "We could not place your order right now.\n\n" +
-      "Your cart has NOT been cleared. Please try again."
-    );
+      data.fullName,
 
-    btn.disabled = false;
-    btn.innerText = "Confirm Order 🛍️";
+      data.phone,
+
+      data.address,
+
+      data.items,
+
+      data.subtotal,
+
+      data.shipping,
+
+      data.total
+
+    ]);
+
+
+    // ===============================
+    // SEND CUSTOMER TO CONFIRMATION
+    // ===============================
+
+    const confirmationURL =
+      "https://ziaajain.github.io/confirmation.html?orderId=" +
+      encodeURIComponent(orderId);
+
+
+    return HtmlService
+
+      .createHtmlOutput(`
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+          <meta name="viewport"
+                content="width=device-width, initial-scale=1">
+
+          <title>Order Confirmed</title>
+
+          <style>
+
+            body {
+              font-family: Arial, sans-serif;
+              text-align: center;
+              padding: 50px 20px;
+            }
+
+            h2 {
+              color: #333;
+            }
+
+            p {
+              color: #666;
+            }
+
+            a {
+              display: inline-block;
+              margin-top: 20px;
+              padding: 12px 24px;
+              background: #222;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+            }
+
+          </style>
+
+        </head>
+
+        <body>
+
+          <h2>Order placed successfully!</h2>
+
+          <p>Your order has been received.</p>
+
+          <p>
+            Order ID:
+            <strong>${orderId}</strong>
+          </p>
+
+          <a href="${confirmationURL}">
+            Continue
+          </a>
+
+
+          <script>
+
+            setTimeout(function() {
+
+              window.top.location.href =
+                ${JSON.stringify(confirmationURL)};
+
+            }, 500);
+
+          </script>
+
+        </body>
+
+        </html>
+
+      `);
+
+
+  } catch (error) {
+
+    console.error("ORDER ERROR:", error);
+
+
+    return HtmlService
+
+      .createHtmlOutput(`
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+          <meta name="viewport"
+                content="width=device-width, initial-scale=1">
+
+          <title>Order Error</title>
+
+        </head>
+
+        <body style="font-family:Arial;text-align:center;padding:40px;">
+
+          <h2>Order could not be placed</h2>
+
+          <p>
+            ${String(error)}
+          </p>
+
+          <p>
+            Please go back and try again.
+          </p>
+
+        </body>
+
+        </html>
+
+      `);
+
   }
+
 }
 
-</script>
 
-</body>
-</html>
+
+// ===============================
+// GET ALL ORDERS
+// ===============================
+function doGet(e) {
+
+  try {
+
+    const spreadsheet =
+      SpreadsheetApp.openById(SPREADSHEET_ID);
+
+    const sheet =
+      spreadsheet.getSheetByName(SHEET_NAME);
+
+
+    if (!sheet) {
+
+      throw new Error(
+        'Sheet "' + SHEET_NAME + '" was not found.'
+      );
+
+    }
+
+
+    const rows =
+      sheet.getDataRange().getValues();
+
+
+    const orders = [];
+
+
+    // Skip header row
+    for (let i = 1; i < rows.length; i++) {
+
+      if (
+        rows[i][0] &&
+        rows[i][0].toString().trim() !== ""
+      ) {
+
+        orders.push({
+
+          orderId:
+            String(rows[i][0]),
+
+          date:
+            String(rows[i][1] || ""),
+
+          fullName:
+            String(rows[i][2] || ""),
+
+          phone:
+            String(rows[i][3] || ""),
+
+          address:
+            String(rows[i][4] || ""),
+
+          items:
+            String(rows[i][5] || ""),
+
+          subtotal:
+            String(rows[i][6] || ""),
+
+          shipping:
+            String(rows[i][7] || ""),
+
+          total:
+            String(rows[i][8] || "")
+
+        });
+
+      }
+
+    }
+
+
+    return ContentService
+
+      .createTextOutput(
+        JSON.stringify(orders)
+      )
+
+      .setMimeType(
+        ContentService.MimeType.JSON
+      );
+
+
+  } catch (error) {
+
+    console.error(
+      "GET ORDERS ERROR:",
+      error
+    );
+
+
+    return ContentService
+
+      .createTextOutput(
+
+        JSON.stringify({
+
+          result: "error",
+
+          error: String(error),
+
+          orders: []
+
+        })
+
+      )
+
+      .setMimeType(
+        ContentService.MimeType.JSON
+      );
+
+  }
+
+}
