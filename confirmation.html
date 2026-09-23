@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Order Confirmed | The Mandir Company</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>
+    Order Confirmed | The Mandir Company
+  </title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    href="styles.css"
+    rel="stylesheet"
+  >
 
   <style>
-    body { background-color: #fff6ea; margin: 0; padding: 0; }
-    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 50px 0; }
-    h1, h2, h3, h4, h5, h6, p { color: #c4a092; }
+
+    body {
+      background-color: #fff6ea;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-content {
+      background-color: #fff6ea;
+      min-height: calc(100vh - 120px);
+      padding: 50px 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: #c4a092;
+    }
+
     .confirmation-card {
       background: #ffffff;
       border-radius: 12px;
@@ -20,11 +56,13 @@
       max-width: 650px;
       margin: 0 auto;
     }
+
     .check-icon {
       font-size: 4rem;
       color: #28a745;
       margin-bottom: 15px;
     }
+
     .btn-home {
       background-color: #c4a092;
       color: white;
@@ -32,10 +70,12 @@
       border: none;
       padding: 12px 28px;
     }
+
     .btn-home:hover {
       background-color: #b08b7d;
       color: white;
     }
+
     .order-details-box {
       background-color: #fffaf3;
       border: 1px dashed #c4a092;
@@ -43,78 +83,500 @@
       padding: 20px;
       text-align: left;
     }
+
+    .loading {
+      text-align: center;
+      color: #999;
+      padding: 20px;
+    }
+
+    .error-message {
+      color: #b02a37;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .success-order-id {
+      color: #333;
+      font-weight: 700;
+    }
+
   </style>
+
 </head>
+
+
 <body>
 
-<!-- NAVBAR -->
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
   <div class="container">
-    <a class="navbar-brand" href="index.html">The Mandir Company</a>
+
+    <a
+      class="navbar-brand"
+      href="index.html"
+    >
+      The Mandir Company
+    </a>
+
   </div>
+
 </nav>
 
-<!-- MAIN CONTENT -->
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
 <div class="page-content">
+
   <div class="container text-center">
+
     <div class="confirmation-card">
-      <div class="check-icon">🎉</div>
-      <h2 class="fw-bold mb-2">Order Received!</h2>
-      <p class="mb-4 text-muted">Thank you for shopping with The Mandir Company.</p>
 
-      <div class="order-details-box mb-4" id="order-info-container">
-        <!-- POPULATED DYNAMICALLY VIA JS -->
+      <div class="check-icon">
+        🎉
       </div>
 
-      <div class="alert alert-info text-start small mb-4" role="alert" style="background-color: #f1f8ff; border-color: #b6d4fe; color: #084298;">
-        📞 <strong>What happens next?</strong> Our team will review your order details and contact you via phone/WhatsApp within <strong>48 hours</strong> to finalize payment confirmation and dispatch.
+      <h2 class="fw-bold mb-2">
+        Order Received!
+      </h2>
+
+      <p class="mb-4 text-muted">
+        Thank you for shopping with
+        <strong>The Mandir Company</strong>.
+      </p>
+
+
+      <!-- ORDER INFORMATION -->
+
+      <div
+        class="order-details-box mb-4"
+        id="order-info-container"
+      >
+
+        <div class="loading">
+          Loading your order details...
+        </div>
+
       </div>
 
-      <a href="index.html" class="btn btn-home fs-6">Continue Shopping 🛍️</a>
+
+      <!-- WHAT HAPPENS NEXT -->
+
+      <div
+        class="alert alert-info text-start small mb-4"
+        role="alert"
+        style="
+          background-color:#f1f8ff;
+          border-color:#b6d4fe;
+          color:#084298;
+        "
+      >
+
+        📞
+
+        <strong>
+          What happens next?
+        </strong>
+
+        Our team will review your order details
+        and contact you via phone/WhatsApp within
+        <strong>48 hours</strong>
+        to finalize payment confirmation and dispatch.
+
+      </div>
+
+
+      <!-- CONTINUE SHOPPING -->
+
+      <a
+        href="index.html"
+        class="btn btn-home fs-6"
+      >
+        Continue Shopping 🛍️
+      </a>
+
     </div>
+
   </div>
+
 </div>
 
-<!-- FOOTER -->
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer class="text-center py-4 bg-light">
-  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
+
+  <p>
+    &copy; 2026 The Mandir Company.
+    All rights reserved.
+  </p>
+
 </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("order-info-container");
-  const rawData = sessionStorage.getItem("latestOrder");
 
-  if (!rawData) {
-    container.innerHTML = `<p class="text-center text-muted mb-0">No recent order details found.</p>`;
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/*
+==========================================================
+YOUR NEW GOOGLE APPS SCRIPT URL
+==========================================================
+*/
+
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyciQbwFW8etL1cmPuVKrRjwuBtlGIB-eqSkqFU0oR8yNgtq3VdAk9vr6SquJAjZr-MtA/exec";
+
+
+/*
+==========================================================
+GET ORDER ID FROM THE URL
+==========================================================
+
+Example:
+
+confirmation.html?orderId=%231
+
+becomes:
+
+#1
+==========================================================
+*/
+
+const urlParams =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const orderId =
+  urlParams.get("orderId");
+
+
+const container =
+  document.getElementById(
+    "order-info-container"
+  );
+
+
+/*
+==========================================================
+ESCAPE HTML
+==========================================================
+*/
+
+function escapeHtml(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/*
+==========================================================
+DISPLAY ORDER
+==========================================================
+*/
+
+function showOrder(order) {
+
+  if (!order) {
+
+    container.innerHTML = `
+
+      <div class="error-message">
+
+        <strong>
+          Order details could not be found.
+        </strong>
+
+        <br><br>
+
+        Please contact The Mandir Company.
+
+      </div>
+
+    `;
+
     return;
+
   }
 
-  const order = JSON.parse(rawData);
 
   container.innerHTML = `
+
     <div class="d-flex justify-content-between mb-2">
-      <span class="fw-bold">Order ID:</span>
-      <span class="fw-bold text-dark">${order.orderId || '#1'}</span>
+
+      <span class="fw-bold">
+        Order ID:
+      </span>
+
+      <span class="success-order-id">
+        ${escapeHtml(order.orderId)}
+      </span>
+
     </div>
+
+
     <div class="d-flex justify-content-between mb-2">
-      <span>Date:</span>
-      <span class="text-secondary">${order.date || ''}</span>
+
+      <span>
+        Date:
+      </span>
+
+      <span class="text-secondary">
+        ${escapeHtml(order.date)}
+      </span>
+
     </div>
-    <hr style="color: #c4a092;">
-    <p class="mb-1"><strong>Customer Name:</strong> ${order.fullName || ''}</p>
-    <p class="mb-1"><strong>Phone Number:</strong> ${order.phone || ''}</p>
-    <p class="mb-3"><strong>Delivery Address:</strong> ${order.address || ''}</p>
-    <hr style="color: #c4a092;">
-    <p class="mb-1"><strong>Items Ordered:</strong></p>
-    <p class="small text-muted mb-3">${order.items || ''}</p>
-    <div class="d-flex justify-content-between fw-bold fs-5" style="color: #c4a092;">
-      <span>Total Amount:</span>
-      <span>${order.total || '₹0'}</span>
+
+
+    <hr style="color:#c4a092;">
+
+
+    <p class="mb-1">
+
+      <strong>
+        Customer Name:
+      </strong>
+
+      ${escapeHtml(order.fullName)}
+
+    </p>
+
+
+    <p class="mb-1">
+
+      <strong>
+        Phone Number:
+      </strong>
+
+      ${escapeHtml(order.phone)}
+
+    </p>
+
+
+    <p class="mb-3">
+
+      <strong>
+        Delivery Address:
+      </strong>
+
+      ${escapeHtml(order.address)}
+
+    </p>
+
+
+    <hr style="color:#c4a092;">
+
+
+    <p class="mb-1">
+
+      <strong>
+        Items Ordered:
+      </strong>
+
+    </p>
+
+
+    <p class="small text-muted mb-3">
+
+      ${escapeHtml(order.items)}
+
+    </p>
+
+
+    <div
+      class="d-flex justify-content-between fw-bold fs-5"
+      style="color:#c4a092;"
+    >
+
+      <span>
+        Total Amount:
+      </span>
+
+      <span>
+        ${escapeHtml(order.total)}
+      </span>
+
     </div>
+
   `;
-});
+
+}
+
+
+/*
+==========================================================
+JSONP CALLBACK
+==========================================================
+*/
+
+function receiveOrder(order) {
+
+  if (
+    !order ||
+    order.result === "not_found"
+  ) {
+
+    container.innerHTML = `
+
+      <div class="error-message">
+
+        <strong>
+          Order details could not be found.
+        </strong>
+
+        <br><br>
+
+        Your order may still have been received.
+
+        <br><br>
+
+        Order ID:
+
+        <strong>
+          ${escapeHtml(orderId)}
+        </strong>
+
+        <br><br>
+
+        Please contact The Mandir Company
+        if you need assistance.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  showOrder(order);
+
+}
+
+
+/*
+==========================================================
+NO ORDER ID
+==========================================================
+*/
+
+if (!orderId) {
+
+  container.innerHTML = `
+
+    <div class="error-message">
+
+      <strong>
+        Order received successfully.
+      </strong>
+
+      <br><br>
+
+      No Order ID was provided.
+
+      <br><br>
+
+      Please contact The Mandir Company
+      if you need assistance.
+
+    </div>
+
+  `;
+
+}
+
+
+/*
+==========================================================
+LOAD ORDER FROM GOOGLE SHEETS
+==========================================================
+*/
+
+if (orderId) {
+
+
+  const script =
+    document.createElement("script");
+
+
+  script.src =
+    GOOGLE_SCRIPT_URL +
+    "?orderId=" +
+    encodeURIComponent(orderId) +
+    "&callback=receiveOrder" +
+    "&t=" +
+    Date.now();
+
+
+  /*
+  --------------------------------------------------------
+  IF GOOGLE SCRIPT CANNOT BE REACHED
+  --------------------------------------------------------
+  */
+
+  script.onerror = function() {
+
+    container.innerHTML = `
+
+      <div class="error-message">
+
+        <strong>
+          Your order was received! 🎉
+        </strong>
+
+        <br><br>
+
+        Order ID:
+
+        <strong>
+          ${escapeHtml(orderId)}
+        </strong>
+
+        <br><br>
+
+        We are unable to load the full
+        order details right now.
+
+        <br><br>
+
+        Please keep your Order ID
+        for reference.
+
+      </div>
+
+    `;
+
+  };
+
+
+  document.body.appendChild(script);
+
+}
+
 </script>
 
+
 </body>
+
 </html>
