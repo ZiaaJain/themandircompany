@@ -284,42 +284,99 @@
     ========================= */
 
     .empty-wishlist-box {
-      max-width: 620px;
-      margin: 10px auto 0;
+      position: relative;
+      max-width: 760px;
+      min-height: 390px;
+      margin: 10px auto 20px;
       background: #ffffff;
-      border: 1px solid var(--soft-border);
-      border-radius: 18px;
-      padding: clamp(35px, 7vw, 55px) 25px;
-      box-shadow: 0 6px 22px rgba(80, 55, 45, 0.05);
+      border: 1px solid rgba(196, 160, 146, 0.22);
+      border-radius: 22px;
+      padding: 55px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(80, 55, 45, 0.05);
+    }
+
+    .empty-wishlist-box::before,
+    .empty-wishlist-box::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(196, 160, 146, 0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .empty-wishlist-box::before {
+      width: 230px;
+      height: 230px;
+      top: -120px;
+      left: -80px;
+    }
+
+    .empty-wishlist-box::after {
+      width: 280px;
+      height: 280px;
+      bottom: -160px;
+      right: -100px;
     }
 
     .empty-wishlist-icon {
-      font-size: 3rem;
-      line-height: 1;
-      margin-bottom: 18px;
+      width: 76px;
+      height: 76px;
+      border: 1px solid rgba(196, 160, 146, 0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      margin-bottom: 22px;
+      background-color: #fffaf4;
+      position: relative;
+      z-index: 1;
     }
 
     .empty-wishlist-box h3 {
       color: var(--brand);
-      font-size: clamp(1.25rem, 3vw, 1.5rem);
-      font-weight: 500 !important;
+      font-size: clamp(1.35rem, 3vw, 1.7rem);
+      font-weight: 400 !important;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
     }
 
     .empty-wishlist-box p {
       color: var(--brand);
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
+      max-width: 430px;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      margin-bottom: 25px !important;
+      position: relative;
+      z-index: 1;
+    }
+
+    .empty-wishlist-box p::after {
+      content: "";
+      display: block;
+      width: 35px;
+      height: 1px;
+      background-color: var(--brand);
+      opacity: 0.5;
+      margin: 18px auto 0;
     }
 
     .btn-explore {
+      position: relative;
+      z-index: 1;
       background-color: var(--brand);
       color: white;
       border: 1px solid var(--brand);
-      border-radius: 8px;
+      border-radius: 999px;
       font-weight: 500;
-      padding: 10px 20px;
+      padding: 11px 25px;
       transition: all 0.2s ease;
     }
 
@@ -328,6 +385,7 @@
       background-color: var(--brand-hover);
       border-color: var(--brand-hover);
       color: white;
+      transform: translateY(-1px);
     }
 
     /* =========================
@@ -364,6 +422,7 @@
     ========================= */
 
     @media (max-width: 575.98px) {
+
       .custom-navbar .container {
         padding-left: 14px;
         padding-right: 14px;
@@ -430,6 +489,43 @@
 
       #wishlist-container {
         row-gap: 16px;
+      }
+
+      .empty-wishlist-box {
+        min-height: 350px;
+        margin-top: 5px;
+        padding: 40px 22px;
+        border-radius: 18px;
+      }
+
+      .empty-wishlist-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 2.1rem;
+        margin-bottom: 18px;
+      }
+
+      .empty-wishlist-box h3 {
+        font-size: 1.3rem;
+      }
+
+      .empty-wishlist-box p {
+        font-size: 0.88rem;
+        max-width: 320px;
+      }
+
+      .empty-wishlist-box::before {
+        width: 170px;
+        height: 170px;
+        top: -90px;
+        left: -70px;
+      }
+
+      .empty-wishlist-box::after {
+        width: 200px;
+        height: 200px;
+        bottom: -120px;
+        right: -80px;
       }
     }
 
@@ -507,6 +603,7 @@
   </div>
 </nav>
 
+
 <!-- MAIN CONTENT -->
 <main class="page-content">
 
@@ -518,13 +615,16 @@
 
     <!-- SHARE BUTTON CONTAINER -->
     <div id="share-container" class="share-wrapper text-center">
+
       <button
         class="btn btn-share"
         onclick="shareWishlist()"
       >
         Share Wishlist 💬
       </button>
+
     </div>
+
 
     <!-- EMPTY WISHLIST CONTAINER -->
     <div
@@ -532,18 +632,20 @@
       class="text-center"
       style="display: none;"
     >
+
       <div class="empty-wishlist-box">
 
         <div class="empty-wishlist-icon">
           ❤️
         </div>
 
-        <h3 class="mb-2">
+        <h3>
           Your Wishlist is Empty
         </h3>
 
-        <p class="mb-4">
-          Looks like you haven't saved any items to your wishlist yet.
+        <p>
+          Save the pieces you love and create your own collection
+          of beautiful things for your home, mandir and celebrations.
         </p>
 
         <a
@@ -554,7 +656,9 @@
         </a>
 
       </div>
+
     </div>
+
 
     <!-- WISHLIST ITEMS CONTAINER -->
     <div id="wishlist-container" class="row"></div>
@@ -563,13 +667,20 @@
 
 </main>
 
+
 <!-- FOOTER -->
 <footer class="text-center py-4">
-  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
+
+  <p>
+    &copy; 2026 The Mandir Company. All rights reserved.
+  </p>
+
 </footer>
+
 
 <!-- SCRIPT -->
 <script>
+
 const products = {
   1:{name:"German Silver Diya",price:"₹1,100",desc:"Luxury meets devotion. This handcrafted German silver diya features intricate peacock detailing, making it a timeless art piece for your mandir or home décor.", img: "images/nakkashi_peacock.jpeg"},
   2:{name:"Marble & Metal Flower Diya Holder",price:"₹850",desc:"A beautiful round marble base paired with a metal flower design, ideal for tealights or dhoop. Customisation available.", img:"images/metal_flower_om_marblebase.jpeg"},
@@ -619,18 +730,28 @@ const products = {
 
 // RENDER WISHLIST ITEMS
 function displayWishlist() {
-  const container = document.getElementById("wishlist-container");
-  const emptyWrapper = document.getElementById("empty-wishlist-wrapper");
-  const shareContainer = document.getElementById("share-container");
 
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const container =
+    document.getElementById("wishlist-container");
+
+  const emptyWrapper =
+    document.getElementById("empty-wishlist-wrapper");
+
+  const shareContainer =
+    document.getElementById("share-container");
+
+  let wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
   wishlist = wishlist.map(String);
 
   container.innerHTML = "";
 
   if (wishlist.length === 0) {
+
     emptyWrapper.style.display = "block";
     shareContainer.style.display = "none";
+
     return;
   }
 
@@ -638,27 +759,42 @@ function displayWishlist() {
   shareContainer.style.display = "block";
 
   wishlist.forEach(id => {
+
     if (products[id]) {
+
       const item = products[id];
 
       const cardHtml = `
-        <div class="col-6 col-md-4 col-lg-3 wishlist-item" id="item-${id}">
+        <div
+          class="col-6 col-md-4 col-lg-3 wishlist-item"
+          id="item-${id}"
+        >
+
           <div class="wishlist-card text-center">
 
             <a
               href="product.html?id=${id}"
               class="wishlist-product-link"
             >
+
               <div class="wishlist-image-wrapper">
+
                 <img
                   src="${item.img}"
                   alt="${item.name}"
                   loading="lazy"
                 >
+
               </div>
 
-              <h6>${item.name}</h6>
-              <p>${item.price}</p>
+              <h6>
+                ${item.name}
+              </h6>
+
+              <p>
+                ${item.price}
+              </p>
+
             </a>
 
             <div class="wishlist-actions">
@@ -680,67 +816,92 @@ function displayWishlist() {
             </div>
 
           </div>
+
         </div>
       `;
 
       container.innerHTML += cardHtml;
     }
+
   });
 }
 
 
 // MOVE ITEM FROM WISHLIST TO CART
 function moveToCart(id) {
-  let rawCart = localStorage.getItem("cart");
+
+  let rawCart =
+    localStorage.getItem("cart");
+
   let cartObj = {};
 
   if (rawCart) {
+
     try {
-      let parsed = JSON.parse(rawCart);
+
+      let parsed =
+        JSON.parse(rawCart);
 
       if (Array.isArray(parsed)) {
+
         parsed.forEach(itemId => {
           cartObj[String(itemId)] = 1;
         });
+
       } else {
+
         cartObj = parsed;
+
       }
 
     } catch (e) {
+
       cartObj = {};
+
     }
   }
 
-  // Increment quantity if item is already in cart, otherwise set to 1
-  cartObj[String(id)] = (parseInt(cartObj[String(id)]) || 0) + 1;
+  cartObj[String(id)] =
+    (parseInt(cartObj[String(id)]) || 0) + 1;
 
-  localStorage.setItem("cart", JSON.stringify(cartObj));
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cartObj)
+  );
 
-  // Remove from Wishlist
   removeFromWishlist(id);
 }
 
 
 // REMOVE ITEM FROM WISHLIST
 function removeFromWishlist(id) {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  let wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
 
   wishlist = wishlist.filter(
     item => String(item) !== String(id)
   );
 
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(wishlist)
+  );
 
   displayWishlist();
 }
 
 
-// SHARE WISHLIST FUNCTIONALITY WITH PRODUCT LINKS
+// SHARE WISHLIST FUNCTIONALITY
 function shareWishlist() {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  let wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
 
   if (wishlist.length === 0) {
+
     alert("Your wishlist is empty!");
+
     return;
   }
 
@@ -776,6 +937,7 @@ function shareWishlist() {
     alert(
       "Wishlist items and links copied to clipboard!"
     );
+
   }
 }
 
@@ -785,7 +947,9 @@ document.addEventListener(
   "DOMContentLoaded",
   displayWishlist
 );
+
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
