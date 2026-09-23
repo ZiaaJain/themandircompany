@@ -42,10 +42,10 @@
     .page-content {
       background-color: #fff6ea;
       min-height: calc(100vh - 120px);
-      padding: 60px 0;
+      padding: 40px 0;
     }
 
-    h1, h2, h3, h6, p {
+    h1, h2, h3, h4, h5, h6, p {
       color: #c4a092;
     }
 
@@ -84,6 +84,45 @@
       font-weight: bold;
       margin-bottom: 10px;
     }
+
+    /* Move to Cart Button Styling */
+    .btn-move-cart {
+      background-color: #c4a092;
+      color: white;
+      font-weight: 600;
+      border: none;
+    }
+
+    .btn-move-cart:hover {
+      background-color: #b08b7d;
+      color: white;
+    }
+
+    /* EMPTY WISHLIST BOX (Matching cart.html) */
+    .empty-wishlist-box {
+      background: white;
+      border-radius: 12px;
+      padding: 40px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+    }
+
+    .empty-wishlist-icon {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+    }
+
+    .btn-explore {
+      background-color: #c4a092;
+      color: white;
+      font-weight: 600;
+      border: none;
+    }
+
+    .btn-explore:hover {
+      background-color: #b08b7d;
+      color: white;
+    }
   </style>
 </head>
 
@@ -116,7 +155,7 @@
 <div class="page-content">
   <section class="container">
 
-    <h1 class="text-center mb-4">My Wishlist ❤️</h1>
+    <h2 class="fw-bold mb-4 text-center">My Wishlist ❤️</h2>
 
     <!-- SHARE BUTTON CONTAINER -->
     <div id="share-container" class="text-center mb-4">
@@ -125,11 +164,20 @@
       </button>
     </div>
 
+    <!-- EMPTY WISHLIST CONTAINER (Matches cart.html layout) -->
+    <div id="empty-wishlist-wrapper" class="text-center" style="display: none;">
+      <div class="empty-wishlist-box">
+        <div class="empty-wishlist-icon">❤️</div>
+        <h3 class="fw-bold mb-2">Your Wishlist is Empty</h3>
+        <p class="mb-4">Looks like you haven't saved any items to your wishlist yet.</p>
+        <a href="bestsellers.html" class="btn btn-explore px-4 py-2 fs-6">
+          Explore Products →
+        </a>
+      </div>
+    </div>
+
     <!-- WISHLIST ITEMS CONTAINER -->
     <div id="wishlist-container" class="row"></div>
-
-    <!-- EMPTY WISHLIST MESSAGE -->
-    <p id="empty-msg" class="text-center mt-4 fw-bold fs-4"></p>
 
   </section>
 </div>
@@ -190,24 +238,22 @@ const products = {
 // RENDER WISHLIST ITEMS
 function displayWishlist() {
   const container = document.getElementById("wishlist-container");
-  const emptyMsg = document.getElementById("empty-msg");
+  const emptyWrapper = document.getElementById("empty-wishlist-wrapper");
   const shareContainer = document.getElementById("share-container");
   
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  
-  // Clean string conversion comparison
   wishlist = wishlist.map(String);
 
   container.innerHTML = "";
 
   if (wishlist.length === 0) {
-    emptyMsg.innerText = "Your wishlist is empty!";
-    shareContainer.style.display = "none"; // Hide share button when empty
+    emptyWrapper.style.display = "block";
+    shareContainer.style.display = "none";
     return;
-  } else {
-    emptyMsg.innerText = "";
-    shareContainer.style.display = "block"; // Show share button when items exist
   }
+
+  emptyWrapper.style.display = "none";
+  shareContainer.style.display = "block";
 
   wishlist.forEach(id => {
     if (products[id]) {
@@ -220,13 +266,40 @@ function displayWishlist() {
               <h6>${item.name}</h6>
               <p>${item.price}</p>
             </a>
-            <button class="btn btn-sm btn-outline-danger mt-2" onclick="removeFromWishlist('${id}')">Remove 🗑️</button>
+            <button class="btn btn-sm btn-move-cart mt-auto mb-2" onclick="moveToCart('${id}')">Move to Cart 🛒</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="removeFromWishlist('${id}')">Remove 🗑️</button>
           </div>
         </div>
       `;
       container.innerHTML += cardHtml;
     }
   });
+}
+
+// MOVE ITEM FROM WISHLIST TO CART
+function moveToCart(id) {
+  let rawCart = localStorage.getItem("cart");
+  let cartObj = {};
+
+  if (rawCart) {
+    try {
+      let parsed = JSON.parse(rawCart);
+      if (Array.isArray(parsed)) {
+        parsed.forEach(itemId => cartObj[String(itemId)] = 1);
+      } else {
+        cartObj = parsed;
+      }
+    } catch (e) {
+      cartObj = {};
+    }
+  }
+
+  // Increment quantity if item is already in cart, otherwise set to 1
+  cartObj[String(id)] = (parseInt(cartObj[String(id)]) || 0) + 1;
+  localStorage.setItem("cart", JSON.stringify(cartObj));
+
+  // Remove from Wishlist
+  removeFromWishlist(id);
 }
 
 // REMOVE ITEM FROM WISHLIST
@@ -245,10 +318,8 @@ function shareWishlist() {
     return;
   }
 
-  // Base URL calculation (gets current domain/path automatically)
   const baseUrl = window.location.origin + window.location.pathname.replace("wishlist.html", "product.html");
 
-  // Construct message with Item Name + Link
   let shareText = "Check out my wishlist from The Mandir Company:\n\n";
   shareText += wishlist
     .filter(id => products[id])
