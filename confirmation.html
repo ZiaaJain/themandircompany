@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
 
-  <title>
-    Order Confirmed | The Mandir Company
-  </title>
+  <title>Order Confirmed | The Mandir Company</title>
 
   <meta
     name="viewport"
@@ -102,12 +98,9 @@
     }
 
   </style>
-
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      NAVBAR
@@ -153,7 +146,9 @@
       </p>
 
 
-      <!-- ORDER INFORMATION -->
+      <!-- =================================================
+           ORDER DETAILS
+      ================================================= -->
 
       <div
         class="order-details-box mb-4"
@@ -167,7 +162,9 @@
       </div>
 
 
-      <!-- WHAT HAPPENS NEXT -->
+      <!-- =================================================
+           WHAT HAPPENS NEXT
+      ================================================= -->
 
       <div
         class="alert alert-info text-start small mb-4"
@@ -180,10 +177,7 @@
       >
 
         📞
-
-        <strong>
-          What happens next?
-        </strong>
+        <strong>What happens next?</strong>
 
         Our team will review your order details
         and contact you via phone/WhatsApp within
@@ -193,7 +187,9 @@
       </div>
 
 
-      <!-- CONTINUE SHOPPING -->
+      <!-- =================================================
+           CONTINUE SHOPPING
+      ================================================= -->
 
       <a
         href="index.html"
@@ -229,22 +225,19 @@
 
 <script>
 
-
 /*
 ==========================================================
-YOUR NEW GOOGLE APPS SCRIPT URL
+GOOGLE APPS SCRIPT URL
 ==========================================================
 */
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyciQbwFW8etL1cmPuVKrRjwuBtlGIB-eqSkqFU0oR8yNgtq3VdAk9vr6SquJAjZr-MtA/exec";
+  "https://script.google.com/macros/s/AKfycbzdB6KNri1HNQar_27Op8kHpHE6vFwzYQiFOWCoeTGjQzJX4sHUhR4EWk6K3wDYbD8c3A/exec";
 
 
 /*
 ==========================================================
-GET ORDER ID FROM THE URL
-==========================================================
-
+GET ORDER ID FROM URL
 Example:
 
 confirmation.html?orderId=%231
@@ -256,24 +249,20 @@ becomes:
 */
 
 const urlParams =
-  new URLSearchParams(
-    window.location.search
-  );
-
+  new URLSearchParams(window.location.search);
 
 const orderId =
   urlParams.get("orderId");
 
 
 const container =
-  document.getElementById(
-    "order-info-container"
-  );
+  document.getElementById("order-info-container");
 
 
 /*
 ==========================================================
 ESCAPE HTML
+Prevents special characters from breaking the page.
 ==========================================================
 */
 
@@ -291,7 +280,7 @@ function escapeHtml(value) {
 
 /*
 ==========================================================
-DISPLAY ORDER
+SHOW ORDER
 ==========================================================
 */
 
@@ -300,19 +289,11 @@ function showOrder(order) {
   if (!order) {
 
     container.innerHTML = `
-
       <div class="error-message">
-
-        <strong>
-          Order details could not be found.
-        </strong>
-
-        <br><br>
-
+        <strong>Order details could not be found.</strong>
+        <br>
         Please contact The Mandir Company.
-
       </div>
-
     `;
 
     return;
@@ -425,7 +406,42 @@ function showOrder(order) {
 
 /*
 ==========================================================
+IF THERE IS NO ORDER ID
+==========================================================
+*/
+
+if (!orderId) {
+
+  container.innerHTML = `
+
+    <div class="error-message">
+
+      <strong>
+        Order received successfully.
+      </strong>
+
+      <br><br>
+
+      No Order ID was provided.
+
+      <br>
+
+      Please contact The Mandir Company
+      if you need assistance.
+
+    </div>
+
+  `;
+
+}
+
+
+/*
+==========================================================
 JSONP CALLBACK
+
+This avoids cross-origin fetch problems between
+GitHub Pages and Google Apps Script.
 ==========================================================
 */
 
@@ -448,15 +464,7 @@ function receiveOrder(order) {
 
         Your order may still have been received.
 
-        <br><br>
-
-        Order ID:
-
-        <strong>
-          ${escapeHtml(orderId)}
-        </strong>
-
-        <br><br>
+        <br>
 
         Please contact The Mandir Company
         if you need assistance.
@@ -477,44 +485,11 @@ function receiveOrder(order) {
 
 /*
 ==========================================================
-NO ORDER ID
-==========================================================
-*/
-
-if (!orderId) {
-
-  container.innerHTML = `
-
-    <div class="error-message">
-
-      <strong>
-        Order received successfully.
-      </strong>
-
-      <br><br>
-
-      No Order ID was provided.
-
-      <br><br>
-
-      Please contact The Mandir Company
-      if you need assistance.
-
-    </div>
-
-  `;
-
-}
-
-
-/*
-==========================================================
 LOAD ORDER FROM GOOGLE SHEETS
 ==========================================================
 */
 
 if (orderId) {
-
 
   const script =
     document.createElement("script");
@@ -529,12 +504,6 @@ if (orderId) {
     Date.now();
 
 
-  /*
-  --------------------------------------------------------
-  IF GOOGLE SCRIPT CANNOT BE REACHED
-  --------------------------------------------------------
-  */
-
   script.onerror = function() {
 
     container.innerHTML = `
@@ -542,26 +511,24 @@ if (orderId) {
       <div class="error-message">
 
         <strong>
-          Your order was received! 🎉
+          Your order was received!
         </strong>
 
         <br><br>
 
         Order ID:
-
         <strong>
           ${escapeHtml(orderId)}
         </strong>
 
         <br><br>
 
-        We are unable to load the full
-        order details right now.
+        We are unable to load the full order
+        details right now.
 
-        <br><br>
+        <br>
 
-        Please keep your Order ID
-        for reference.
+        Please keep your Order ID for reference.
 
       </div>
 
@@ -576,7 +543,5 @@ if (orderId) {
 
 </script>
 
-
 </body>
-
 </html>
