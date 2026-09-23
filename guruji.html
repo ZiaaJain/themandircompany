@@ -50,20 +50,37 @@
       padding: 55px 0 70px;
     }
 
-    .guruji-title {
+    /* =========================
+       GURUJI HEADING
+    ========================== */
+
+    .guruji-heading {
+      margin-bottom: 38px;
+    }
+
+    .guruji-heading-small {
       color: #c4a092;
+      font-size: 0.72rem;
+      letter-spacing: 2.5px;
       font-weight: 400;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: 0.5px;
       margin-bottom: 10px;
+      opacity: 0.75;
+    }
+
+    .guruji-heading h1 {
+      color: #c4a092;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 400;
+      letter-spacing: 0.8px;
+      margin: 0;
     }
 
     .title-line {
-      width: 55px;
+      width: 45px;
       height: 1px;
       background-color: #c4a092;
-      margin: 0 auto 35px;
-      opacity: 0.7;
+      margin: 14px auto 0;
+      opacity: 0.65;
     }
 
     /* =========================
@@ -167,11 +184,12 @@
     }
 
     .fact-label {
+      color: #c4a092;
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      opacity: 0.7;
       margin-bottom: 6px;
+      opacity: 0.7;
     }
 
     .fact-value {
@@ -210,8 +228,17 @@
         padding: 40px 0 50px;
       }
 
-      .guruji-title {
-        font-size: 2rem;
+      .guruji-heading {
+        margin-bottom: 32px;
+      }
+
+      .guruji-heading-small {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+      }
+
+      .guruji-heading h1 {
+        font-size: 1.9rem;
       }
 
       .guruji-intro {
@@ -285,9 +312,11 @@
 ========================== -->
 
 <nav class="navbar navbar-expand-lg custom-navbar">
+
   <div class="container">
 
     <a class="navbar-brand d-flex align-items-center" href="index.html">
+
       <img
         src="images/The Mandir Company.jpeg"
         alt="The Mandir Company Logo"
@@ -296,7 +325,9 @@
         class="d-inline-block align-text-top me-2"
         style="object-fit: contain;"
       >
+
       The Mandir Company
+
     </a>
 
     <button
@@ -308,7 +339,9 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
+
       <span class="navbar-toggler-icon"></span>
+
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -316,33 +349,47 @@
       <ul class="navbar-nav ms-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="index.html">
+            Home
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="about.html">
+            About
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="bestsellers.html">Bestsellers</a>
+          <a class="nav-link" href="bestsellers.html">
+            Bestsellers
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="wishlist.html">Wishlist</a>
+          <a class="nav-link" href="wishlist.html">
+            Wishlist
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="guruji.html">Guruji</a>
+          <a class="nav-link" href="guruji.html">
+            Guruji
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="cart.html">Cart</a>
+          <a class="nav-link" href="cart.html">
+            Cart
+          </a>
         </li>
 
       </ul>
 
     </div>
+
   </div>
+
 </nav>
 
 
@@ -354,11 +401,22 @@
 
   <div class="container">
 
-    <h1 class="guruji-title text-center">
-      Nirmal Guruji
-    </h1>
 
-    <div class="title-line"></div>
+    <!-- ELEGANT PAGE HEADING -->
+
+    <div class="guruji-heading text-center">
+
+      <p class="guruji-heading-small">
+        WITH GRATITUDE &amp; DEVOTION
+      </p>
+
+      <h1>
+        Nirmal Guruji
+      </h1>
+
+      <div class="title-line"></div>
+
+    </div>
 
 
     <!-- GURUJI INTRO -->
@@ -376,6 +434,7 @@
       </div>
 
       <p class="guruji-intro-text">
+
         <em>
           Nirmal Guruji’s blessings and spiritual guidance are at the heart
           of our business. Through his grace and sacred Chola sets,
@@ -383,6 +442,7 @@
           His devotion to humility, compassion, and unity continues to guide
           us in everything we create.
         </em>
+
       </p>
 
     </section>
@@ -428,7 +488,7 @@
     </section>
 
 
-    <!-- FACTS -->
+    <!-- FACTS AND FOLLOWERS -->
 
     <section class="guruji-section facts-section">
 
@@ -438,38 +498,74 @@
 
       <div class="facts-grid">
 
-        <div class="fact-box">
-          <div class="fact-label">Birth Year</div>
-          <div class="fact-value">1952</div>
-        </div>
 
         <div class="fact-box">
-          <div class="fact-label">Death Year</div>
-          <div class="fact-value">2007</div>
+
+          <div class="fact-label">
+            Birth Year
+          </div>
+
+          <div class="fact-value">
+            1952
+          </div>
+
         </div>
 
+
         <div class="fact-box">
-          <div class="fact-label">Followers</div>
+
+          <div class="fact-label">
+            Death Year
+          </div>
+
+          <div class="fact-value">
+            2007
+          </div>
+
+        </div>
+
+
+        <div class="fact-box">
+
+          <div class="fact-label">
+            Followers
+          </div>
+
           <div class="fact-value">
             estimated in hundreds of thousands
           </div>
+
         </div>
 
+
         <div class="fact-box">
-          <div class="fact-label">Countries</div>
+
+          <div class="fact-label">
+            Countries
+          </div>
+
           <div class="fact-value">
             India, United States, UK, Canada
           </div>
+
         </div>
 
+
         <div class="fact-box">
-          <div class="fact-label">Focus</div>
+
+          <div class="fact-label">
+            Focus
+          </div>
+
           <div class="fact-value">
             spiritual teachings, meditation, Chola sets blessings, satsangs
           </div>
+
         </div>
 
+
       </div>
+
 
       <div class="guruji-final-text">
 
