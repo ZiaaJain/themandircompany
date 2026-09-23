@@ -79,6 +79,18 @@
       font-weight: 500;
       font-size: 0.95rem;
     }
+
+    .btn-remove-cart {
+      background-color: #FF8E88;
+      color: white;
+      border: 1px solid #FF8E88;
+    }
+
+    .btn-remove-cart:hover {
+      background-color: #FF8E88;
+      color: white;
+      border-color: #FF8E88;
+    }
   </style>
 </head>
 
@@ -259,7 +271,7 @@ function renderCartUI() {
   if (cartObj[String(id)]) {
     qtyInput.value = cartObj[String(id)];
     cartBtn.innerText = "🗑️ Remove from Cart";
-    cartBtn.className = "btn btn-outline-danger px-4 py-2";
+    cartBtn.className = "btn btn-remove-cart px-4 py-2";
   } else {
     cartBtn.innerText = "🛒 Add to Cart";
     cartBtn.className = "btn btn-custom-cart px-4 py-2";
