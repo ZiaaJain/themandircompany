@@ -2,346 +2,1105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Wishlist | The Mandir Company</title>
+  <title>My Wishlist | The Mandir Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="theme-color" content="#fff6ea">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
-  
   <style>
+    /* ==============================
+       GENERAL
+    ============================== */
+    :root {
+      --cream: #fff6ea;
+      --cream-light: #fffaf5;
+      --rose: #c4a092;
+      --rose-dark: #a37d6f;
+      --text: #80655c;
+      --white: #ffffff;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
-      background-color: #fff6ea;
       margin: 0;
       padding: 0;
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: Arial, sans-serif;
     }
-
-    /* Custom Light Grey Navbar Styling with Thinner Font */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: var(--rose);
+    }
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* ==============================
+       NAVBAR
+    ============================== */
     .custom-navbar {
       background-color: #f8f9fa !important;
+      box-shadow: 0 2px 15px rgba(196,160,146,0.08);
     }
-
     .custom-navbar .navbar-brand,
     .custom-navbar .nav-link {
-      color: #c4a092 !important;
+      color: var(--rose) !important;
       font-weight: 400 !important;
     }
-
+    .custom-navbar .nav-link {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
     .custom-navbar .nav-link:hover {
-      color: #a37d6f !important;
+      color: var(--rose-dark) !important;
     }
-
-    /* Mobile Hamburger Icon Styling */
     .custom-navbar .navbar-toggler {
-      border-color: #c4a092;
+      border-color: var(--rose);
+      padding: 7px 9px;
     }
-
+    .custom-navbar .navbar-toggler:focus {
+      box-shadow: 0 0 0 3px rgba(196,160,146,0.15);
+    }
     .custom-navbar .navbar-toggler-icon {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
-
+    /* ==============================
+       PAGE
+    ============================== */
     .page-content {
-      background-color: #fff6ea;
-      min-height: calc(100vh - 120px);
-      padding: 40px 0;
+      min-height: calc(100vh - 180px);
+      padding: 45px 15px 70px;
     }
-
-    h1, h2, h3, h4, h5, h6, p {
-      color: #c4a092;
-    }
-
-    /* Uniform Card Styling matching Bestsellers */
-    .wishlist-card {
-      background: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .wishlist-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 6px;
+    .wishlist-heading {
+      text-align: center;
       margin-bottom: 12px;
     }
-
-    .wishlist-card h6 {
-      color: #c4a092;
+    .wishlist-heading h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 8px;
+    }
+    .wishlist-subtitle {
+      color: var(--text);
+      font-size: 15px;
+      margin-bottom: 22px;
+    }
+    .divider {
+      width: 55px;
+      height: 2px;
+      background-color: var(--rose);
+      margin: 18px auto 20px;
+      border-radius: 5px;
+    }
+    /* ==============================
+       WISHLIST COUNT
+    ============================== */
+    .wishlist-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(196,160,146,0.12);
+      color: var(--rose-dark);
+      border-radius: 30px;
+      padding: 7px 15px;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+    /* ==============================
+       ACTION BAR
+    ============================== */
+    .wishlist-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .btn-wishlist {
+      min-height: 44px;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 14px;
       font-weight: 600;
-      min-height: 2.5rem;
+      transition: all 0.25s ease;
+    }
+    .btn-share {
+      background-color: white;
+      border: 1px solid var(--rose);
+      color: var(--rose);
+    }
+    .btn-share:hover,
+    .btn-share:focus {
+      background-color: var(--rose);
+      color: white;
+    }
+    /* ==============================
+       PRODUCT CARDS
+    ============================== */
+    .wishlist-card-wrapper {
+      margin-bottom: 20px;
+    }
+    .wishlist-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 12px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 18px rgba(196,160,146,0.10);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
+    }
+    .wishlist-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 9px 25px rgba(196,160,146,0.16);
+    }
+    .product-image-link {
+      display: block;
+      position: relative;
+      text-decoration: none;
+    }
+    .wishlist-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background-color: #f8f2ed;
+    }
+    .heart-badge {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .product-info {
+      padding: 12px 5px 5px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .wishlist-card h6 {
+      color: var(--rose);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.4;
+      margin-bottom: 7px;
+      min-height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
-    .wishlist-card p {
-      color: #c4a092;
-      font-weight: bold;
-      margin-bottom: 10px;
+    .wishlist-card .price {
+      color: var(--rose-dark);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
-
-    /* Move to Cart Button Styling */
+    /* ==============================
+       CARD BUTTONS
+    ============================== */
+    .card-actions {
+      margin-top: auto;
+    }
+    .btn-move-cart,
+    .btn-remove {
+      width: 100%;
+      min-height: 43px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 7px;
+    }
     .btn-move-cart {
-      background-color: #c4a092;
+      background-color: var(--rose);
       color: white;
-      font-weight: 600;
-      border: none;
+      border: 1px solid var(--rose);
     }
-
-    .btn-move-cart:hover {
-      background-color: #b08b7d;
+    .btn-move-cart:hover,
+    .btn-move-cart:focus {
+      background-color: var(--rose-dark);
+      border-color: var(--rose-dark);
       color: white;
     }
-
-    /* EMPTY WISHLIST BOX (Matching cart.html) */
+    .btn-remove {
+      background-color: transparent;
+      color: #a58b83;
+      border: 1px solid #eadbd5;
+    }
+    .btn-remove:hover,
+    .btn-remove:focus {
+      background-color: #faf1ee;
+      color: #956f63;
+      border-color: #d8bbb0;
+    }
+    /* ==============================
+       EMPTY WISHLIST
+    ============================== */
     .empty-wishlist-box {
-      background: white;
-      border-radius: 12px;
-      padding: 40px 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-      margin-bottom: 20px;
+      max-width: 650px;
+      margin: 10px auto 0;
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(196,160,146,0.13),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff,
+          #fffaf6
+        );
+      border-radius: 24px;
+      padding: 55px 25px 50px;
+      box-shadow: 0 8px 30px rgba(196,160,146,0.12);
+      border: 1px solid rgba(196,160,146,0.10);
+      position: relative;
+      overflow: hidden;
     }
-
+    .empty-wishlist-box::before {
+      content: "✦";
+      position: absolute;
+      top: 18px;
+      left: 25px;
+      color: rgba(196,160,146,0.35);
+      font-size: 22px;
+    }
+    .empty-wishlist-box::after {
+      content: "✦";
+      position: absolute;
+      bottom: 18px;
+      right: 28px;
+      color: rgba(196,160,146,0.35);
+      font-size: 18px;
+    }
     .empty-wishlist-icon {
-      font-size: 3.5rem;
-      margin-bottom: 15px;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      background: #fff1eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      box-shadow: 0 4px 15px rgba(196,160,146,0.12);
     }
-
-    .btn-explore {
-      background-color: #c4a092;
-      color: white;
+    .empty-wishlist-box h2 {
+      font-size: 27px;
       font-weight: 600;
-      border: none;
+      margin-bottom: 12px;
     }
-
-    .btn-explore:hover {
-      background-color: #b08b7d;
+    .empty-wishlist-box p {
+      max-width: 480px;
+      margin: 0 auto 25px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .empty-wishlist-note {
+      font-size: 13px !important;
+      color: #a58b83 !important;
+      margin-top: 16px !important;
+      margin-bottom: 0 !important;
+    }
+    .btn-explore {
+      background-color: var(--rose);
       color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 27px;
+      min-height: 46px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s ease;
+    }
+    .btn-explore:hover,
+    .btn-explore:focus {
+      background-color: var(--rose-dark);
+      color: white;
+      transform: translateY(-2px);
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 11px 24px;
+      border-radius: 30px;
+      border: 1px solid #d8c0b7;
+      color: var(--rose-dark);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    .btn-home:hover {
+      background-color: #fff;
+      color: var(--rose-dark);
+    }
+    /* ==============================
+       FOOTER
+    ============================== */
+    footer {
+      background-color: #f8f9fa;
+      color: var(--rose);
+      padding: 28px 15px;
+    }
+    footer p {
+      margin: 4px 0;
+      font-size: 13px;
+    }
+    /* ==============================
+       MOBILE
+    ============================== */
+    @media (max-width: 576px) {
+      .page-content {
+        padding: 32px 10px 55px;
+      }
+      .wishlist-heading h1 {
+        font-size: 29px;
+      }
+      .wishlist-subtitle {
+        font-size: 14px;
+      }
+      .wishlist-actions {
+        margin-bottom: 22px;
+      }
+      .btn-wishlist {
+        width: 100%;
+        max-width: 280px;
+      }
+      .wishlist-card {
+        padding: 9px;
+        border-radius: 13px;
+      }
+      .wishlist-card h6 {
+        font-size: 13px;
+        min-height: 38px;
+      }
+      .wishlist-card .price {
+        font-size: 14px;
+      }
+      .btn-move-cart,
+      .btn-remove {
+        font-size: 12px;
+        min-height: 41px;
+      }
+      .empty-wishlist-box {
+        padding: 45px 20px 40px;
+        border-radius: 20px;
+      }
+      .empty-wishlist-box h2 {
+        font-size: 24px;
+      }
+      .btn-explore,
+      .btn-home {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+    /* ==============================
+       TABLET / DESKTOP
+    ============================== */
+    @media (min-width: 768px) {
+      .wishlist-card img {
+        aspect-ratio: 1 / 1;
+      }
     }
   </style>
 </head>
-
 <body>
-
-<!-- NAVBAR -->
+<!-- ==============================
+     NAVBAR
+============================== -->
 <nav class="navbar navbar-expand-lg custom-navbar">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="index.html">
-      <img src="images/The Mandir Company.jpeg" alt="The Mandir Company Logo" width="40" height="40" class="d-inline-block align-text-top me-2" style="object-fit: contain;">
-      The Mandir Company
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="bestsellers.html">Bestsellers</a></li>
-        <li class="nav-item"><a class="nav-link" href="wishlist.html">Wishlist</a></li> 
-        <li class="nav-item"><a class="nav-link" href="guruji.html">Guruji</a></li> 
-        <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
-      </ul>
-    </div>
+<a class="navbar-brand d-flex align-items-center" href="index.html">
+  <img
+    src="images/The Mandir Company.jpeg"
+    alt="The Mandir Company Logo"
+    width="40"
+    height="40"
+    class="d-inline-block align-text-top me-2"
+    style="object-fit: contain;">
+  The Mandir Company
+</a>
+<button
+  class="navbar-toggler"
+  type="button"
+  data-bs-toggle="collapse"
+  data-bs-target="#navbarNav"
+  aria-controls="navbarNav"
+  aria-expanded="false"
+  aria-label="Open navigation menu">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav ms-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="index.html">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="about.html">About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="bestsellers.html">Bestsellers</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="wishlist.html" aria-current="page">
+        Wishlist ❤️
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="guruji.html">Guruji</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="cart.html">Cart</a>
+    </li>
+  </ul>
+</div>
   </div>
 </nav>
-
-<!-- MAIN CONTENT -->
-<div class="page-content">
+<!-- ==============================
+     MAIN CONTENT
+============================== -->
+<main class="page-content">
   <section class="container">
-
-    <h2 class="fw-bold mb-4 text-center">My Wishlist ❤️</h2>
-
-    <!-- SHARE BUTTON CONTAINER -->
-    <div id="share-container" class="text-center mb-4">
-      <button class="btn btn-outline-secondary" onclick="shareWishlist()">
-        Share Wishlist 💬
-      </button>
-    </div>
-
-    <!-- EMPTY WISHLIST CONTAINER (Matches cart.html layout) -->
-    <div id="empty-wishlist-wrapper" class="text-center" style="display: none;">
-      <div class="empty-wishlist-box">
-        <div class="empty-wishlist-icon">❤️</div>
-        <h3 class="fw-bold mb-2">Your Wishlist is Empty</h3>
-        <p class="mb-4">Looks like you haven't saved any items to your wishlist yet.</p>
-        <a href="bestsellers.html" class="btn btn-explore px-4 py-2 fs-6">
-          Explore Products →
-        </a>
-      </div>
-    </div>
-
-    <!-- WISHLIST ITEMS CONTAINER -->
-    <div id="wishlist-container" class="row"></div>
-
-  </section>
+<!-- HEADING -->
+<div class="wishlist-heading">
+  <h1>My Wishlist ♡</h1>
+  <div class="divider"></div>
+  <p class="wishlist-subtitle">
+    Save the pieces you love and come back to them anytime.
+  </p>
+  <div id="wishlist-count" class="wishlist-count">
+    0 items saved
+  </div>
 </div>
-
-<!-- FOOTER -->
-<footer class="text-center py-4 bg-light">
-  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
+<!-- ACTIONS -->
+<div
+  id="share-container"
+  class="wishlist-actions"
+  style="display:none;">
+  <button
+    type="button"
+    class="btn btn-wishlist btn-share"
+    onclick="shareWishlist()">
+    ♡ Share My Wishlist
+  </button>
+</div>
+<!-- ==============================
+     EMPTY WISHLIST
+============================== -->
+<div
+  id="empty-wishlist-wrapper"
+  class="text-center"
+  style="display:none;">
+  <div class="empty-wishlist-box">
+    <div class="empty-wishlist-icon">
+      ♡
+    </div>
+    <h2>
+      Your Wishlist is Waiting
+    </h2>
+    <p>
+      You haven't saved anything yet.
+      Take your time, explore our collection,
+      and save the pieces that make your heart happy.
+    </p>
+    <div>
+      <a
+        href="bestsellers.html"
+        class="btn-explore">
+        Explore Our Collection&nbsp; →
+        
+      </a>
+      <a
+        href="index.html"
+        class="btn-home">
+        Back to Home
+      </a>
+    </div>
+    <p class="empty-wishlist-note">
+      ♡ Your saved items will appear here.
+    </p>
+  </div>
+</div>
+<!-- ==============================
+     WISHLIST PRODUCTS
+============================== -->
+<div
+  id="wishlist-container"
+  class="row g-3 g-md-4">
+</div>
+  </section>
+</main>
+<!-- ==============================
+     FOOTER
+============================== -->
+<footer class="text-center">
+  <p>
+    © 2026 The Mandir Company. All rights reserved.
+  </p>
+  <p>
+    Worldwide Shipping • Gifting • Weddings • Bulk Orders
+  </p>
 </footer>
-
-<!-- SCRIPT -->
+<!-- ==============================
+     PRODUCT DATA
+============================== -->
 <script>
 const products = {
-  1:{name:"German Silver Diya",price:"₹1,100",desc:"Luxury meets devotion. This handcrafted German silver diya features intricate peacock detailing, making it a timeless art piece for your mandir or home décor.", img: "images/nakkashi_peacock.jpeg"},
-  2:{name:"Marble & Metal Flower Diya Holder",price:"₹850",desc:"A beautiful round marble base paired with a metal flower design, ideal for tealights or dhoop. Customisation available.", img:"images/metal_flower_om_marblebase.jpeg"},
-  3:{name:"Akhand Diya With Plate",price:"₹575",desc:"German silver Akhand Diya paired with a matching plate for neat daily worship.", img:"images/akhand_diya_wplate_gsilver.jpeg"},
-  4:{name:"German Silver Dibbi",price:"₹185 each",desc:"German silver Nakkashi dibbi ideal for saffron, cardamom or coin packing.", img:"images/german_silver_kesar_box.jpeg"},
-  5:{name:"Marble Tic Tac Toe",price:"₹1,600",desc:"Luxury marble tic-tac-toe board with elegant gold accents.", img:"images/tic_tac_toe.jpeg"},
-  6:{name:"Marble Agarbatti Stand",price:"₹550",desc:"Marble agarbatti stand with brass moon phase detailing.", img:"images/marble_agarbatti.jpeg"},
-  7:{name:"Nakkashi Cup",price:"₹475",desc:"German silver elephant Nakkashi cup for kumkum or prasad.", img:"images/nakkashi_bowl_elephantleg.jpeg"},
-  8:{name:"Elephant Akhand Diya",price:"₹850",desc:"Pure German silver elephant akhand diya with antique finish.", img:"images/elephant_akhand_diya.jpeg"},
-  9:{name:"Om Diya and Bell Set",price:"₹575",desc:"German silver Om diya paired with peacock feather bell.", img:"images/om_akhand_diya.jpeg"},
-  10:{name:"Swastik Diya & Roli Chawal Bowl",price:"₹575",desc:"Antique German silver swastik diya with roli chawal bowls.", img:"images/swastik_akhand_diya_roli.jpeg"},
-  11:{name:"German Silver Pooja Set",price:"₹1,550",desc:"Complete pooja set including thali, diya, bell, bowl and tilak stick.", img:"images/diya_roli_chawal_set.jpeg"},
-  12:{name:"Antique Aarti Stand",price:"₹850",desc:"Exclusive antique German silver aarti stand.", img:"images/nakkashi_diya_strip.jpeg"},
-  13:{name:"Lotus Handle Diya Set",price:"₹1,600",desc:"Heavy lotus handle diya with pink leaf bell.", img:"images/pink_lotus_set.jpeg"},
-  14:{name:"Cow Calf Set",price:"₹250 each",desc:"Engraved German silver tirupati balaji cow.", img:"images/tirupati_cow.jpeg"},
-  15:{name:"German Silver Bell",price:"₹270 each",desc:"Budget-friendly German silver bell.", img:"images/gsilver_bell.jpeg"},
-  16:{name:"Nakkashi Swastik Diya",price:"₹399",desc:"Gold plated Nakkashi Swastik diya.", img:"images/swastik_akhand_diya.jpeg"},
-  17:{name:"Radha Krishna Tilak Set",price:"₹850",desc:"Peacock feather flute tilak stick with roli chawal chopra.", img:"images/radhakrishna_roli_chawal_set.jpeg"},
-  18:{name:"LED Krishna Box Set",price:"₹850 each",desc:"LED Radha Krishna Box with tilak stick and roli chwal chopra.", img:"images/led_krishna_box.jpeg"},
-  19:{name:"Marble Platter with Gold Inlay",price:"₹1,880",desc:"Handcrafted white marble platter with gold inlay.", img:"images/marble_platter.jpeg"},
-  20:{name:"Akhand Diya With Plate Set",price:"₹575",desc:"Daily-use akhand diya with detachable plate.", img:"images/akhand_diya_wplate.jpeg"},
-  21:{name:"Nakkashi Agarbatti/Dhupatti Stand",price:"₹350",desc:"German silver Om engraved agarbatti stand.", img:"images/dhupatti_nakkashi.jpeg"},
-  22:{name:"Agate & Marble Ganesha Stand",price:"₹350",desc:"Ganesha figurines on agate stone and marble base.", img:"images/Ganesha_marble_agate.jpeg"},
-  23:{name:"Nimbu Mirchi Evil Eye",price:"₹650",desc:"German silver evil eye charm for positivity.", img:"images/nimbu_mirchi_german_silver.jpeg"},
-  24:{name:"Buddha Diya Base",price:"₹599",desc:"Polyresin Buddha with marble diya base.", img:"images/buddha.jpeg"},
-  25:{name:"Evil Eye Candle Set",price:"₹675",desc:"Marble evil eye candle set of two.", img:"images/evileye_diya_set.jpeg"},
-  26:{name:"Guruji Chola 1",price:"₹11,000",desc:"Traditional handcrafted Chola cloth for sacred deity adornment.", img:"images/guruji.chola1"},
-  27:{name:"Guruji Chola 2",price:"₹17,000",desc:"Vibrant spiritual Chola piece featuring detailed embellishments.", img:"images/guruji.chola2"},
-  28:{name:"Guruji Chola 3",price:"₹11,000",desc:"Richly textured devotional Chola designed for pooja rituals.", img:"images/guruji.chola3"},
-  29:{name:"Guruji Chola 4",price:"₹10,000",desc:"Premium embroidered sacred fabric for spiritual occasions.", img:"images/guruji.chola4"},
-  30:{name:"Guruji Chola 5",price:"₹14,000",desc:"Elegantly woven Guruji Chola featuring delicate borders.", img:"images/guruji.chola5"},
-  31:{name:"Guruji Chola 6",price:"₹9,999",desc:"Classic ceremonial Chola tailored with traditional gold work.", img:"images/guruji.chola6"},
-  32:{name:"Guruji Chola 7",price:"₹14,000",desc:"Exquisite devotional Chola made with high-quality fabric.", img:"images/guruji.chola7"},
-  33:{name:"Guruji Chola 8",price:"₹11,000",desc:"Decorative Chola designed to add elegance to your shrine.", img:"images/guruji.chola8"},
-  34:{name:"Guruji Chola 9",price:"₹12,000",desc:"Sacred festival Chola for Guruji worship setup.", img:"images/guruji.chola9"},
-  35:{name:"Evil Eye Roli Chawal",price:"₹250 each",desc:"Evil eye themed Roli Chawal container set for traditional rituals.", img:"images/evileye.rolichawal"},
-  36:{name:"Hand Fan",price:"₹250",desc:"Decorative traditional hand fan (Pankha) for deity service.", img:"images/fan"},
-  37:{name:"Flower Candle",price:"₹299 each",desc:"Floral molded candle set for festive lighting and fragrance.", img:"images/flower.candle"},
-  38:{name:"Om Shubh Labh",price:"₹699",desc:"Auspicious Om and Shubh Labh door hanging / altar decor.", img:"images/omshubhlabh"},
-  39:{name:"Pink Toran",price:"₹3,500",desc:"Handmade pink entrance toran for a welcoming, blessed vibe.", img:"images/pinktoran"},
-  40:{name:"Elegant Lotus Toran",price:"₹2,550",desc:"Exquisitely crafted lotus-themed door hanging to bring elegance and traditional charm to your entrance.", img:"images/elegant.lotus.toran"},
-  41:{name:"German Silver Thali Set",price:"₹2,500",desc:"Complete German silver pooja thali set with beautifully crafted ritual essentials.", img:"images/german.silver.thali.set"},
-  42:{name:"Temple Design Shubh Labh",price:"₹450",desc:"Traditional temple-inspired Shubh Labh wall hanging for auspicious blessings.", img:"images/temple.design.shubh.labh."},
-  43:{name:"Studded Torans",price:"₹2,550",desc:"Decorated door toran embellished with intricate stone work and embellishments.", img:"images/studded.torans"}
+  1:{
+    name:"German Silver Diya",
+    price:"₹1,100",
+    desc:"Luxury meets devotion. This handcrafted German silver diya features intricate peacock detailing, making it a timeless art piece for your mandir or home décor.",
+    img:"images/nakkashi_peacock.jpeg"
+  },
+  2:{
+    name:"Marble & Metal Flower Diya Holder",
+    price:"₹850",
+    desc:"A beautiful round marble base paired with a metal flower design, ideal for tealights or dhoop. Customisation available.",
+    img:"images/metal_flower_om_marblebase.jpeg"
+  },
+  3:{
+    name:"Akhand Diya With Plate",
+    price:"₹575",
+    desc:"German silver Akhand Diya paired with a matching plate for neat daily worship.",
+    img:"images/akhand_diya_wplate_gsilver.jpeg"
+  },
+  4:{
+    name:"German Silver Dibbi",
+    price:"₹185 each",
+    desc:"German silver Nakkashi dibbi ideal for saffron, cardamom or coin packing.",
+    img:"images/german_silver_kesar_box.jpeg"
+  },
+  5:{
+    name:"Marble Tic Tac Toe",
+    price:"₹1,600",
+    desc:"Luxury marble tic-tac-toe board with elegant gold accents.",
+    img:"images/tic_tac_toe.jpeg"
+  },
+  6:{
+    name:"Marble Agarbatti Stand",
+    price:"₹550",
+    desc:"Marble agarbatti stand with brass moon phase detailing.",
+    img:"images/marble_agarbatti.jpeg"
+  },
+  7:{
+    name:"Nakkashi Cup",
+    price:"₹475",
+    desc:"German silver elephant Nakkashi cup for kumkum or prasad.",
+    img:"images/nakkashi_bowl_elephantleg.jpeg"
+  },
+  8:{
+    name:"Elephant Akhand Diya",
+    price:"₹850",
+    desc:"Pure German silver elephant akhand diya with antique finish.",
+    img:"images/elephant_akhand_diya.jpeg"
+  },
+  9:{
+    name:"Om Diya and Bell Set",
+    price:"₹575",
+    desc:"German silver Om diya paired with peacock feather bell.",
+    img:"images/om_akhand_diya.jpeg"
+  },
+  10:{
+    name:"Swastik Diya & Roli Chawal Bowl",
+    price:"₹575",
+    desc:"Antique German silver swastik diya with roli chawal bowls.",
+    img:"images/swastik_akhand_diya_roli.jpeg"
+  },
+  11:{
+    name:"German Silver Pooja Set",
+    price:"₹1,550",
+    desc:"Complete pooja set including thali, diya, bell, bowl and tilak stick.",
+    img:"images/diya_roli_chawal_set.jpeg"
+  },
+  12:{
+    name:"Antique Aarti Stand",
+    price:"₹850",
+    desc:"Exclusive antique German silver aarti stand.",
+    img:"images/nakkashi_diya_strip.jpeg"
+  },
+  13:{
+    name:"Lotus Handle Diya Set",
+    price:"₹1,600",
+    desc:"Heavy lotus handle diya with pink leaf bell.",
+    img:"images/pink_lotus_set.jpeg"
+  },
+  14:{
+    name:"Cow Calf Set",
+    price:"₹250 each",
+    desc:"Engraved German silver Tirupati Balaji cow.",
+    img:"images/tirupati_cow.jpeg"
+  },
+  15:{
+    name:"German Silver Bell",
+    price:"₹270 each",
+    desc:"Budget-friendly German silver bell.",
+    img:"images/gsilver_bell.jpeg"
+  },
+  16:{
+    name:"Nakkashi Swastik Diya",
+    price:"₹399",
+    desc:"Gold plated Nakkashi Swastik diya.",
+    img:"images/swastik_akhand_diya.jpeg"
+  },
+  17:{
+    name:"Radha Krishna Tilak Set",
+    price:"₹850",
+    desc:"Peacock feather flute tilak stick with roli chawal chopra.",
+    img:"images/radhakrishna_roli_chawal_set.jpeg"
+  },
+  18:{
+    name:"LED Krishna Box Set",
+    price:"₹850 each",
+    desc:"LED Radha Krishna Box with tilak stick and roli chawal chopra.",
+    img:"images/led_krishna_box.jpeg"
+  },
+  19:{
+    name:"Marble Platter with Gold Inlay",
+    price:"₹1,880",
+    desc:"Handcrafted white marble platter with gold inlay.",
+    img:"images/marble_platter.jpeg"
+  },
+  20:{
+    name:"Akhand Diya With Plate Set",
+    price:"₹575",
+    desc:"Daily-use akhand diya with detachable plate.",
+    img:"images/akhand_diya_wplate.jpeg"
+  },
+  21:{
+    name:"Nakkashi Agarbatti/Dhupatti Stand",
+    price:"₹350",
+    desc:"German silver Om engraved agarbatti stand.",
+    img:"images/dhupatti_nakkashi.jpeg"
+  },
+  22:{
+    name:"Agate & Marble Ganesha Stand",
+    price:"₹350",
+    desc:"Ganesha figurines on agate stone and marble base.",
+    img:"images/Ganesha_marble_agate.jpeg"
+  },
+  23:{
+    name:"Nimbu Mirchi Evil Eye",
+    price:"₹650",
+    desc:"German silver evil eye charm for positivity.",
+    img:"images/nimbu_mirchi_german_silver.jpeg"
+  },
+  24:{
+    name:"Buddha Diya Base",
+    price:"₹599",
+    desc:"Polyresin Buddha with marble diya base.",
+    img:"images/buddha.jpeg"
+  },
+  25:{
+    name:"Evil Eye Candle Set",
+    price:"₹675",
+    desc:"Marble evil eye candle set of two.",
+    img:"images/evileye_diya_set.jpeg"
+  },
+  26:{
+    name:"Guruji Chola 1",
+    price:"₹11,000",
+    desc:"Traditional handcrafted Chola cloth for sacred deity adornment.",
+    img:"images/guruji.chola1"
+  },
+  27:{
+    name:"Guruji Chola 2",
+    price:"₹17,000",
+    desc:"Vibrant spiritual Chola piece featuring detailed embellishments.",
+    img:"images/guruji.chola2"
+  },
+  28:{
+    name:"Guruji Chola 3",
+    price:"₹11,000",
+    desc:"Richly textured devotional Chola designed for pooja rituals.",
+    img:"images/guruji.chola3"
+  },
+  29:{
+    name:"Guruji Chola 4",
+    price:"₹10,000",
+    desc:"Premium embroidered sacred fabric for spiritual occasions.",
+    img:"images/guruji.chola4"
+  },
+  30:{
+    name:"Guruji Chola 5",
+    price:"₹14,000",
+    desc:"Elegantly woven Guruji Chola featuring delicate borders.",
+    img:"images/guruji.chola5"
+  },
+  31:{
+    name:"Guruji Chola 6",
+    price:"₹9,999",
+    desc:"Classic ceremonial Chola tailored with traditional gold work.",
+    img:"images/guruji.chola6"
+  },
+  32:{
+    name:"Guruji Chola 7",
+    price:"₹14,000",
+    desc:"Exquisite devotional Chola made with high-quality fabric.",
+    img:"images/guruji.chola7"
+  },
+  33:{
+    name:"Guruji Chola 8",
+    price:"₹11,000",
+    desc:"Decorative Chola designed to add elegance to your shrine.",
+    img:"images/guruji.chola8"
+  },
+  34:{
+    name:"Guruji Chola 9",
+    price:"₹12,000",
+    desc:"Sacred festival Chola for Guruji worship setup.",
+    img:"images/guruji.chola9"
+  },
+  35:{
+    name:"Evil Eye Roli Chawal",
+    price:"₹250 each",
+    desc:"Evil eye themed Roli Chawal container set for traditional rituals.",
+    img:"images/evileye.rolichawal"
+  },
+  36:{
+    name:"Hand Fan",
+    price:"₹250",
+    desc:"Decorative traditional hand fan (Pankha) for deity service.",
+    img:"images/fan"
+  },
+  37:{
+    name:"Flower Candle",
+    price:"₹299 each",
+    desc:"Floral molded candle set for festive lighting and fragrance.",
+    img:"images/flower.candle"
+  },
+  38:{
+    name:"Om Shubh Labh",
+    price:"₹699",
+    desc:"Auspicious Om and Shubh Labh door hanging / altar decor.",
+    img:"images/omshubhlabh"
+  },
+  39:{
+    name:"Pink Toran",
+    price:"₹3,500",
+    desc:"Handmade pink entrance toran for a welcoming, blessed vibe.",
+    img:"images/pinktoran"
+  },
+  40:{
+    name:"Elegant Lotus Toran",
+    price:"₹2,550",
+    desc:"Exquisitely crafted lotus-themed door hanging.",
+    img:"images/elegant.lotus.toran"
+  },
+  41:{
+    name:"German Silver Thali Set",
+    price:"₹2,500",
+    desc:"Complete German silver pooja thali set.",
+    img:"images/german.silver.thali.set"
+  },
+  42:{
+    name:"Temple Design Shubh Labh",
+    price:"₹450",
+    desc:"Traditional temple-inspired Shubh Labh wall hanging.",
+    img:"images/temple.design.shubh.labh."
+  },
+  43:{
+    name:"Studded Torans",
+    price:"₹2,550",
+    desc:"Decorated door toran embellished with intricate stone work.",
+    img:"images/studded.torans"
+  }
 };
-
-// RENDER WISHLIST ITEMS
+/* ==============================
+   DISPLAY WISHLIST
+============================== */
 function displayWishlist() {
-  const container = document.getElementById("wishlist-container");
-  const emptyWrapper = document.getElementById("empty-wishlist-wrapper");
-  const shareContainer = document.getElementById("share-container");
-  
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const container =
+    document.getElementById("wishlist-container");
+  const emptyWrapper =
+    document.getElementById("empty-wishlist-wrapper");
+  const shareContainer =
+    document.getElementById("share-container");
+  const countElement =
+    document.getElementById("wishlist-count");
+  let wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
   wishlist = wishlist.map(String);
-
   container.innerHTML = "";
-
-  if (wishlist.length === 0) {
+  /* Remove invalid product IDs */
+  wishlist = wishlist.filter(id => products[id]);
+  /* Save cleaned wishlist */
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(wishlist)
+  );
+  /* Update count */
+  const count = wishlist.length;
+  countElement.textContent =
+    count === 0
+      ? "0 items saved"
+      : count === 1
+        ? "1 item saved"
+        : `${count} items saved`;
+  /* EMPTY */
+  if (count === 0) {
     emptyWrapper.style.display = "block";
     shareContainer.style.display = "none";
     return;
   }
-
+  /* HAS ITEMS */
   emptyWrapper.style.display = "none";
-  shareContainer.style.display = "block";
-
+  shareContainer.style.display = "flex";
   wishlist.forEach(id => {
-    if (products[id]) {
-      const item = products[id];
-      const cardHtml = `
-        <div class="col-6 col-md-4 col-lg-3 mb-4" id="item-${id}">
-          <div class="wishlist-card text-center">
-            <a href="product.html?id=${id}" class="text-decoration-none">
-              <img src="${item.img}" alt="${item.name}">
-              <h6>${item.name}</h6>
-              <p>${item.price}</p>
-            </a>
-            <button class="btn btn-sm btn-move-cart mt-auto mb-2" onclick="moveToCart('${id}')">Move to Cart 🛒</button>
-            <button class="btn btn-sm btn-outline-danger" onclick="removeFromWishlist('${id}')">Remove 🗑️</button>
+    const item = products[id];
+    const card = document.createElement("div");
+    card.className =
+      "col-6 col-md-4 col-lg-3 wishlist-card-wrapper";
+    card.id = `item-${id}`;
+    card.innerHTML = `
+      <div class="wishlist-card">
+        <a
+          href="product.html?id=${id}"
+          class="product-image-link"
+          aria-label="View ${item.name}">
+          <img
+            src="${item.img}"
+            alt="${item.name}"
+            loading="lazy"
+            onerror="this.style.display='none';">
+          <span
+            class="heart-badge"
+            aria-hidden="true">
+            ♥
+          </span>
+        </a>
+        <div class="product-info">
+          <h6>
+            ${item.name}
+          </h6>
+          <div class="price">
+            ${item.price}
+          </div>
+          <div class="card-actions">
+            <button
+              type="button"
+              class="btn btn-move-cart"
+              onclick="moveToCart('${id}')"
+              aria-label="Move ${item.name} to cart">
+              Add to Cart 🛒
+            </button>
+            <button
+              type="button"
+              class="btn btn-remove"
+              onclick="removeFromWishlist('${id}')"
+              aria-label="Remove ${item.name} from wishlist">
+              Remove ♡
+            </button>
           </div>
         </div>
-      `;
-      container.innerHTML += cardHtml;
-    }
+      </div>
+    `;
+    container.appendChild(card);
   });
 }
-
-// MOVE ITEM FROM WISHLIST TO CART
+/* ==============================
+   MOVE TO CART
+============================== */
 function moveToCart(id) {
-  let rawCart = localStorage.getItem("cart");
+  let rawCart =
+    localStorage.getItem("cart");
   let cartObj = {};
-
   if (rawCart) {
     try {
-      let parsed = JSON.parse(rawCart);
+      const parsed =
+        JSON.parse(rawCart);
       if (Array.isArray(parsed)) {
-        parsed.forEach(itemId => cartObj[String(itemId)] = 1);
+        parsed.forEach(itemId => {
+          cartObj[String(itemId)] = 1;
+        });
       } else {
         cartObj = parsed;
       }
-    } catch (e) {
+    } catch (error) {
       cartObj = {};
     }
   }
-
-  // Increment quantity if item is already in cart, otherwise set to 1
-  cartObj[String(id)] = (parseInt(cartObj[String(id)]) || 0) + 1;
-  localStorage.setItem("cart", JSON.stringify(cartObj));
-
-  // Remove from Wishlist
-  removeFromWishlist(id);
+  cartObj[String(id)] =
+    (parseInt(cartObj[String(id)]) || 0) + 1;
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cartObj)
+  );
+  removeFromWishlist(
+    id,
+    false
+  );
+  /* Small confirmation */
+  showMessage(
+    "Added to your cart 🛒"
+  );
 }
-
-// REMOVE ITEM FROM WISHLIST
-function removeFromWishlist(id) {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  wishlist = wishlist.filter(item => String(item) !== String(id));
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  displayWishlist();
-}
-
-// SHARE WISHLIST FUNCTIONALITY WITH PRODUCT LINKS
-function shareWishlist() {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  if (wishlist.length === 0) {
-    alert("Your wishlist is empty!");
+/* ==============================
+   REMOVE FROM WISHLIST
+============================== */
+function removeFromWishlist(
+  id,
+  askConfirmation = true
+) {
+  if (
+    askConfirmation &&
+    !confirm("Remove this item from your wishlist?")
+  ) {
     return;
   }
-
-  const baseUrl = window.location.origin + window.location.pathname.replace("wishlist.html", "product.html");
-
-  let shareText = "Check out my wishlist from The Mandir Company:\n\n";
+  let wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishlist =
+    wishlist.filter(
+      item => String(item) !== String(id)
+    );
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(wishlist)
+  );
+  displayWishlist();
+}
+/* ==============================
+   SHARE WISHLIST
+============================== */
+async function shareWishlist() {
+  let wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishlist =
+    wishlist
+      .map(String)
+      .filter(id => products[id]);
+  if (wishlist.length === 0) {
+    showMessage(
+      "Your wishlist is empty."
+    );
+    return;
+  }
+  const baseUrl =
+    window.location.origin +
+    window.location.pathname
+      .replace("wishlist.html", "product.html");
+  let shareText =
+    "My Wishlist | The Mandir Company\n\n";
   shareText += wishlist
-    .filter(id => products[id])
-    .map(id => `• ${products[id].name}\nLink: ${baseUrl}?id=${id}`)
+    .map(id => {
+      return (
+        "♡ " +
+        products[id].name +
+        "\n" +
+        baseUrl +
+        "?id=" +
+        id
+      );
+    })
     .join("\n\n");
-
   if (navigator.share) {
-    navigator.share({
-      title: 'My Wishlist | The Mandir Company',
-      text: shareText,
-    }).catch(console.error);
+    try {
+      await navigator.share({
+        title:
+          "My Wishlist | The Mandir Company",
+        text:
+          shareText
+      });
+    } catch (error) {
+      /* User cancelled share */
+    }
   } else {
-    navigator.clipboard.writeText(shareText);
-    alert("Wishlist items and links copied to clipboard!");
+    try {
+      await navigator.clipboard.writeText(
+        shareText
+      );
+      showMessage(
+        "Wishlist copied to clipboard!"
+      );
+    } catch (error) {
+      alert(
+        "Unable to copy wishlist."
+      );
+    }
   }
 }
-
-// INITIALIZE ON LOAD
-document.addEventListener("DOMContentLoaded", displayWishlist);
+/* ==============================
+   SMALL MESSAGE
+============================== */
+function showMessage(message) {
+  const existing =
+    document.getElementById(
+      "wishlist-toast"
+    );
+  if (existing) {
+    existing.remove();
+  }
+  const toast =
+    document.createElement("div");
+  toast.id =
+    "wishlist-toast";
+  toast.textContent =
+    message;
+  toast.style.position =
+    "fixed";
+  toast.style.bottom =
+    "25px";
+  toast.style.left =
+    "50%";
+  toast.style.transform =
+    "translateX(-50%)";
+  toast.style.background =
+    "#c4a092";
+  toast.style.color =
+    "#ffffff";
+  toast.style.padding =
+    "12px 22px";
+  toast.style.borderRadius =
+    "30px";
+  toast.style.fontSize =
+    "14px";
+  toast.style.fontWeight =
+    "600";
+  toast.style.zIndex =
+    "9999";
+  toast.style.boxShadow =
+    "0 5px 20px rgba(0,0,0,0.15)";
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+  }, 2500);
+}
+/* ==============================
+   INITIALIZE
+============================== */
+document.addEventListener(
+  "DOMContentLoaded",
+  displayWishlist
+);
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
