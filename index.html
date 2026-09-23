@@ -9,332 +9,337 @@
   <link href="styles.css" rel="stylesheet">
 
   <style>
-
     /* =========================
-       BASE
-    ========================= */
+       THE MANDIR COMPANY THEME
+       ========================= */
 
     body {
-      background-color: #fff6ea;
       margin: 0;
-      padding: 0;
+      background-color: #fff6ea;
       color: #c4a092;
+      font-family: "Helvetica Neue", Arial, sans-serif;
     }
-
-    h1, h2, h3, p {
-      color: #c4a092;
-    }
-
 
     /* =========================
        NAVBAR
-    ========================= */
+       ========================= */
 
     .custom-navbar {
       background-color: #f8f9fa !important;
-      border-bottom: 1px solid rgba(196, 160, 146, 0.15);
+      border-bottom: 1px solid rgba(196, 160, 146, 0.12);
     }
 
     .custom-navbar .navbar-brand,
     .custom-navbar .nav-link {
       color: #c4a092 !important;
       font-weight: 400 !important;
+      letter-spacing: 0.2px;
+    }
+
+    .custom-navbar .nav-link {
+      margin-left: 8px;
+      transition: color 0.3s ease;
     }
 
     .custom-navbar .nav-link:hover {
       color: #a37d6f !important;
     }
 
-    .custom-navbar .navbar-brand {
-      letter-spacing: 0.3px;
-    }
-
-    .custom-navbar .nav-link {
-      padding: 12px 15px;
-    }
-
     .custom-navbar .navbar-toggler {
       border-color: #c4a092;
+      box-shadow: none !important;
     }
 
     .custom-navbar .navbar-toggler-icon {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
 
+    .navbar-brand img {
+      object-fit: contain;
+      border-radius: 50%;
+    }
 
     /* =========================
-       MAIN HERO
-    ========================= */
+       MAIN EDITORIAL SECTION
+       ========================= */
 
-    .home-section {
-      min-height: calc(100vh - 75px);
+    .editorial-home {
+      min-height: calc(100vh - 72px);
+      padding: 70px 0 55px;
       display: flex;
       align-items: center;
-      padding: 80px 0;
     }
 
-    .home-container {
-      max-width: 1150px;
-      margin: auto;
+    .editorial-container {
+      max-width: 1180px;
     }
 
-
-    /* =========================
-       LEFT SIDE
-    ========================= */
-
-    .welcome-small {
-      color: #a37d6f;
-      font-size: 0.78rem;
+    .intro-label {
+      font-size: 11px;
       letter-spacing: 4px;
       text-transform: uppercase;
-      margin-bottom: 22px;
-    }
-
-    .main-title {
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 300;
-      line-height: 1.08;
-      letter-spacing: -1px;
       color: #a37d6f;
-      margin-bottom: 28px;
+      margin-bottom: 25px;
     }
 
-    .main-title span {
+    .main-heading {
+      font-size: clamp(48px, 6vw, 82px);
+      line-height: 1.02;
+      font-weight: 300;
+      letter-spacing: -2px;
       color: #c4a092;
-      font-weight: 400;
+      margin: 0;
     }
 
-    .title-line {
-      width: 55px;
+    .heading-accent {
+      display: block;
+      font-size: clamp(19px, 2vw, 27px);
+      font-weight: 300;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-top: 25px;
+      color: #a37d6f;
+    }
+
+    .soft-line {
+      width: 90px;
       height: 1px;
       background-color: #c4a092;
-      margin-bottom: 28px;
+      opacity: 0.45;
+      margin: 32px 0;
     }
 
-    .intro-text {
-      max-width: 580px;
-      font-size: 1.08rem;
-      line-height: 1.95;
+    .brand-description {
+      max-width: 560px;
+      font-size: 17px;
+      line-height: 1.9;
+      font-weight: 300;
       color: #c4a092;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
-
-
-    /* =========================
-       BUSINESS INFORMATION
-    ========================= */
 
     .business-text {
-      max-width: 570px;
-      color: #c4a092;
-      font-size: 0.98rem;
+      font-size: 14px;
       line-height: 1.9;
+      color: #a37d6f;
+      font-weight: 300;
     }
 
     .business-text strong {
-      color: #a37d6f;
-      font-weight: 500;
+      font-weight: 400;
+      color: #9c7466;
     }
 
-
     /* =========================
-       RIGHT SIDE
-    ========================= */
+       LOGO AREA
+       ========================= */
 
-    .brand-visual {
-      position: relative;
+    .logo-area {
       min-height: 480px;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
-    .visual-circle {
-      width: 390px;
-      height: 390px;
+    .logo-frame {
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(196, 160, 146, 0.35);
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.55);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 15px 45px rgba(120, 85, 65, 0.06);
+      position: relative;
     }
 
-    .brand-logo-large {
-      width: 210px;
-      height: 210px;
-      object-fit: contain;
-    }
-
-    .decorative-ring {
+    .logo-frame::before {
+      content: "";
       position: absolute;
-      width: 430px;
-      height: 430px;
-      border: 1px solid rgba(196, 160, 146, 0.28);
+      width: 315px;
+      height: 315px;
+      border: 1px solid rgba(196, 160, 146, 0.18);
       border-radius: 50%;
     }
 
+    .main-logo {
+      width: 245px;
+      height: 245px;
+      object-fit: contain;
+      border-radius: 50%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .floating-word {
+      position: absolute;
+      bottom: 12px;
+      right: 8px;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #a37d6f;
+      background-color: #fff6ea;
+      padding: 8px 12px;
+    }
 
     /* =========================
        SHIPPING
-    ========================= */
+       ========================= */
 
-    .shipping {
-      margin-top: 42px;
-      padding-top: 22px;
-      border-top: 1px solid rgba(196, 160, 146, 0.3);
-      max-width: 570px;
+    .shipping-section {
+      margin-top: 50px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(196, 160, 146, 0.25);
+      max-width: 560px;
     }
 
     .shipping-title {
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      font-weight: 400;
       color: #a37d6f;
-      font-size: 0.82rem;
-      letter-spacing: 2px;
-      font-weight: 500;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .shipping-text {
-      color: #c4a092;
-      font-size: 0.92rem;
+      font-size: 13px;
       line-height: 1.7;
+      color: #c4a092;
+      font-weight: 300;
       margin: 0;
     }
-
 
     /* =========================
        FOOTER
-    ========================= */
+       ========================= */
 
     footer {
       background-color: #f8f9fa !important;
-      border-top: 1px solid rgba(196, 160, 146, 0.15);
+      border-top: 1px solid rgba(196, 160, 146, 0.12);
     }
 
     footer p {
+      color: #c4a092 !important;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.5px;
       margin: 0;
-      font-size: 0.85rem;
-      color: #c4a092;
     }
-
-
-    /* =========================
-       TABLET
-    ========================= */
-
-    @media (max-width: 991px) {
-
-      .home-section {
-        padding: 65px 25px;
-      }
-
-      .brand-visual {
-        min-height: 400px;
-        margin-top: 30px;
-      }
-
-      .visual-circle {
-        width: 320px;
-        height: 320px;
-      }
-
-      .decorative-ring {
-        width: 355px;
-        height: 355px;
-      }
-
-      .brand-logo-large {
-        width: 175px;
-        height: 175px;
-      }
-    }
-
 
     /* =========================
        MOBILE
-    ========================= */
+       ========================= */
 
-    @media (max-width: 576px) {
+    @media (max-width: 991px) {
 
-      .home-section {
-        padding: 55px 20px;
+      .editorial-home {
+        padding: 55px 20px 45px;
       }
 
-      .welcome-small {
-        font-size: 0.68rem;
-        letter-spacing: 3px;
+      .logo-area {
+        min-height: 380px;
+        margin-top: 20px;
       }
 
-      .main-title {
-        font-size: 2.65rem;
-        letter-spacing: -0.5px;
-      }
-
-      .intro-text {
-        font-size: 0.98rem;
-        line-height: 1.8;
-      }
-
-      .business-text {
-        font-size: 0.92rem;
-      }
-
-      .brand-visual {
-        min-height: 330px;
-        margin-top: 15px;
-      }
-
-      .visual-circle {
-        width: 260px;
-        height: 260px;
-      }
-
-      .decorative-ring {
+      .logo-frame {
         width: 290px;
         height: 290px;
       }
 
-      .brand-logo-large {
-        width: 140px;
-        height: 140px;
+      .logo-frame::before {
+        width: 250px;
+        height: 250px;
       }
 
-      .shipping {
-        margin-top: 35px;
+      .main-logo {
+        width: 195px;
+        height: 195px;
+      }
+
+      .main-heading {
+        letter-spacing: -1px;
       }
     }
 
+    @media (max-width: 576px) {
+
+      .editorial-home {
+        padding: 45px 18px 40px;
+      }
+
+      .intro-label {
+        letter-spacing: 3px;
+        margin-bottom: 18px;
+      }
+
+      .main-heading {
+        font-size: 48px;
+        line-height: 1.05;
+      }
+
+      .heading-accent {
+        font-size: 15px;
+        letter-spacing: 3px;
+      }
+
+      .brand-description {
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .logo-area {
+        min-height: 320px;
+        margin-top: 10px;
+      }
+
+      .logo-frame {
+        width: 245px;
+        height: 245px;
+      }
+
+      .logo-frame::before {
+        width: 210px;
+        height: 210px;
+      }
+
+      .main-logo {
+        width: 165px;
+        height: 165px;
+      }
+
+      .floating-word {
+        font-size: 8px;
+        letter-spacing: 2px;
+        right: -5px;
+      }
+
+      .shipping-section {
+        margin-top: 35px;
+      }
+    }
   </style>
 </head>
 
-
 <body>
-
 
 <!-- =========================
      NAVBAR
-========================= -->
+     ========================= -->
 
 <nav class="navbar navbar-expand-lg custom-navbar">
-
   <div class="container">
 
     <a class="navbar-brand d-flex align-items-center" href="index.html">
-
       <img
         src="images/The Mandir Company.jpeg"
         alt="The Mandir Company Logo"
         width="40"
         height="40"
         class="d-inline-block align-text-top me-2"
-        style="object-fit: contain;"
       >
-
       The Mandir Company
-
     </a>
-
 
     <button
       class="navbar-toggler"
@@ -345,11 +350,8 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-
       <span class="navbar-toggler-icon"></span>
-
     </button>
-
 
     <div class="collapse navbar-collapse" id="navbarNav">
 
@@ -382,81 +384,65 @@
       </ul>
 
     </div>
-
   </div>
-
 </nav>
 
 
 <!-- =========================
-     HOME
-========================= -->
+     NEW HOME LAYOUT
+     ========================= -->
 
-<section class="home-section">
+<section class="editorial-home">
 
-  <div class="container home-container">
+  <div class="container editorial-container">
 
     <div class="row align-items-center g-5">
 
+      <!-- LEFT SIDE -->
 
-      <!-- =========================
-           LEFT CONTENT
-      ========================= -->
+      <div class="col-lg-7">
 
-      <div class="col-lg-6">
-
-        <div class="welcome-small">
-          Welcome
+        <div class="intro-label">
+          The Mandir Company
         </div>
 
-
-        <h1 class="main-title">
-
+        <h1 class="main-heading">
           Welcome to
-
           <br>
-
-          <span>The Mandir Company</span>
-
+          The Mandir
+          <br>
+          Company
         </h1>
 
+        <span class="heading-accent">
+          Tradition · Devotion · Design
+        </span>
 
-        <div class="title-line"></div>
+        <div class="soft-line"></div>
 
-
-        <p class="intro-text">
-
+        <p class="brand-description">
           The Mandir Company creates elegant handcrafted guruji accessories, idols,
           and pooja décor blending tradition with modern design.
-
         </p>
-
 
         <p class="business-text">
-
           We deal with gifting, weddings, bulk orders, corporate orders etc.
-
-          <br><br>
-
+          <br>
           Contact us using Whatsapp on
           <strong>+91 9619918583</strong>
-
           or Instagram on
           <strong>@themandircompany</strong>
-
         </p>
 
-
-        <!-- WORLDWIDE SHIPPING -->
-
-        <div class="shipping">
+        <div class="shipping-section">
 
           <div class="shipping-title">
             🌍 WORLDWIDE SHIPPING
           </div>
 
           <p class="shipping-text">
-            Bringing the essence of tradition and devotion to you, wherever you are in the world.
+            Bringing the essence of tradition and devotion to you,
+            wherever you are in the world.
           </p>
 
         </div>
@@ -464,30 +450,29 @@
       </div>
 
 
-      <!-- =========================
-           RIGHT VISUAL
-      ========================= -->
+      <!-- RIGHT SIDE -->
 
-      <div class="col-lg-6">
+      <div class="col-lg-5">
 
-        <div class="brand-visual">
+        <div class="logo-area">
 
-          <div class="decorative-ring"></div>
-
-          <div class="visual-circle">
+          <div class="logo-frame">
 
             <img
               src="images/The Mandir Company.jpeg"
-              alt="The Mandir Company"
-              class="brand-logo-large"
+              alt="The Mandir Company Logo"
+              class="main-logo"
             >
 
+          </div>
+
+          <div class="floating-word">
+            Made with Sukoon
           </div>
 
         </div>
 
       </div>
-
 
     </div>
 
@@ -498,9 +483,9 @@
 
 <!-- =========================
      FOOTER
-========================= -->
+     ========================= -->
 
-<footer class="text-center py-4 bg-light">
+<footer class="text-center py-4">
 
   <p>
     &copy; 2026 The Mandir Company. All rights reserved.
