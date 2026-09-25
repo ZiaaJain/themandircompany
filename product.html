@@ -544,8 +544,6 @@
   <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
 </footer>
 
-
-<!-- YOUR ORIGINAL SCRIPT — KEEP EXACTLY AS IT IS -->
 <script>
 const products = {
   8:{name:"Elephant Akhand Diya",price:"₹850",desc:"Pure German silver elephant akhand diya with antique finish.", img:"images/elephant_akhand_diya.jpeg"},
@@ -580,6 +578,7 @@ function getCart() {
     if (Array.isArray(parsed)) {
       let obj = {};
       parsed.forEach(itemId => obj[String(itemId)] = 1);
+      localStorage.setItem("cart", JSON.stringify(obj));
       return obj;
     }
     return parsed;
@@ -599,7 +598,8 @@ function updateBadge() {
   for (let key in cartObj) {
     totalCount += parseInt(cartObj[key]) || 0;
   }
-  document.getElementById("cart-count-badge").innerText = totalCount;
+  const badge = document.getElementById("cart-count-badge");
+  if (badge) badge.innerText = totalCount;
 }
 
 function renderCartUI() {
