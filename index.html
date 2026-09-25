@@ -51,7 +51,7 @@
 
     /* HERO */
     .hero {
-      padding: 70px 20px 60px;
+      padding: 60px 20px 45px;
       background: linear-gradient(180deg, #fffaf4 0%, #fff6ea 100%);
     }
     .hero h1 {
@@ -114,54 +114,12 @@
       color: white !important;
     }
 
-    /* CATEGORIES */
-    .categories {
-      padding: 60px 20px;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .section-title h2 {
-      font-size: clamp(26px, 3vw, 36px);
-      font-weight: 500;
-    }
-    .category-card {
-      background: white;
-      border-radius: 16px;
-      padding: 25px 20px;
-      text-align: center;
-      height: 100%;
-      box-shadow: 0 5px 20px rgba(196,160,146,0.10);
-      transition: 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid rgba(196,160,146,0.15);
-    }
-    .category-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 25px rgba(196,160,146,0.18);
-    }
-    .category-icon {
-      font-size: 36px;
-      margin-bottom: 12px;
-    }
-    .category-card h3 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-    .category-card p {
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 15px;
-    }
-
-    /* BESTSELLERS SECTION ON HOME PAGE */
-    .bestsellers-section {
-      padding: 60px 20px;
-      background-color: #fffaf4;
+    /* HIGHLIGHTS / BESTSELLERS SECTION RIGHT AT TOP */
+    .highlights-section {
+      padding: 50px 20px 60px;
+      background-color: #ffffff;
+      border-top: 1px solid rgba(196, 160, 146, 0.15);
+      border-bottom: 1px solid rgba(196, 160, 146, 0.15);
     }
     .product-link {
       display: block;
@@ -170,8 +128,8 @@
     }
     .product-card {
       height: 100%;
-      background-color: white;
-      border: 1px solid rgba(196, 160, 146, 0.2);
+      background-color: #fffaf4;
+      border: 1px solid rgba(196, 160, 146, 0.25);
       border-radius: 12px;
       overflow: hidden;
       display: flex;
@@ -229,10 +187,55 @@
       }
     }
 
+    /* CATEGORIES */
+    .categories {
+      padding: 60px 20px;
+      background-color: #fff6ea;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section-title h2 {
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 500;
+    }
+    .category-card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px 20px;
+      text-align: center;
+      height: 100%;
+      box-shadow: 0 5px 20px rgba(196,160,146,0.10);
+      transition: 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(196,160,146,0.15);
+    }
+    .category-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(196,160,146,0.18);
+    }
+    .category-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+    .category-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .category-card p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
     /* SERVICES */
     .services {
       padding: 60px 20px;
-      background-color: #fff6ea;
+      background-color: #fffaf4;
     }
     .service-box {
       text-align: center;
@@ -255,7 +258,7 @@
     .cta {
       padding: 65px 20px;
       text-align: center;
-      background-color: #fffaf4;
+      background-color: #fff6ea;
     }
     .cta h2 {
       font-size: 30px;
@@ -343,7 +346,7 @@
   ✈️ <strong>Worldwide Shipping Available</strong> — Bringing tradition, devotion & beautiful gifting to your doorstep.
 </div>
 
-<!-- HERO -->
+<!-- HERO BANNER -->
 <section class="hero text-center">
   <div class="container">
     <h1>Welcome to The Mandir Company</h1>
@@ -356,79 +359,16 @@
       idols, festive décor and meaningful gifts — created to bring
       beauty, devotion and warmth into every celebration.
     </p>
-    <div class="mt-4">
-      <a href="#bestsellers" class="btn-mandir">
-        Browse Bestsellers
-      </a>
-      <a href="bestsellers.html" class="btn-outline-mandir">
-        View All Products
-      </a>
-    </div>
   </div>
 </section>
 
-<!-- CATEGORIES -->
-<section class="categories">
+<!-- TOP FEATURED HIGHLIGHTS (RIGHT AT TOP) -->
+<section class="highlights-section">
   <div class="container">
     <div class="section-title">
-      <h2>Explore Our Categories</h2>
+      <h2>Highlights of our Festive Collection</h2>
       <div class="divider"></div>
-      <p>
-        Beautifully chosen pieces for your home, pooja, celebrations and gifting.
-      </p>
-    </div>
-    <div class="row g-4">
-      <div class="col-6 col-md-3">
-        <div class="category-card">
-          <div>
-            <div class="category-icon">🪔</div>
-            <h3>Pooja Essentials</h3>
-            <p>Elegant essentials for your everyday prayers and sacred spaces.</p>
-          </div>
-          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="category-card">
-          <div>
-            <div class="category-icon">✨</div>
-            <h3>Home Décor</h3>
-            <p>Contemporary pieces that bring warmth and serenity to your home.</p>
-          </div>
-          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="category-card">
-          <div>
-            <div class="category-icon">🎁</div>
-            <h3>Gifting</h3>
-            <p>Thoughtful gifts for festivals, weddings and special occasions.</p>
-          </div>
-          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="category-card">
-          <div>
-            <div class="category-icon">🙏</div>
-            <h3>Guruji Collection</h3>
-            <p>Meaningful Guruji accessories and devotional gifts.</p>
-          </div>
-          <a href="guruji.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BESTSELLERS FEATURED ON HOME PAGE -->
-<section id="bestsellers" class="bestsellers-section">
-  <div class="container">
-    <div class="section-title">
-      <h2>Our Featured Bestsellers</h2>
-      <div class="divider"></div>
-      <p>Discover our most-loved pieces handpicked for you.</p>
+      <p>Handpicked bestsellers crafted to elevate your celebrations and sacred spaces.</p>
     </div>
 
     <div class="row g-3 g-md-4">
@@ -493,8 +433,63 @@
       </div>
     </div>
 
-    <div class="text-center mt-5">
-      <a href="bestsellers.html" class="btn-mandir">View All Bestsellers & Collection →</a>
+    <div class="text-center mt-4">
+      <a href="bestsellers.html" class="btn-mandir">View Entire Collection →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="container">
+    <div class="section-title">
+      <h2>Explore Our Categories</h2>
+      <div class="divider"></div>
+      <p>
+        Beautifully chosen pieces for your home, pooja, celebrations and gifting.
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">🪔</div>
+            <h3>Pooja Essentials</h3>
+            <p>Elegant essentials for your everyday prayers and sacred spaces.</p>
+          </div>
+          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">✨</div>
+            <h3>Home Décor</h3>
+            <p>Contemporary pieces that bring warmth and serenity to your home.</p>
+          </div>
+          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">🎁</div>
+            <h3>Gifting</h3>
+            <p>Thoughtful gifts for festivals, weddings and special occasions.</p>
+          </div>
+          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">🙏</div>
+            <h3>Guruji Collection</h3>
+            <p>Meaningful Guruji accessories and devotional gifts.</p>
+          </div>
+          <a href="guruji.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
