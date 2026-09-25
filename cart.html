@@ -320,7 +320,6 @@ function displayCart() {
   const container = document.getElementById("cart-container");
   const emptyWrapper = document.getElementById("empty-cart-wrapper");
   const summarySection = document.getElementById("summary-section");
-  const emptySummarySection = document.getElementById("empty-summary-section");
 
   let cartObj = getCartData();
   let itemIds = Object.keys(cartObj).filter(id => products[id]);
@@ -331,13 +330,11 @@ function displayCart() {
   if (itemIds.length === 0) {
     emptyWrapper.style.display = "block";
     summarySection.style.display = "none";
-    emptySummarySection.style.display = "block";
     return;
   }
 
   emptyWrapper.style.display = "none";
   summarySection.style.display = "block";
-  emptySummarySection.style.display = "none";
 
   itemIds.forEach(id => {
     const item = products[id];
