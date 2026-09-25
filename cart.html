@@ -116,14 +116,15 @@
 
     .btn-checkout {
       background-color: #c4a092;
-      color: white;
+      color: white !important;
       font-weight: 600;
       border: none;
+      transition: 0.3s ease;
     }
 
     .btn-checkout:hover {
       background-color: #b08b7d;
-      color: white;
+      color: white !important;
     }
 
     .empty-cart-box {
@@ -202,9 +203,10 @@
         <div id="cart-container"></div>
       </div>
 
-      <!-- ORDER SUMMARY (RIGHT COLUMN) -->
-      <div class="col-lg-4" id="summary-section">
-        <div class="cart-summary">
+      <!-- ORDER SUMMARY / CONTINUE SHOPPING CARD (RIGHT COLUMN) -->
+      <div class="col-lg-4">
+        <!-- SHOWN WHEN CART HAS ITEMS -->
+        <div class="cart-summary" id="summary-section">
           <h4 class="fw-bold mb-3">Order Summary</h4>
           <hr style="color: #c4a092;">
           
@@ -222,11 +224,21 @@
           
           <div class="d-flex justify-content-between my-3 fs-5 fw-bold">
             <span>Total:</span>
-            <span id="total-val">₹150</span>
+            <span id="total-val">₹0</span>
           </div>
           
           <a href="payment.html" id="checkout-btn" class="btn btn-checkout w-100 py-2 fs-5 mt-2">
             Proceed to Payment →
+          </a>
+        </div>
+
+        <!-- SHOWN WHEN CART IS EMPTY -->
+        <div class="cart-summary text-center" id="empty-summary-section" style="display: none;">
+          <h4 class="fw-bold mb-3">Ready to Shop?</h4>
+          <hr style="color: #c4a092;">
+          <p class="fs-6 mb-4">Discover our handpicked collection of pooja essentials, festive decor, and sacred gifts.</p>
+          <a href="bestsellers.html" class="btn btn-checkout w-100 py-2 fs-6">
+            Continue Shopping →
           </a>
         </div>
       </div>
@@ -304,7 +316,8 @@ function removeFromCart(id) {
 function displayCart() {
   const container = document.getElementById("cart-container");
   const emptyWrapper = document.getElementById("empty-cart-wrapper");
-  const checkoutBtn = document.getElementById("checkout-btn");
+  const summarySection = document.getElementById("summary-section");
+  const emptySummarySection = document.getElementById("empty-summary-section");
 
   let cartObj = getCartData();
   let itemIds = Object.keys(cartObj);
@@ -314,15 +327,14 @@ function displayCart() {
 
   if (itemIds.length === 0) {
     emptyWrapper.style.display = "block";
-    document.getElementById("subtotal-val").innerText = "₹0";
-    document.getElementById("shipping-val").innerText = "₹0";
-    document.getElementById("total-val").innerText = "₹0";
-    checkoutBtn.classList.add("disabled");
+    summarySection.style.display = "none";
+    emptySummarySection.style.display = "block";
     return;
   }
 
   emptyWrapper.style.display = "none";
-  checkoutBtn.classList.remove("disabled");
+  summarySection.style.display = "block";
+  emptySummarySection.style.display = "none";
 
   itemIds.forEach(id => {
     if (products[id]) {
