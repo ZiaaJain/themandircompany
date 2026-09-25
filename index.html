@@ -12,124 +12,132 @@
       color: #c4a092;
       font-family: Arial, sans-serif;
     }
-    h1, h2, h3, p {
+    h1, h2, h3, h4, h5, h6, p {
       color: #c4a092;
     }
+
     /* NAVBAR */
     .custom-navbar {
       background-color: #f8f9fa !important;
       box-shadow: 0 2px 12px rgba(196,160,146,0.08);
+      border-bottom: 1px solid rgba(196, 160, 146, 0.12);
     }
     .custom-navbar .navbar-brand,
     .custom-navbar .nav-link {
       color: #c4a092 !important;
       font-weight: 400 !important;
+      transition: color 0.25s ease;
     }
     .custom-navbar .nav-link:hover {
       color: #a37d6f !important;
     }
     .custom-navbar .navbar-toggler {
       border-color: #c4a092;
+      box-shadow: none !important;
     }
     .custom-navbar .navbar-toggler-icon {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
+
+    /* SHIPPING BANNER */
+    .shipping-banner {
+      background-color: #c4a092;
+      color: white;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 15px;
+      letter-spacing: 0.3px;
+    }
+
     /* HERO */
     .hero {
-      padding: 90px 20px 80px;
-      background: linear-gradient(
-        180deg,
-        #fffaf4 0%,
-        #fff6ea 100%
-      );
+      padding: 70px 20px 60px;
+      background: linear-gradient(180deg, #fffaf4 0%, #fff6ea 100%);
     }
     .hero h1 {
-      font-size: 46px;
+      font-size: clamp(32px, 4vw, 48px);
       font-weight: 500;
       letter-spacing: 1px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .hero .tagline {
-      font-size: 21px;
-      line-height: 1.7;
+      font-size: 20px;
+      line-height: 1.6;
       max-width: 750px;
       margin: auto;
     }
     .hero-description {
-      max-width: 700px;
-      margin: 20px auto;
+      max-width: 680px;
+      margin: 15px auto 25px;
       font-size: 16px;
-      line-height: 1.8;
+      line-height: 1.7;
     }
     .divider {
       width: 60px;
       height: 2px;
       background-color: #c4a092;
-      margin: 25px auto;
+      margin: 20px auto;
+      opacity: 0.7;
     }
+
     /* BUTTONS */
     .btn-mandir {
       background-color: #c4a092;
-      color: white;
+      color: white !important;
       border-radius: 30px;
       padding: 12px 28px;
       border: none;
       text-decoration: none;
       display: inline-block;
-      margin: 8px;
+      margin: 6px;
+      font-weight: 500;
       transition: 0.3s ease;
     }
     .btn-mandir:hover {
       background-color: #a37d6f;
-      color: white;
+      color: white !important;
       transform: translateY(-2px);
     }
     .btn-outline-mandir {
       border: 1px solid #c4a092;
-      color: #c4a092;
+      color: #c4a092 !important;
       border-radius: 30px;
       padding: 11px 28px;
       text-decoration: none;
       display: inline-block;
-      margin: 8px;
+      margin: 6px;
+      font-weight: 500;
       transition: 0.3s ease;
     }
     .btn-outline-mandir:hover {
       background-color: #c4a092;
-      color: white;
+      color: white !important;
     }
-    /* SHIPPING BANNER */
-    .shipping-banner {
-      background-color: #c4a092;
-      color: white;
-      padding: 16px;
-      text-align: center;
-      font-size: 16px;
-      letter-spacing: 0.3px;
-    }
-    .shipping-banner strong {
-      color: white;
-    }
+
     /* CATEGORIES */
     .categories {
-      padding: 70px 20px;
+      padding: 60px 20px;
     }
     .section-title {
       text-align: center;
-      margin-bottom: 45px;
+      margin-bottom: 40px;
     }
     .section-title h2 {
-      font-size: 32px;
+      font-size: clamp(26px, 3vw, 36px);
       font-weight: 500;
     }
     .category-card {
       background: white;
       border-radius: 16px;
-      padding: 30px 20px;
+      padding: 25px 20px;
       text-align: center;
       height: 100%;
       box-shadow: 0 5px 20px rgba(196,160,146,0.10);
       transition: 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(196,160,146,0.15);
     }
     .category-card:hover {
       transform: translateY(-6px);
@@ -137,55 +145,134 @@
     }
     .category-icon {
       font-size: 36px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
     .category-card h3 {
-      font-size: 19px;
+      font-size: 18px;
       margin-bottom: 10px;
+      font-weight: 500;
     }
     .category-card p {
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.5;
+      margin-bottom: 15px;
     }
+
+    /* BESTSELLERS SECTION ON HOME PAGE */
+    .bestsellers-section {
+      padding: 60px 20px;
+      background-color: #fffaf4;
+    }
+    .product-link {
+      display: block;
+      height: 100%;
+      color: inherit;
+    }
+    .product-card {
+      height: 100%;
+      background-color: white;
+      border: 1px solid rgba(196, 160, 146, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .product-image-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: #fffaf4;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .product-info {
+      padding: 16px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+    .product-name {
+      color: #c4a092;
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 500;
+      margin-bottom: 8px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-price {
+      color: #a37d6f !important;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .product-link:hover .product-card {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(163, 125, 111, 0.15);
+      }
+      .product-link:hover .product-image {
+        transform: scale(1.04);
+      }
+    }
+
     /* SERVICES */
     .services {
-      padding: 70px 20px;
-      background-color: #fffaf5;
+      padding: 60px 20px;
+      background-color: #fff6ea;
     }
     .service-box {
       text-align: center;
-      padding: 25px 15px;
+      padding: 20px 15px;
     }
     .service-icon {
       font-size: 30px;
       margin-bottom: 12px;
     }
     .service-box h3 {
-      font-size: 18px;
+      font-size: 17px;
+      font-weight: 500;
     }
     .service-box p {
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.5;
     }
+
     /* CTA */
     .cta {
-      padding: 75px 20px;
+      padding: 65px 20px;
       text-align: center;
+      background-color: #fffaf4;
     }
     .cta h2 {
-      font-size: 32px;
-      margin-bottom: 15px;
+      font-size: 30px;
+      margin-bottom: 12px;
     }
     .cta p {
       font-size: 16px;
-      line-height: 1.8;
+      line-height: 1.7;
       max-width: 650px;
       margin: auto;
     }
+
     /* FOOTER */
     footer {
       background-color: #f8f9fa;
       padding: 30px 20px;
+      border-top: 1px solid rgba(196, 160, 146, 0.12);
     }
     footer p {
       margin: 5px 0;
@@ -199,250 +286,291 @@
     .social-link:hover {
       color: #a37d6f;
     }
-    /* MOBILE */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 65px 20px;
-      }
-      .hero h1 {
-        font-size: 34px;
-      }
-      .hero .tagline {
-        font-size: 18px;
-      }
-      .section-title h2,
-      .cta h2 {
-        font-size: 27px;
-      }
-    }
   </style>
 </head>
 <body>
+
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg custom-navbar">
   <div class="container">
-<a class="navbar-brand d-flex align-items-center" href="index.html">
-  <img
-    src="images/The Mandir Company.jpeg"
-    alt="The Mandir Company Logo"
-    width="40"
-    height="40"
-    class="d-inline-block align-text-top me-2"
-    style="object-fit: contain;">
-  The Mandir Company
-</a>
-<button
-  class="navbar-toggler"
-  type="button"
-  data-bs-toggle="collapse"
-  data-bs-target="#navbarNav"
-  aria-controls="navbarNav"
-  aria-expanded="false"
-  aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-  <ul class="navbar-nav ms-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="index.html">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="about.html">About</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="bestsellers.html">Bestsellers</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="wishlist.html">Wishlist</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="guruji.html">Guruji</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="cart.html">Cart</a>
-    </li>
-  </ul>
-</div>
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img
+        src="images/The Mandir Company.jpeg"
+        alt="The Mandir Company Logo"
+        width="40"
+        height="40"
+        class="d-inline-block align-text-top me-2"
+        style="object-fit: contain;">
+      The Mandir Company
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="bestsellers.html">Bestsellers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="wishlist.html">Wishlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="guruji.html">Guruji</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html">Cart</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
-<!-- WORLDWIDE SHIPPING -->
+
+<!-- WORLDWIDE SHIPPING BANNER -->
 <div class="shipping-banner">
   ✈️ <strong>Worldwide Shipping Available</strong> — Bringing tradition, devotion & beautiful gifting to your doorstep.
 </div>
+
 <!-- HERO -->
 <section class="hero text-center">
-  <h1>Welcome to The Mandir Company</h1>
-  <div class="divider"></div>
-  <p class="tagline">
-    Where tradition meets contemporary elegance.
-  </p>
-  <p class="hero-description">
-    Discover thoughtfully curated pooja essentials, Guruji accessories,
-    idols, festive décor and meaningful gifts — created to bring
-    beauty, devotion and warmth into every celebration.
-  </p>
-  <div class="mt-4">
-<a href="bestsellers.html" class="btn-mandir">
-  Shop Bestsellers
-</a>
-<a href="about.html" class="btn-outline-mandir">
-  Discover Our Story
-</a>
+  <div class="container">
+    <h1>Welcome to The Mandir Company</h1>
+    <div class="divider"></div>
+    <p class="tagline">
+      Where tradition meets contemporary elegance.
+    </p>
+    <p class="hero-description">
+      Discover thoughtfully curated pooja essentials, Guruji accessories,
+      idols, festive décor and meaningful gifts — created to bring
+      beauty, devotion and warmth into every celebration.
+    </p>
+    <div class="mt-4">
+      <a href="#bestsellers" class="btn-mandir">
+        Browse Bestsellers
+      </a>
+      <a href="bestsellers.html" class="btn-outline-mandir">
+        View All Products
+      </a>
+    </div>
   </div>
 </section>
+
 <!-- CATEGORIES -->
 <section class="categories">
   <div class="container">
-<div class="section-title">
-  <h2>Explore Our Collection</h2>
-  <div class="divider"></div>
-  <p>
-    Beautifully chosen pieces for your home, pooja,
-    celebrations and gifting.
-  </p>
-</div>
-<div class="row g-4">
-  <div class="col-6 col-md-3">
-    <div class="category-card">
-      <div class="category-icon">🪔</div>
-      <h3>Pooja Essentials</h3>
+    <div class="section-title">
+      <h2>Explore Our Categories</h2>
+      <div class="divider"></div>
       <p>
-        Elegant essentials for your everyday
-        prayers and sacred spaces.
+        Beautifully chosen pieces for your home, pooja, celebrations and gifting.
       </p>
     </div>
-  </div>
-  <div class="col-6 col-md-3">
-    <div class="category-card">
-      <div class="category-icon">✨</div>
-      <h3>Home Décor</h3>
-      <p>
-        Contemporary pieces that bring
-        warmth and serenity to your home.
-      </p>
+    <div class="row g-4">
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">🪔</div>
+            <h3>Pooja Essentials</h3>
+            <p>Elegant essentials for your everyday prayers and sacred spaces.</p>
+          </div>
+          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">✨</div>
+            <h3>Home Décor</h3>
+            <p>Contemporary pieces that bring warmth and serenity to your home.</p>
+          </div>
+          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">🎁</div>
+            <h3>Gifting</h3>
+            <p>Thoughtful gifts for festivals, weddings and special occasions.</p>
+          </div>
+          <a href="bestsellers.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="category-card">
+          <div>
+            <div class="category-icon">🙏</div>
+            <h3>Guruji Collection</h3>
+            <p>Meaningful Guruji accessories and devotional gifts.</p>
+          </div>
+          <a href="guruji.html" class="btn-outline-mandir btn-sm mt-2">Explore</a>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-6 col-md-3">
-    <div class="category-card">
-      <div class="category-icon">🎁</div>
-      <h3>Gifting</h3>
-      <p>
-        Thoughtful gifts for festivals,
-        weddings and special occasions.
-      </p>
-    </div>
-  </div>
-  <div class="col-6 col-md-3">
-    <div class="category-card">
-      <div class="category-icon">🙏</div>
-      <h3>Guruji Collection</h3>
-      <p>
-        Meaningful Guruji accessories and
-        devotional gifts.
-      </p>
-    </div>
-  </div>
-</div>
   </div>
 </section>
+
+<!-- BESTSELLERS FEATURED ON HOME PAGE -->
+<section id="bestsellers" class="bestsellers-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our Featured Bestsellers</h2>
+      <div class="divider"></div>
+      <p>Discover our most-loved pieces handpicked for you.</p>
+    </div>
+
+    <div class="row g-3 g-md-4">
+      <!-- Product 1 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="product.html?id=8" class="product-link text-decoration-none">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="https://i.ibb.co/0pFS1Fpg/PHOTO-2025-12-10-15-38-30.jpg" class="product-image" alt="Elephant Akhand Diya">
+            </div>
+            <div class="product-info">
+              <h6 class="product-name">Elephant Akhand Diya</h6>
+              <p class="product-price">₹850</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="product.html?id=17" class="product-link text-decoration-none">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="https://i.ibb.co/RkXvv9jp/PHOTO-2025-12-02-12-46-20.jpg" class="product-image" alt="Radha Krishna Tilak Set">
+            </div>
+            <div class="product-info">
+              <h6 class="product-name">Radha Krishna Tilak Set</h6>
+              <p class="product-price">₹850</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="product.html?id=22" class="product-link text-decoration-none">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="images/ganesha_marble_agate.jpeg" class="product-image" alt="Agate Stone & Marble Ganesha Stand">
+            </div>
+            <div class="product-info">
+              <h6 class="product-name">Agate Stone & Marble Ganesha Stand</h6>
+              <p class="product-price">₹350</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="product.html?id=41" class="product-link text-decoration-none">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="images/german.silver.thali.set" class="product-image" alt="German Silver Thali Set">
+            </div>
+            <div class="product-info">
+              <h6 class="product-name">German Silver Thali Set</h6>
+              <p class="product-price">₹2,500</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="bestsellers.html" class="btn-mandir">View All Bestsellers & Collection →</a>
+    </div>
+  </div>
+</section>
+
 <!-- SERVICES -->
 <section class="services">
   <div class="container">
-<div class="section-title">
-  <h2>Made for Every Celebration</h2>
-  <div class="divider"></div>
-</div>
-<div class="row">
-  <div class="col-6 col-md-3">
-    <div class="service-box">
-      <div class="service-icon">💍</div>
-      <h3>Wedding Gifting</h3>
-      <p>
-        Elegant gifts and favours for
-        your special celebrations.
-      </p>
+    <div class="section-title">
+      <h2>Made for Every Celebration</h2>
+      <div class="divider"></div>
     </div>
-  </div>
-  <div class="col-6 col-md-3">
-    <div class="service-box">
-      <div class="service-icon">📦</div>
-      <h3>Bulk Orders</h3>
-      <p>
-        Special arrangements available
-        for larger requirements.
-      </p>
+    <div class="row g-3">
+      <div class="col-6 col-md-3">
+        <div class="service-box">
+          <div class="service-icon">💍</div>
+          <h3>Wedding Gifting</h3>
+          <p>Elegant gifts and favours for your special celebrations.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="service-box">
+          <div class="service-icon">📦</div>
+          <h3>Bulk Orders</h3>
+          <p>Special arrangements available for larger requirements.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="service-box">
+          <div class="service-icon">🏢</div>
+          <h3>Corporate Gifting</h3>
+          <p>Thoughtful festive and corporate gifting solutions.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="service-box">
+          <div class="service-icon">🌎</div>
+          <h3>Worldwide Shipping</h3>
+          <p>We ship our carefully curated collection across the world.</p>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-6 col-md-3">
-    <div class="service-box">
-      <div class="service-icon">🏢</div>
-      <h3>Corporate Gifting</h3>
-      <p>
-        Thoughtful festive and
-        corporate gifting solutions.
-      </p>
-    </div>
-  </div>
-  <div class="col-6 col-md-3">
-    <div class="service-box">
-      <div class="service-icon">🌎</div>
-      <h3>Worldwide Shipping</h3>
-      <p>
-        We ship our carefully curated
-        collection across the world.
-      </p>
-    </div>
-  </div>
-</div>
   </div>
 </section>
+
 <!-- CTA -->
 <section class="cta">
   <div class="container">
-<h2>Find Something Meaningful</h2>
-<div class="divider"></div>
-<p>
-  Whether you're looking for something beautiful
-  for your mandir, a thoughtful gift or elegant
-  festive décor, we're here to help you find it.
-</p>
-<div class="mt-4">
-  <a
-    href="https://wa.me/919619918583"
-    class="btn-mandir"
-    target="_blank">
-    💬 WhatsApp Us
-  </a>
-  <a
-    href="https://www.instagram.com/themandircompany/"
-    class="btn-outline-mandir"
-    target="_blank">
-    Instagram
-  </a>
-</div>
+    <h2>Find Something Meaningful</h2>
+    <div class="divider"></div>
+    <p>
+      Looking for something custom or need help choosing? 
+      Reach out to us directly on WhatsApp or Instagram for personal assistance and customization.
+    </p>
+    <div class="mt-4">
+      <a href="https://wa.me/919619918583" class="btn-mandir" target="_blank">
+        💬 WhatsApp Us
+      </a>
+      <a href="https://www.instagram.com/themandircompany/" class="btn-outline-mandir" target="_blank">
+        Instagram
+      </a>
+    </div>
   </div>
 </section>
+
 <!-- FOOTER -->
 <footer class="text-center">
-  <p>
-    © 2026 The Mandir Company. All rights reserved.
-  </p>
-  <p>
-    Worldwide Shipping • Gifting • Weddings • Bulk Orders • Corporate Gifting
-  </p>
-  <p>
-    WhatsApp:
-    <strong>+91 9619918583</strong>
-    &nbsp; | &nbsp;
-    Instagram:
-    <a
-      href="https://www.instagram.com/themandircompany/"
-      class="social-link"
-      target="_blank">
-      @themandircompany
-    </a>
-  </p>
+  <div class="container">
+    <p>© 2026 The Mandir Company. All rights reserved.</p>
+    <p>Worldwide Shipping • Gifting • Weddings • Bulk Orders • Corporate Gifting</p>
+    <p>
+      WhatsApp: <strong>+91 9619918583</strong> &nbsp; | &nbsp; 
+      Instagram: <a href="https://www.instagram.com/themandircompany/" class="social-link" target="_blank">@themandircompany</a>
+    </p>
+  </div>
 </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
