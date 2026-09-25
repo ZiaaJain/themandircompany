@@ -332,7 +332,7 @@ function displayCart() {
   const emptySummarySection = document.getElementById("empty-summary-section");
 
   let cartObj = getCartData();
-  let itemIds = Object.keys(cartObj);
+  let itemIds = Object.keys(cartObj).filter(id => products[id]);
 
   container.innerHTML = "";
   let subtotalAmount = 0;
@@ -349,43 +349,41 @@ function displayCart() {
   emptySummarySection.style.display = "none";
 
   itemIds.forEach(id => {
-    if (products[id]) {
-      const item = products[id];
-      const qty = parseInt(cartObj[id]) || 1;
-      const unitPrice = parsePrice(item.price);
-      const itemSubtotal = unitPrice * qty;
-      subtotalAmount += itemSubtotal;
+    const item = products[id];
+    const qty = parseInt(cartObj[id]) || 1;
+    const unitPrice = parsePrice(item.price);
+    const itemSubtotal = unitPrice * qty;
+    subtotalAmount += itemSubtotal;
 
-      const cardHtml = `
-        <div class="cart-item-card">
-          <a href="product.html?id=${id}">
-            <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+    const cardHtml = `
+      <div class="cart-item-card">
+        <a href="product.html?id=${id}">
+          <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+        </a>
+        
+        <div class="cart-item-details">
+          <a href="product.html?id=${id}" class="text-decoration-none">
+            <h5 class="fw-bold mb-1">${item.name}</h5>
           </a>
+          <p class="fw-bold mb-2">${item.price}</p>
           
-          <div class="cart-item-details">
-            <a href="product.html?id=${id}" class="text-decoration-none">
-              <h5 class="fw-bold mb-1">${item.name}</h5>
-            </a>
-            <p class="fw-bold mb-2">${item.price}</p>
-            
-            <div class="d-flex align-items-center gap-2">
-              <span class="me-1 text-muted fs-7">Qty:</span>
-              <button class="qty-btn" onclick="updateQty('${id}', -1)">-</button>
-              <input type="text" class="qty-input" value="${qty}" readonly>
-              <button class="qty-btn" onclick="updateQty('${id}', 1)">+</button>
-            </div>
-          </div> 
-
-          <div class="text-end ms-auto">
-            <h5 class="fw-bold mb-2">₹${itemSubtotal.toLocaleString('en-IN')}</h5>
-            <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart('${id}')">
-              Remove 🗑️
-            </button>
+          <div class="d-flex align-items-center gap-2">
+            <span class="me-1 text-muted fs-7">Qty:</span>
+            <button class="qty-btn" onclick="updateQty('${id}', -1)">-</button>
+            <input type="text" class="qty-input" value="${qty}" readonly>
+            <button class="qty-btn" onclick="updateQty('${id}', 1)">+</button>
           </div>
+        </div> 
+
+        <div class="text-end ms-auto">
+          <h5 class="fw-bold mb-2">₹${itemSubtotal.toLocaleString('en-IN')}</h5>
+          <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart('${id}')">
+            Remove 🗑️
+          </button>
         </div>
-      `;
-      container.innerHTML += cardHtml;
-    }
+      </div>
+    `;
+    container.innerHTML += cardHtml;
   });
 
   const grandTotal = subtotalAmount + SHIPPING_FEE;
