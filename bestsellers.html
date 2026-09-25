@@ -2,892 +2,580 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>My Wishlist | The Mandir Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Bestsellers | The Mandir Company</title>
-
+  <meta name="theme-color" content="#fff6ea">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
-
   <style>
-
-    /* =========================================
-       BRAND THEME 
-       ========================================= */
-
+    /* ==============================
+       GENERAL & THEME
+    ============================== */
+    :root {
+      --cream: #fff6ea;
+      --cream-light: #fffaf5;
+      --rose: #c4a092;
+      --rose-dark: #a37d6f;
+      --text: #80655c;
+      --white: #ffffff;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
-      background-color: #fff6ea;
-      color: #c4a092;
       margin: 0;
+      padding: 0;
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6, p {
+      color: var(--rose);
+    }
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    h2,
-    p {
-      color: #c4a092;
-    }
-
-
-    /* =========================================
+    /* ==============================
        NAVBAR
-       ========================================= */
-
+    ============================== */
     .custom-navbar {
       background-color: #f8f9fa !important;
+      box-shadow: 0 2px 15px rgba(196,160,146,0.08);
       border-bottom: 1px solid rgba(196, 160, 146, 0.12);
     }
-
     .custom-navbar .navbar-brand,
     .custom-navbar .nav-link {
-      color: #c4a092 !important;
+      color: var(--rose) !important;
       font-weight: 400 !important;
     }
-
     .custom-navbar .nav-link {
+      padding-left: 12px;
+      padding-right: 12px;
       transition: color 0.25s ease;
     }
-
-    .custom-navbar .nav-link:hover {
-      color: #a37d6f !important;
+    .custom-navbar .nav-link:hover,
+    .custom-navbar .nav-link.active {
+      color: var(--rose-dark) !important;
     }
-
     .custom-navbar .navbar-toggler {
-      border-color: #c4a092;
+      border-color: var(--rose);
+      padding: 7px 9px;
       box-shadow: none !important;
     }
-
     .custom-navbar .navbar-toggler-icon {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
 
-    .navbar-brand img {
-      object-fit: contain;
-      border-radius: 50%;
+    /* ==============================
+       PAGE CONTENT
+    ============================== */
+    .page-content {
+      min-height: calc(100vh - 180px);
+      padding: 45px 15px 70px;
     }
-
-
-    /* =========================================
-       PRODUCTS SECTION
-       ========================================= */
-
-    .products-section {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 58px 24px 35px;
-    }
-
-    .products-heading {
-      color: #c4a092;
-      font-size: clamp(28px, 3vw, 38px);
-      font-weight: 300;
-      letter-spacing: 1px;
+    .wishlist-heading {
+      text-align: center;
       margin-bottom: 12px;
     }
-
-    .heading-line {
+    .wishlist-heading h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 8px;
+    }
+    .divider {
       width: 55px;
-      height: 1px;
-      background-color: #c4a092;
-      opacity: 0.5;
-      margin: 0 auto 42px;
+      height: 2px;
+      background-color: var(--rose);
+      margin: 18px auto 20px;
+      border-radius: 5px;
+      opacity: 0.7;
+    }
+    .wishlist-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(196,160,146,0.12);
+      color: var(--rose-dark);
+      border-radius: 30px;
+      padding: 7px 15px;
+      font-size: 13px;
+      margin-bottom: 25px;
     }
 
-
-    /* =========================================
-       PRODUCT CARD
-       ========================================= */
-
-    .product-link {
-      display: block;
-      height: 100%;
-      color: inherit;
+    /* ==============================
+       ACTION BAR
+    ============================== */
+    .wishlist-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .btn-wishlist {
+      min-height: 44px;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+    .btn-share {
+      background-color: white;
+      border: 1px solid var(--rose);
+      color: var(--rose);
+    }
+    .btn-share:hover,
+    .btn-share:focus {
+      background-color: var(--rose);
+      color: white;
     }
 
-    .product-card {
+    /* ==============================
+       PRODUCT CARDS
+    ============================== */
+    .wishlist-card-wrapper {
+      margin-bottom: 20px;
+    }
+    .wishlist-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 12px;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.32);
-      border: 1px solid rgba(196, 160, 146, 0.18);
-      border-radius: 8px;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
+      box-shadow: 0 4px 18px rgba(196,160,146,0.10);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
     }
-
-
-    /* =========================================
-       IMAGE AREA
-       ========================================= */
-
-    .product-image-wrapper {
+    .wishlist-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 9px 25px rgba(196,160,146,0.16);
+    }
+    .product-image-link {
+      display: block;
+      position: relative;
+      text-decoration: none;
+    }
+    .wishlist-card img {
       width: 100%;
       aspect-ratio: 1 / 1;
-      background-color: #fffaf4;
-      overflow: hidden;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background-color: #f8f2ed;
+    }
+    .heart-badge {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.94);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 17px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      color: var(--rose-dark);
     }
-
-    .product-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-
-    /* =========================================
-       PRODUCT INFORMATION
-       ========================================= */
-
     .product-info {
-      padding: 17px 12px 18px;
+      padding: 12px 5px 5px;
       text-align: center;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      flex-grow: 1;
-      min-height: 104px;
     }
-
-    .product-name {
-      color: #c4a092;
+    .wishlist-card h6 {
+      color: var(--rose);
+      font-weight: 600;
       font-size: 15px;
-      line-height: 1.45;
-      font-weight: 400;
-      margin: 0 auto 10px;
-
-      min-height: 43px;
-
+      line-height: 1.4;
+      margin-bottom: 7px;
+      min-height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
-    .product-price {
-      color: #a37d6f !important;
+    .wishlist-card .price {
+      color: var(--rose-dark);
       font-size: 15px;
-      font-weight: 500;
-      margin: 0;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .card-actions {
+      margin-top: auto;
+    }
+    .btn-move-cart,
+    .btn-remove {
+      width: 100%;
+      min-height: 43px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 7px;
+    }
+    .btn-move-cart {
+      background-color: var(--rose);
+      color: white;
+      border: 1px solid var(--rose);
+    }
+    .btn-move-cart:hover,
+    .btn-move-cart:focus {
+      background-color: var(--rose-dark);
+      border-color: var(--rose-dark);
+      color: white;
+    }
+    .btn-remove {
+      background-color: transparent;
+      color: #a58b83;
+      border: 1px solid #eadbd5;
+    }
+    .btn-remove:hover,
+    .btn-remove:focus {
+      background-color: #faf1ee;
+      color: #956f63;
+      border-color: #d8bbb0;
     }
 
-
-    /* =========================================
-       DESKTOP HOVER
-       Only applies where hover actually exists
-       ========================================= */
-
-    @media (hover: hover) and (pointer: fine) {
-
-      .product-link:hover .product-card {
-        transform: translateY(-4px);
-        border-color: rgba(196, 160, 146, 0.35);
-        box-shadow: 0 8px 24px rgba(163, 125, 111, 0.10);
-      }
-
-      .product-link:hover .product-image {
-        transform: scale(1.035);
-      }
-
-      .product-link:hover .product-name {
-        color: #a37d6f;
-      }
+    /* ==============================
+       EMPTY WISHLIST BOX
+    ============================== */
+    .empty-wishlist-box {
+      max-width: 650px;
+      margin: 10px auto 0;
+      background:
+        radial-gradient(circle at top right, rgba(196,160,146,0.13), transparent 35%),
+        linear-gradient(135deg, #ffffff, #fffaf6);
+      border-radius: 24px;
+      padding: 55px 25px 50px;
+      box-shadow: 0 8px 30px rgba(196,160,146,0.12);
+      border: 1px solid rgba(196,160,146,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+    .empty-wishlist-box::before {
+      content: "✦";
+      position: absolute;
+      top: 18px;
+      left: 25px;
+      color: rgba(196,160,146,0.35);
+      font-size: 22px;
+    }
+    .empty-wishlist-box::after {
+      content: "✦";
+      position: absolute;
+      bottom: 18px;
+      right: 28px;
+      color: rgba(196,160,146,0.35);
+      font-size: 18px;
+    }
+    .empty-wishlist-icon {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      background: #fff1eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      color: var(--rose);
+      box-shadow: 0 4px 15px rgba(196,160,146,0.12);
+    }
+    .empty-wishlist-box h2 {
+      font-size: 27px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .empty-wishlist-box p {
+      max-width: 480px;
+      margin: 0 auto 25px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .empty-wishlist-note {
+      font-size: 13px !important;
+      color: #a58b83 !important;
+      margin-top: 16px !important;
+      margin-bottom: 0 !important;
+    }
+    .btn-explore {
+      background-color: var(--rose);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 27px;
+      min-height: 46px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s ease;
+    }
+    .btn-explore:hover,
+    .btn-explore:focus {
+      background-color: var(--rose-dark);
+      color: white;
+      transform: translateY(-2px);
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 11px 24px;
+      border-radius: 30px;
+      border: 1px solid #d8c0b7;
+      color: var(--rose-dark);
+      text-decoration: none;
+      font-weight: 600;
+      margin: 5px;
+    }
+    .btn-home:hover {
+      background-color: #fff;
+      color: var(--rose-dark);
     }
 
-
-    /* =========================================
-       BOTTOM CONTACT MESSAGE
-       ========================================= */
-
-    .contact-section {
-      max-width: 900px;
-      margin: 15px auto 55px;
-      padding: 0 24px;
-      text-align: center;
-    }
-
-    .contact-message {
-      color: #c4a092 !important;
-      font-size: 14px;
-      line-height: 1.8;
-      font-weight: 300;
-      margin: 0;
-    }
-
-    .contact-message a {
-      color: #a37d6f;
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
-    }
-
-    .contact-message a:hover {
-      color: #c4a092;
-    }
-
-
-    /* =========================================
+    /* ==============================
        FOOTER
-       ========================================= */
-
-    .site-footer {
-      background-color: #f8f9fa !important;
+    ============================== */
+    footer {
+      background-color: #f8f9fa;
+      color: var(--rose);
+      padding: 28px 15px;
       border-top: 1px solid rgba(196, 160, 146, 0.12);
     }
-
-    .site-footer p {
-      color: #c4a092 !important;
-      font-size: 12px;
-      font-weight: 300;
-      letter-spacing: 0.4px;
-      margin: 0;
+    footer p {
+      margin: 4px 0;
+      font-size: 13px;
     }
 
-
-    /* =========================================
-       TABLET / IPAD
-       ========================================= */
-
-    @media (max-width: 991.98px) {
-
-      .products-section {
-        padding: 50px 20px 30px;
-      }
-
-      .heading-line {
-        margin-bottom: 35px;
-      }
-
-      .product-info {
-        padding: 15px 10px 17px;
-      }
-
-      .product-name {
-        font-size: 14px;
-      }
-
-      .product-price {
-        font-size: 14px;
-      }
+    /* Mobile adjustments */
+    @media (max-width: 576px) {
+      .page-content { padding: 32px 10px 55px; }
+      .wishlist-heading h1 { font-size: 29px; }
+      .btn-wishlist { width: 100%; max-width: 280px; }
+      .wishlist-card { padding: 9px; border-radius: 13px; }
+      .wishlist-card h6 { font-size: 13px; min-height: 38px; }
+      .wishlist-card .price { font-size: 14px; }
+      .btn-move-cart, .btn-remove { font-size: 12px; min-height: 41px; }
+      .empty-wishlist-box { padding: 45px 20px 40px; border-radius: 20px; }
+      .btn-explore, .btn-home { width: 100%; margin: 5px 0; }
     }
-
-
-    /* =========================================
-       MOBILE
-       ========================================= */
-
-    @media (max-width: 575.98px) {
-
-      .products-section {
-        padding: 38px 12px 25px;
-      }
-
-      .products-heading {
-        font-size: 28px;
-        letter-spacing: 0.5px;
-      }
-
-      .heading-line {
-        margin-bottom: 28px;
-      }
-
-      .product-info {
-        padding: 13px 7px 15px;
-        min-height: 96px;
-      }
-
-      .product-name {
-        font-size: 13px;
-        line-height: 1.35;
-        min-height: 36px;
-        margin-bottom: 8px;
-      }
-
-      .product-price {
-        font-size: 13px;
-      }
-
-      .contact-section {
-        padding: 0 18px;
-        margin-top: 10px;
-        margin-bottom: 40px;
-      }
-
-      .contact-message {
-        font-size: 13px;
-        line-height: 1.7;
-      }
-    }
-
-
-    /* =========================================
-       VERY SMALL PHONES
-       ========================================= */
-
-    @media (max-width: 375px) {
-
-      .products-section {
-        padding-left: 9px;
-        padding-right: 9px;
-      }
-
-      .product-name {
-        font-size: 12px;
-      }
-
-      .product-price {
-        font-size: 12px;
-      }
-    }
-
   </style>
 </head>
-
-
 <body>
 
-
-<!-- =========================================
-     NAVBAR
-     ========================================= -->
-
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg custom-navbar">
-
   <div class="container">
-
     <a class="navbar-brand d-flex align-items-center" href="index.html">
-
-      <img
-        src="images/The Mandir Company.jpeg"
-        alt="The Mandir Company Logo"
-        width="40"
-        height="40"
-        class="d-inline-block align-text-top me-2"
-        style="object-fit: contain;"
-      >
-
+      <img src="images/The Mandir Company.jpeg" alt="Logo" width="40" height="40" class="d-inline-block align-text-top me-2" style="object-fit: contain; border-radius: 50%;">
       The Mandir Company
-
     </a>
-
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-
     <div class="collapse navbar-collapse" id="navbarNav">
-
       <ul class="navbar-nav ms-auto">
-
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="bestsellers.html">Bestsellers</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="wishlist.html">Wishlist</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="guruji.html">Guruji</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="cart.html">Cart</a>
-        </li>
-
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="bestsellers.html">Bestsellers</a></li>
+        <li class="nav-item"><a class="nav-link active" href="wishlist.html" aria-current="page">Wishlist</a></li>
+        <li class="nav-item"><a class="nav-link" href="guruji.html">Guruji</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
       </ul>
-
     </div>
-
   </div>
-
 </nav>
 
-
-<!-- =========================================
-     PRODUCTS
-     ========================================= -->
-
-<section class="products-section">
-
-  <h2 class="products-heading text-center">
-    Our Products
-  </h2>
-
-  <div class="heading-line"></div>
-
-
-  <div class="row g-3 g-md-4">
-
-    <!-- PRODUCT 8 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=8" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="https://i.ibb.co/0pFS1Fpg/PHOTO-2025-12-10-15-38-30.jpg"
-              class="product-image"
-              alt="Elephant Akhand Diya"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Elephant Akhand Diya
-            </h6>
-
-            <p class="product-price">
-              ₹850
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
+<!-- MAIN CONTENT -->
+<main class="page-content">
+  <section class="container">
+    <div class="wishlist-heading">
+      <h1>My Wishlist ♡</h1>
+      <div class="divider"></div>
+      <div id="wishlist-count" class="wishlist-count">0 items saved</div>
     </div>
 
-
-    <!-- PRODUCT 17 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=17" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="https://i.ibb.co/RkXvv9jp/PHOTO-2025-12-02-12-46-20.jpg"
-              class="product-image"
-              alt="Radha Krishna Tilak Set"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Radha Krishna Tilak Set
-            </h6>
-
-            <p class="product-price">
-              ₹850
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-    
-    <!-- PRODUCT 22 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=22" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/ganesha_marble_agate.jpeg"
-              class="product-image"
-              alt="Agate Stone & Marble Ganesha Stand"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Agate Stone & Marble Ganesha Stand
-            </h6>
-
-            <p class="product-price">
-              ₹350
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-    <!-- PRODUCT 24 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=24" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="https://i.ibb.co/PzJgQngQ/dd48ad4f-1bd5-44b4-8499-6e6af3eed058.jpg"
-              class="product-image"
-              alt="Polyresin Buddha with Marble Base"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Polyresin Buddha with Marble Base
-            </h6>
-
-            <p class="product-price">
-              ₹599
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
+    <div id="share-container" class="wishlist-actions" style="display:none;">
+      <button type="button" class="btn btn-wishlist btn-share" onclick="shareWishlist()">
+        ♡ Share My Wishlist
+      </button>
     </div>
 
-    <!-- PRODUCT 35 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=35" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/evileye.rolichawal"
-              class="product-image"
-              alt="Evil Eye Roli Chawal"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Evil Eye Roli Chawal
-            </h6>
-
-            <p class="product-price">
-              ₹250 each
-            </p>
-
-          </div>
-
+    <!-- EMPTY WISHLIST -->
+    <div id="empty-wishlist-wrapper" class="text-center" style="display:none;">
+      <div class="empty-wishlist-box">
+        <div class="empty-wishlist-icon">♡</div>
+        <h2>Your Wishlist is Waiting</h2>
+        <p>You haven't saved anything yet. Take your time, explore our collection, and save the pieces that make your heart happy.</p>
+        <div>
+          <a href="bestsellers.html" class="btn-explore">Explore Our Collection &nbsp; →</a>
+          <a href="index.html" class="btn-home">Back to Home</a>
         </div>
-
-      </a>
-
+        <p class="empty-wishlist-note">♡ Your saved items will appear here.</p>
+      </div>
     </div>
 
-
-    <!-- PRODUCT 36 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=36" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/fan"
-              class="product-image"
-              alt="Hand Fan"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Hand Fan
-            </h6>
-
-            <p class="product-price">
-              ₹250
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-
-    <!-- PRODUCT 38 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=38" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/omshubhlabh"
-              class="product-image"
-              alt="Om Shubh Labh"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Om Shubh Labh
-            </h6>
-
-            <p class="product-price">
-              ₹699
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-
-
-    <!-- PRODUCT 39 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=39" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/pinktoran"
-              class="product-image"
-              alt="Pink Toran"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Pink Toran
-            </h6>
-
-            <p class="product-price">
-              ₹3,500
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-
-
-    <!-- PRODUCT 40 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=40" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/elegant.lotus.toran"
-              class="product-image"
-              alt="Elegant Lotus Toran"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Elegant Lotus Toran
-            </h6>
-
-            <p class="product-price">
-              ₹2,550
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-
-
-    <!-- PRODUCT 41 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=41" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/german.silver.thali.set"
-              class="product-image"
-              alt="German Silver Thali Set"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              German Silver Thali Set
-            </h6>
-
-            <p class="product-price">
-              ₹2,500
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-
-
-    <!-- PRODUCT 42 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=42" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/temple.design.shubh.labh."
-              class="product-image"
-              alt="Temple Design Shubh Labh"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Temple Design Shubh Labh
-            </h6>
-
-            <p class="product-price">
-              ₹450
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-
-
-    <!-- PRODUCT 43 -->
-
-    <div class="col-6 col-md-4 col-lg-3">
-
-      <a href="product.html?id=43" class="product-link text-decoration-none">
-
-        <div class="product-card">
-
-          <div class="product-image-wrapper">
-            <img
-              src="images/studded.torans"
-              class="product-image"
-              alt="Studded Torans"
-            >
-          </div>
-
-          <div class="product-info">
-
-            <h6 class="product-name">
-              Studded Torans
-            </h6>
-
-            <p class="product-price">
-              ₹2,550
-            </p>
-
-          </div>
-
-        </div>
-
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================
-     CONTACT MESSAGE
-     ========================================= -->
-
-<section class="contact-section">
-
-  <p class="contact-message">
-    Couldn't find what you are looking for?
-    <a href="index.html">Contact us</a>
-    for easy access to thousands more products & customization.
-  </p>
-
-</section>
-
-
-<!-- =========================================
-     FOOTER
-     ========================================= -->
-
-<footer class="site-footer text-center py-4">
-
-  <p>
-    &copy; 2026 The Mandir Company. All rights reserved.
-  </p>
-
+    <!-- WISHLIST PRODUCTS GRID -->
+    <div id="wishlist-container" class="row g-3 g-md-4"></div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="text-center">
+  <p>© 2026 The Mandir Company. All rights reserved.</p>
+  <p>Worldwide Shipping • Gifting • Weddings • Bulk Orders</p>
 </footer>
 
+<!-- SCRIPT & DATA -->
+<script>
+const products = {
+  8: { name: "Elephant Akhand Diya", price: "₹850", desc: "Pure German silver elephant akhand diya with antique finish.", img: "images/elephant_akhand_diya.jpeg" },
+  17: { name: "Radha Krishna Tilak Set", price: "₹850", desc: "Peacock feather flute tilak stick with roli chawal chopra.", img: "images/radhakrishna_roli_chawal_set.jpeg" },
+  22: { name: "Agate & Marble Ganesha Stand", price: "₹350", desc: "Ganesha figurines on agate stone and marble base.", img: "images/ganesha_marble_agate.jpeg" },
+  24: { name: "Buddha Diya Base", price: "₹599", desc: "Polyresin Buddha with marble diya base.", img: "images/buddha.jpeg" },
+  35: { name: "Evil Eye Roli Chawal", price: "₹250 each", desc: "Evil eye themed Roli Chawal container set for traditional rituals.", img: "images/evileye.rolichawal" },
+  36: { name: "Hand Fan", price: "₹250", desc: "Decorative traditional hand fan (Pankha) for deity service.", img: "images/fan" },
+  38: { name: "Om Shubh Labh", price: "₹699", desc: "Auspicious Om and Shubh Labh door hanging / altar decor.", img: "images/omshubhlabh" },
+  39: { name: "Pink Toran", price: "₹3,500", desc: "Handmade pink entrance toran for a welcoming, blessed vibe.", img: "images/pinktoran" },
+  40: { name: "Elegant Lotus Toran", price: "₹2,550", desc: "Exquisitely crafted lotus-themed door hanging.", img: "images/elegant.lotus.toran" },
+  41: { name: "German Silver Thali Set", price: "₹2,500", desc: "Complete German silver pooja thali set.", img: "images/german.silver.thali.set" },
+  42: { name: "Temple Design Shubh Labh", price: "₹450", desc: "Traditional temple-inspired Shubh Labh wall hanging.", img: "images/temple.design.shubh.labh." },
+  43: { name: "Studded Torans", price: "₹2,550", desc: "Decorated door toran embellished with intricate stone work.", img: "images/studded.torans" }
+};
 
+function displayWishlist() {
+  const container = document.getElementById("wishlist-container");
+  const emptyWrapper = document.getElementById("empty-wishlist-wrapper");
+  const shareContainer = document.getElementById("share-container");
+  const countElement = document.getElementById("wishlist-count");
+
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishlist = wishlist.map(String).filter(id => products[id]);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+  const count = wishlist.length;
+  countElement.textContent = count === 0 ? "0 items saved" : count === 1 ? "1 item saved" : `${count} items saved`;
+
+  if (count === 0) {
+    emptyWrapper.style.display = "block";
+    shareContainer.style.display = "none";
+    container.innerHTML = "";
+    return;
+  }
+
+  emptyWrapper.style.display = "none";
+  shareContainer.style.display = "flex";
+  container.innerHTML = "";
+
+  wishlist.forEach(id => {
+    const item = products[id];
+    const card = document.createElement("div");
+    card.className = "col-6 col-md-4 col-lg-3 wishlist-card-wrapper";
+    card.id = `item-${id}`;
+    card.innerHTML = `
+      <div class="wishlist-card">
+        <a href="product.html?id=${id}" class="product-image-link" aria-label="View ${item.name}">
+          <img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x300?text=Mandir+Company';">
+          <span class="heart-badge" aria-hidden="true">♥</span>
+        </a>
+        <div class="product-info">
+          <h6>${item.name}</h6>
+          <div class="price">${item.price}</div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-move-cart" onclick="moveToCart('${id}')">
+              Add to Cart 🛒
+            </button>
+            <button type="button" class="btn btn-remove" onclick="removeFromWishlist('${id}')">
+              Remove ♡
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function moveToCart(id) {
+  let rawCart = localStorage.getItem("cart");
+  let cartObj = {};
+  if (rawCart) {
+    try {
+      const parsed = JSON.parse(rawCart);
+      if (Array.isArray(parsed)) {
+        parsed.forEach(itemId => cartObj[String(itemId)] = 1);
+      } else {
+        cartObj = parsed;
+      }
+    } catch (e) {
+      cartObj = {};
+    }
+  }
+  cartObj[String(id)] = (parseInt(cartObj[String(id)]) || 0) + 1;
+  localStorage.setItem("cart", JSON.stringify(cartObj));
+  removeFromWishlist(id, false);
+  showMessage("Added to your cart 🛒");
+}
+
+function removeFromWishlist(id, askConfirmation = true) {
+  if (askConfirmation && !confirm("Remove this item from your wishlist?")) {
+    return;
+  }
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishlist = wishlist.filter(item => String(item) !== String(id));
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  displayWishlist();
+}
+
+async function shareWishlist() {
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishlist = wishlist.map(String).filter(id => products[id]);
+  if (wishlist.length === 0) {
+    showMessage("Your wishlist is empty.");
+    return;
+  }
+  const baseUrl = window.location.origin + window.location.pathname.replace("wishlist.html", "product.html");
+  let shareText = "My Wishlist | The Mandir Company\n\n";
+  shareText += wishlist.map(id => "♡ " + products[id].name + "\n" + baseUrl + "?id=" + id).join("\n\n");
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: "My Wishlist | The Mandir Company", text: shareText });
+    } catch (error) {}
+  } else {
+    try {
+      await navigator.clipboard.writeText(shareText);
+      showMessage("Wishlist copied to clipboard!");
+    } catch (error) {
+      alert("Unable to copy wishlist.");
+    }
+  }
+}
+
+function showMessage(message) {
+  const existing = document.getElementById("wishlist-toast");
+  if (existing) existing.remove();
+  const toast = document.createElement("div");
+  toast.id = "wishlist-toast";
+  toast.textContent = message;
+  toast.style.cssText = "position:fixed; bottom:25px; left:50%; transform:translateX(-50%); background:#c4a092; color:#ffffff; padding:12px 22px; border-radius:30px; font-size:14px; font-weight:600; z-index:9999; box-shadow:0 5px 20px rgba(0,0,0,0.15);";
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2500);
+}
+
+document.addEventListener("DOMContentLoaded", displayWishlist);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
