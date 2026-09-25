@@ -183,7 +183,11 @@
         <li class="nav-item"><a class="nav-link" href="bestsellers.html">Bestsellers</a></li>
         <li class="nav-item"><a class="nav-link" href="wishlist.html">Wishlist</a></li> 
         <li class="nav-item"><a class="nav-link" href="guruji.html">Guruji</a></li> 
-        <li class="nav-item"><a class="nav-link active" href="cart.html">Cart</a></li>
+        <li class="nav-item">
+          <a class="nav-link active fw-bold" href="cart.html">
+            Cart 🛒 <span id="cart-count-badge" class="badge bg-secondary">0</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -286,12 +290,23 @@ function getCartData() {
     if (Array.isArray(parsed)) {
       let obj = {};
       parsed.forEach(id => obj[String(id)] = 1);
+      localStorage.setItem("cart", JSON.stringify(obj));
       return obj;
     }
     return parsed;
   } catch(e) {
     return {};
   }
+}
+
+function updateBadge() {
+  let cartObj = getCartData();
+  let totalCount = 0;
+  for (let key in cartObj) {
+    totalCount += parseInt(cartObj[key]) || 0;
+  }
+  const badge = document.getElementById("cart-count-badge");
+  if (badge) badge.innerText = totalCount;
 }
 
 function updateQty(id, delta) {
@@ -330,6 +345,7 @@ function displayCart() {
   if (itemIds.length === 0) {
     emptyWrapper.style.display = "block";
     summarySection.style.display = "none";
+    updateBadge();
     return;
   }
 
@@ -379,6 +395,8 @@ function displayCart() {
   document.getElementById("subtotal-val").innerText = "₹" + subtotalAmount.toLocaleString('en-IN');
   document.getElementById("shipping-val").innerText = "₹" + SHIPPING_FEE;
   document.getElementById("total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
+
+  updateBadge();
 }
 
 document.addEventListener("DOMContentLoaded", displayCart);
