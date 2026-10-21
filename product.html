@@ -4,680 +4,118 @@
   <meta charset="UTF-8">
   <title>Product | The Mandir Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- BOOTSTRAP & PLUS JAKARTA SANS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
-
   <style>
-    body {
-      background-color: #fff6ea;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
-    }
-
-    /* =========================
-       NAVBAR
-    ========================= */
-
-    .custom-navbar {
-      background-color: #f8f9fa !important;
-      box-shadow: 0 2px 12px rgba(196,160,146,0.08);
-      border-bottom: 1px solid rgba(196, 160, 146, 0.12);
-      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
-    }
-
-    .custom-navbar .navbar-brand,
-    .custom-navbar .nav-link {
-      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
-      color: #c4a092 !important;
-      font-weight: 400 !important;
-      transition: color 0.25s ease;
-    }
-
-    .custom-navbar .nav-link:hover,
-    .custom-navbar .nav-link.active {
-      color: #a37d6f !important;
-    }
-
-    /* Mobile Hamburger Icon Styling */
-    .custom-navbar .navbar-toggler {
-      border-color: #c4a092;
-      box-shadow: none !important;
-    }
-
-    .custom-navbar .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-    }
-
-    /* =========================
-       PAGE
-    ========================= */
-
-    .page-content {
-      background-color: #fff6ea;
-      min-height: calc(100vh - 120px);
-      padding: 70px 0 90px;
-    }
-
-    /* =========================
-       PRODUCT AREA
-    ========================= */
-
-    .product-wrapper {
-      max-width: 1180px;
-      margin: auto;
-    }
-
-    .product-showcase {
-      background: rgba(255,255,255,0.72);
-      border-radius: 24px;
-      padding: 35px;
-      box-shadow: 0 10px 35px rgba(120, 85, 65, 0.08);
-    }
-
-    /* =========================
-       IMAGE
-    ========================= */
-
-    .product-image-area {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 25px;
-      min-height: 560px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 5px 20px rgba(120, 85, 65, 0.07);
-    }
-
-    .product-img {
-      width: 100%;
-      max-width: 520px;
-      height: auto;
-      aspect-ratio: 1 / 1;
-      object-fit: contain;
-      background-color: #ffffff;
-      border-radius: 14px;
-      padding: 10px;
-    }
-
-    /* =========================
-       DETAILS
-    ========================= */
-
-    .product-details {
-      padding: 25px 20px 25px 45px;
-    }
-
-    .product-label {
-      color: #c4a092;
-      font-size: 0.78rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-
-    h1,
-    h2,
-    h3,
-    h6,
-    p,
-    label {
-      color: #c4a092;
-    }
-
-    #product-name {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.15;
-      font-weight: 500 !important;
-      margin-bottom: 18px;
-    }
-
-    #product-price {
-      font-size: 1.65rem;
-      color: #a37d6f;
-      font-weight: 600 !important;
-      margin-bottom: 30px;
-    }
-
-    .divider {
-      width: 65px;
-      height: 2px;
-      background-color: #c4a092;
-      margin: 0 0 28px;
-      opacity: 0.6;
-    }
-
-    #product-description {
-      color: #8f756b;
-      line-height: 1.9;
-      font-size: 1.05rem !important;
-      margin-bottom: 30px;
-    }
-
-    /* =========================
-       QUANTITY
-    ========================= */
-
-    .quantity-box {
-      margin-bottom: 25px;
-    }
-
-    .quantity-label {
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-      color: #8f756b;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .quantity-control {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(196, 160, 146, 0.65);
-      border-radius: 8px;
-      background: #fff;
-      overflow: hidden;
-    }
-
-    .qty-btn {
-      border: none;
-      color: #c4a092;
-      background: white;
-      font-weight: 500;
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    .qty-btn:hover {
-      background-color: #fff6ea;
-      color: #a37d6f;
-    }
-
-    .qty-input {
-      width: 48px;
-      height: 42px;
-      text-align: center;
-      border: none;
-      border-left: 1px solid rgba(196, 160, 146, 0.25);
-      border-right: 1px solid rgba(196, 160, 146, 0.25);
-      font-weight: 500;
-      color: #c4a092;
-      background: #fff;
-    }
-
-    /* =========================
-       BUTTONS
-    ========================= */
-
-    .product-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .btn-custom-cart {
-      background-color: #c4a092;
-      color: white;
-      border: 1px solid #c4a092;
-      border-radius: 7px;
-      padding: 12px 25px !important;
-      transition: all 0.25s ease;
-    }
-
-    .btn-custom-cart:hover {
-      background-color: #b08b7d;
-      color: white;
-      border-color: #b08b7d;
-      transform: translateY(-1px);
-    }
-
-    #wishlist-btn {
-      border: 1px solid #c4a092;
-      color: #c4a092;
-      background: transparent;
-      border-radius: 7px;
-      padding: 12px 25px !important;
-    }
-
-    #wishlist-btn:hover {
-      background-color: #c4a092;
-      color: white;
-    }
-
-    .btn-remove-cart {
-      background-color: #FF8E88;
-      color: white;
-      border: 1px solid #FF8E88;
-      border-radius: 7px;
-      padding: 12px 25px !important;
-    }
-
-    .btn-remove-cart:hover {
-      background-color: #FF8E88;
-      color: white;
-      border-color: #FF8E88;
-    }
-
-    /* =========================
-       STATUS
-    ========================= */
-
-    .status-msg {
-      font-weight: 500;
-      font-size: 0.95rem;
-      min-height: 24px;
-      color: #a37d6f;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      background-color: #f8f9fa !important;
-      border-top: 1px solid rgba(196, 160, 146, 0.15);
-    }
-
-    footer p {
-      margin: 0;
-      font-size: 0.85rem;
-      color: #c4a092;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 991px) {
-
-      .custom-navbar .container {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .navbar-nav {
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .product-showcase {
-        padding: 20px;
-      }
-
-      .product-image-area {
-        min-height: auto;
-        padding: 20px;
-      }
-
-      .product-details {
-        padding: 35px 10px 15px;
-      }
-    }
-
-    @media (max-width: 576px) {
-
-      .page-content {
-        padding: 35px 12px 60px;
-      }
-
-      .product-showcase {
-        border-radius: 16px;
-        padding: 12px;
-      }
-
-      .product-image-area {
-        border-radius: 14px;
-        padding: 12px;
-      }
-
-      .product-details {
-        padding: 28px 8px 10px;
-      }
-
-      #product-name {
-        font-size: 2rem;
-      }
-
-      #product-price {
-        font-size: 1.4rem;
-      }
-
-      #product-description {
-        font-size: 0.98rem !important;
-      }
-
-      .product-actions {
-        flex-direction: column;
-      }
-
-      .product-actions button {
-        width: 100%;
-      }
-
-      .navbar-nav {
-        gap: 5px !important;
-      }
-
-      .nav-link {
-        font-size: 0.82rem;
-      }
-    }
+    body { background-color: #fff6ea; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', Arial, sans-serif; }
+    .custom-navbar { background-color: #f8f9fa !important; border-bottom: 1px solid rgba(196, 160, 146, 0.12); }
+    .custom-navbar .navbar-brand, .custom-navbar .nav-link { color: #c4a092 !important; }
+    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 70px 0 90px; }
+    .product-showcase { background: rgba(255,255,255,0.72); border-radius: 24px; padding: 35px; box-shadow: 0 10px 35px rgba(120, 85, 65, 0.08); }
+    .product-image-area { background: #ffffff; border-radius: 20px; padding: 25px; min-height: 450px; display: flex; align-items: center; justify-content: center; }
+    .product-img { width: 100%; max-width: 450px; height: auto; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 14px; }
+    h1, h2, h3, h6, p, label { color: #c4a092; }
+    #product-price { font-size: 1.65rem; color: #a37d6f; }
+    .btn-custom-cart { background-color: #c4a092; color: white; border-radius: 7px; padding: 12px 25px !important; border: none; }
+    .btn-custom-cart:hover { background-color: #b08b7d; }
   </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg custom-navbar">
   <div class="container">
-
     <a class="navbar-brand d-flex align-items-center" href="index.html">
-      <img
-        src="images/The Mandir Company.jpeg"
-        alt="The Mandir Company Logo"
-        width="40"
-        height="40"
-        class="d-inline-block align-text-top me-2"
-        style="object-fit: contain;">
+      <img src="images/The Mandir Company.jpeg" alt="Logo" width="40" height="40" class="me-2" style="object-fit: contain;">
       The Mandir Company
     </a>
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto flex-row gap-3">
-        <li class="nav-item">
-          <a class="nav-link" href="bestsellers.html">← Back to Bestsellers</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="wishlist.html">Wishlist ❤️</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="cart.html">
-            Cart 🛒
-            <span id="cart-count-badge" class="badge bg-secondary">0</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <ul class="navbar-nav ms-auto flex-row gap-3">
+      <li class="nav-item"><a class="nav-link" href="bestsellers.html">← Bestsellers</a></li>
+      <li class="nav-item"><a class="nav-link" href="wishlist.html">Wishlist ❤️</a></li>
+      <li class="nav-item"><a class="nav-link fw-bold" href="cart.html">Cart 🛒 <span id="cart-count-badge" class="badge bg-secondary">0</span></a></li>
+    </ul>
   </div>
 </nav>
 
-<!-- MAIN CONTENT -->
 <div class="page-content">
-
-  <section class="container product-wrapper">
-
+  <section class="container" style="max-width: 1180px;">
     <div class="product-showcase">
-
       <div class="row align-items-center g-lg-4">
-
-        <!-- IMAGE -->
         <div class="col-lg-6">
-
           <div class="product-image-area">
-
-            <img
-              id="product-image"
-              src="https://via.placeholder.com/500"
-              alt="Product image"
-              class="product-img img-fluid"
-            >
-
+            <img id="product-image" src="https://via.placeholder.com/500?text=Loading..." alt="Product image" class="product-img">
           </div>
-
         </div>
-
-        <!-- DETAILS -->
         <div class="col-lg-6">
-
-          <div class="product-details">
-
-            <div class="product-label">
-              The Mandir Company
+          <div style="padding: 10px;">
+            <div style="color: #c4a092; letter-spacing: 2px; text-transform: uppercase;" class="small mb-2">The Mandir Company</div>
+            <h1 id="product-name" class="fw-bold">Loading...</h1>
+            <h3 id="product-price" class="fw-bold mb-3"></h3>
+            <p id="product-description" class="fs-5 mb-4"></p>
+            
+            <div class="d-flex gap-2 mb-3">
+              <button id="cart-btn" class="btn btn-custom-cart" onclick="toggleCart()">🛒 Add to Cart</button>
+              <button id="wishlist-btn" class="btn btn-outline-secondary" onclick="toggleWishlist()">🤍 Add to Wishlist</button>
             </div>
-
-            <h1 id="product-name" class="fw-bold"></h1>
-
-            <h3 id="product-price" class="fw-bold"></h3>
-
-            <div class="divider"></div>
-
-            <p id="product-description" class="mt-4 fs-5"></p>
-
-            <!-- QUANTITY SELECTOR -->
-            <div class="quantity-box">
-
-              <label class="quantity-label fw-bold">
-                Quantity:
-              </label>
-
-              <div class="quantity-control">
-
-                <button
-                  class="qty-btn"
-                  onclick="adjustQty(-1)"
-                >
-                  −
-                </button>
-
-                <input
-                  type="text"
-                  id="qty-count"
-                  class="qty-input"
-                  value="1"
-                  readonly
-                >
-
-                <button
-                  class="qty-btn"
-                  onclick="adjustQty(1)"
-                >
-                  +
-                </button>
-
-              </div>
-
-            </div>
-
-            <!-- ACTION BUTTONS -->
-            <div class="product-actions">
-
-              <button
-                id="cart-btn"
-                class="btn btn-custom-cart px-4 py-2"
-                onclick="toggleCart()"
-              >
-                🛒 Add to Cart
-              </button>
-
-              <button
-                id="wishlist-btn"
-                class="btn btn-outline-secondary px-4 py-2"
-                onclick="toggleWishlist()"
-              >
-                🤍 Add to Wishlist
-              </button>
-
-            </div>
-
-            <p id="action-msg" class="status-msg mb-3"></p>
-
+            <p id="action-msg" class="fw-bold text-success"></p>
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </section>
-
 </div>
 
-<!-- FOOTER -->
-<footer class="text-center py-4 bg-light">
-  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
-</footer>
+<footer class="text-center py-4 bg-light"><p>&copy; 2026 The Mandir Company. All rights reserved.</p></footer>
 
 <script>
-const products = {
-  8:{name:"Elephant Akhand Diya",price:"₹850",desc:"Pure German silver elephant akhand diya with antique finish.", img:"images/elephant_akhand_diya.jpeg"},
-  17:{name:"Radha Krishna Tilak Set",price:"₹850",desc:"Peacock feather flute tilak stick with roli chawal chopra.", img:"images/radhakrishna_roli_chawal_set.jpeg"},
-  22:{name:"Agate & Marble Ganesha Stand",price:"₹350",desc:"Ganesha figurines on agate stone and marble base.", img:"images/ganesha_marble_agate.jpeg"},
-  24:{name:"Buddha Diya Base",price:"₹599",desc:"Polyresin Buddha with marble diya base.", img:"images/buddha.jpeg"},
-  35:{name:"Evil Eye Roli Chawal",price:"₹250 each",desc:"Evil eye themed Roli Chawal container set for traditional rituals.", img:"images/evileye.rolichawal"},
-  36:{name:"Hand Fan",price:"₹250",desc:"Decorative traditional hand fan (Pankha) for deity service.", img:"images/fan"},
-  38:{name:"Om Shubh Labh",price:"₹699",desc:"Auspicious Om and Shubh Labh door hanging / altar decor.", img:"images/omshubhlabh"},
-  39:{name:"Pink Toran",price:"₹3,500",desc:"Handmade pink entrance toran for a welcoming, blessed vibe.", img:"images/pinktoran"},
-  40:{name:"Elegant Lotus Toran",price:"₹2,550",desc:"Exquisitely crafted lotus-themed door hanging.", img:"images/elegant.lotus.toran"},
-  41:{name:"German Silver Thali Set",price:"₹2,500",desc:"Complete German silver pooja thali set.", img:"images/german.silver.thali.set"},
-  42:{name:"Temple Design Shubh Labh",price:"₹450",desc:"Traditional temple-inspired Shubh Labh wall hanging.", img:"images/temple.design.shubh.labh."},
-  43:{name:"Studded Torans",price:"₹2,550",desc:"Decorated door toran embellished with stone work.", img:"images/studded.torans"}
-};
-
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwnJU4J23D0TRxGyUauR77R3wMNeEEwYB8KEaKhb6el5DPIH5-7x8Y7XwEBV2NRVwZV3g/exec";
+let products = {};
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-if (products[id]) {
-  document.getElementById("product-name").innerText = products[id].name;
-  document.getElementById("product-price").innerText = products[id].price;
-  document.getElementById("product-description").innerText = products[id].desc;
-  document.getElementById("product-image").src = products[id].img;
+async function initProductPage() {
+  try {
+    const res = await fetch(GOOGLE_SCRIPT_URL + "?action=getProducts");
+    const list = await res.json();
+    list.forEach(p => products[p.id] = p);
+
+    if (products[id]) {
+      document.getElementById("product-name").innerText = products[id].name;
+      document.getElementById("product-price").innerText = products[id].price;
+      document.getElementById("product-description").innerText = products[id].desc;
+      document.getElementById("product-image").src = products[id].img;
+    } else {
+      document.getElementById("product-name").innerText = "Product Not Found";
+    }
+  } catch(e) {
+    console.error("Error loading product detail", e);
+  }
 }
 
 function getCart() {
-  let cartData = localStorage.getItem("cart");
-  if (!cartData) return {};
-  try {
-    let parsed = JSON.parse(cartData);
-    if (Array.isArray(parsed)) {
-      let obj = {};
-      parsed.forEach(itemId => obj[String(itemId)] = 1);
-      localStorage.setItem("cart", JSON.stringify(obj));
-      return obj;
-    }
-    return parsed;
-  } catch(e) {
-    return {};
-  }
-}
-
-function saveCart(cartObj) {
-  localStorage.setItem("cart", JSON.stringify(cartObj));
-  updateBadge();
-}
-
-function updateBadge() {
-  let cartObj = getCart();
-  let totalCount = 0;
-  for (let key in cartObj) {
-    totalCount += parseInt(cartObj[key]) || 0;
-  }
-  const badge = document.getElementById("cart-count-badge");
-  if (badge) badge.innerText = totalCount;
-}
-
-function renderCartUI() {
-  let cartObj = getCart();
-  const cartBtn = document.getElementById("cart-btn");
-  const qtyInput = document.getElementById("qty-count");
-
-  if (cartObj[String(id)]) {
-    qtyInput.value = cartObj[String(id)];
-    cartBtn.innerText = "🗑️ Remove from Cart";
-    cartBtn.className = "btn btn-remove-cart px-4 py-2";
-  } else {
-    cartBtn.innerText = "🛒 Add to Cart";
-    cartBtn.className = "btn btn-custom-cart px-4 py-2";
-  }
-  updateBadge();
-}
-
-function adjustQty(amount) {
-  let qtyInput = document.getElementById("qty-count");
-  let currentVal = parseInt(qtyInput.value) || 1;
-  let newVal = currentVal + amount;
-  if (newVal < 1) newVal = 1;
-  qtyInput.value = newVal;
-
-  let cartObj = getCart();
-  if (cartObj[String(id)]) {
-    cartObj[String(id)] = newVal;
-    saveCart(cartObj);
-    document.getElementById("action-msg").innerText = "Cart quantity updated!";
-  }
+  try { return JSON.parse(localStorage.getItem("cart")) || {}; } catch(e) { return {}; }
 }
 
 function toggleCart() {
   let cartObj = getCart();
-  let qtyVal = parseInt(document.getElementById("qty-count").value) || 1;
-  const msg = document.getElementById("action-msg");
-
-  if (cartObj[String(id)]) {
-    delete cartObj[String(id)];
-    saveCart(cartObj);
-    msg.innerText = "Removed from Cart!";
-  } else {
-    cartObj[String(id)] = qtyVal;
-    saveCart(cartObj);
-    msg.innerText = "Added to Cart! 🛒";
-  }
-  renderCartUI();
+  if (cartObj[String(id)]) delete cartObj[String(id)];
+  else cartObj[String(id)] = 1;
+  localStorage.setItem("cart", JSON.stringify(cartObj));
+  document.getElementById("action-msg").innerText = cartObj[String(id)] ? "Added to Cart! 🛒" : "Removed from Cart!";
 }
 
 function toggleWishlist() {
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  const btn = document.getElementById("wishlist-btn");
-  const msg = document.getElementById("action-msg");
-
   if (wishlist.map(String).includes(String(id))) {
     wishlist = wishlist.filter(item => String(item) !== String(id));
-    btn.innerText = "🤍 Add to Wishlist";
-    msg.innerText = "Removed from wishlist";
   } else {
     wishlist.push(String(id));
-    btn.innerText = "❤️ Remove from Wishlist";
-    msg.innerText = "Added to wishlist";
   }
-
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  document.getElementById("action-msg").innerText = "Wishlist updated!";
 }
 
-(function init() {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  if (wishlist.map(String).includes(String(id))) {
-    document.getElementById("wishlist-btn").innerText = "❤️ Remove from Wishlist";
-  }
-  renderCartUI();
-})();
+document.addEventListener("DOMContentLoaded", initProductPage);
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
