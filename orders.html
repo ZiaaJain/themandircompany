@@ -206,7 +206,7 @@
       const tableBody = document.getElementById("orders-table-body");
       tableBody.innerHTML = `<tr><td colspan="8" class="text-center py-5 text-muted"><div class="spinner-border text-secondary mb-2"></div><div>Fetching latest orders...</div></td></tr>`;
       try {
-        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getOrders`);
         const orders = await response.json();
         if (!Array.isArray(orders) || orders.length === 0) {
           tableBody.innerHTML = `<tr><td colspan="8" class="text-center py-5 text-muted">No orders found yet.</td></tr>`;
@@ -215,7 +215,7 @@
         }
         renderTable(orders);
       } catch (error) {
-        tableBody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">⚠️ Unable to fetch orders.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">⚠️ Unable to fetch orders. Please verify deployment settings.</td></tr>`;
       }
     }
 
@@ -256,7 +256,7 @@
             body: payload
           });
 
-          alert("Product published successfully! Check your Google Sheet 'Products' tab.");
+          alert("Product submitted! The Apps Script is updating your Google Sheet 'Products' tab.");
           document.getElementById("addProductForm").reset();
         } catch (error) {
           alert("Failed to publish product: " + error.message);
