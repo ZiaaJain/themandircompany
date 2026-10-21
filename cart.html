@@ -1,37 +1,182 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Your Shopping Cart | The Mandir Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- BOOTSTRAP & PLUS JAKARTA SANS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
+
   <style>
-    body { background-color: #fff6ea; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', Arial, sans-serif; }
-    .custom-navbar { background-color: #f8f9fa !important; box-shadow: 0 2px 12px rgba(196,160,146,0.08); border-bottom: 1px solid rgba(196, 160, 146, 0.12); }
-    .custom-navbar .navbar-brand, .custom-navbar .nav-link { color: #c4a092 !important; font-weight: 400 !important; }
-    .page-content { background-color: #fff6ea; min-height: calc(100vh - 120px); padding: 40px 0; }
-    h1, h2, h3, h4, h5, h6, p { color: #c4a092; }
-    .cart-item-card { background: #ffffff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 20px; }
-    .cart-item-img { width: 100px; height: 100px; object-fit: contain; background-color: #fff; border: 1px solid #eee; border-radius: 8px; padding: 5px; flex-shrink: 0; }
-    .cart-item-details { flex-grow: 1; }
-    .qty-btn { border: 1px solid #c4a092; color: #c4a092; background: white; font-weight: bold; width: 32px; height: 32px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
-    .qty-input { width: 42px; text-align: center; border: 1px solid #c4a092; border-radius: 4px; font-weight: bold; color: #c4a092; height: 32px; }
-    .cart-summary { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); position: sticky; top: 20px; }
-    .btn-checkout { background-color: #c4a092; color: white !important; font-weight: 600; border: none; }
-    .btn-checkout:hover { background-color: #b08b7d; }
-    .empty-cart-box { background: white; border-radius: 12px; padding: 40px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); margin-bottom: 20px; }
+    body {
+      background-color: #fff6ea;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    }
+
+    /* NAVBAR */
+    .custom-navbar {
+      background-color: #f8f9fa !important;
+      box-shadow: 0 2px 12px rgba(196,160,146,0.08);
+      border-bottom: 1px solid rgba(196, 160, 146, 0.12);
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    }
+
+    .custom-navbar .navbar-brand,
+    .custom-navbar .nav-link {
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      color: #c4a092 !important;
+      font-weight: 400 !important;
+      transition: color 0.25s ease;
+    }
+
+    .custom-navbar .nav-link:hover,
+    .custom-navbar .nav-link.active {
+      color: #a37d6f !important;
+    }
+
+    /* Mobile Hamburger Icon Styling */
+    .custom-navbar .navbar-toggler {
+      border-color: #c4a092;
+      box-shadow: none !important;
+    }
+
+    .custom-navbar .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23c4a092' stroke-width='1.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    .page-content {
+      background-color: #fff6ea;
+      min-height: calc(100vh - 120px);
+      padding: 40px 0;
+    }
+
+    h1, h2, h3, h4, h5, h6, p {
+      color: #c4a092;
+    }
+
+    /* ITEM ROW CARD */
+    .cart-item-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cart-item-img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      background-color: #fff;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 5px;
+      flex-shrink: 0;
+    }
+
+    .cart-item-details {
+      flex-grow: 1;
+    }
+
+    .qty-btn {
+      border: 1px solid #c4a092;
+      color: #c4a092;
+      background: white;
+      font-weight: bold;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .qty-btn:hover {
+      background-color: #fff6ea;
+    }
+
+    .qty-input {
+      width: 42px;
+      text-align: center;
+      border: 1px solid #c4a092;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #c4a092;
+      height: 32px;
+    }
+
+    /* SUMMARY SIDEBAR */
+    .cart-summary {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 20px;
+    }
+
+    .btn-checkout {
+      background-color: #c4a092;
+      color: white !important;
+      font-weight: 600;
+      border: none;
+      transition: 0.3s ease;
+    }
+
+    .btn-checkout:hover {
+      background-color: #b08b7d;
+      color: white !important;
+    }
+
+    .empty-cart-box {
+      background: white;
+      border-radius: 12px;
+      padding: 40px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+    }
+
+    .empty-cart-icon {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 576px) {
+      .cart-item-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .cart-item-details {
+        width: 100%;
+      }
+    }
   </style>
 </head>
+
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg custom-navbar">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="index.html">
       <img src="images/The Mandir Company.jpeg" alt="The Mandir Company Logo" width="40" height="40" class="d-inline-block align-text-top me-2" style="object-fit: contain;">
       The Mandir Company
     </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -39,77 +184,128 @@
         <li class="nav-item"><a class="nav-link" href="bestsellers.html">Bestsellers</a></li>
         <li class="nav-item"><a class="nav-link" href="wishlist.html">Wishlist</a></li> 
         <li class="nav-item"><a class="nav-link" href="guruji.html">Guruji</a></li> 
-        <li class="nav-item"><a class="nav-link active fw-bold" href="cart.html">Cart 🛒 <span id="cart-count-badge" class="badge bg-secondary">0</span></a></li>
+        <li class="nav-item">
+          <a class="nav-link active fw-bold" href="cart.html">
+            Cart 🛒 <span id="cart-count-badge" class="badge bg-secondary">0</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
   
+<!-- MAIN CONTENT -->
 <div class="page-content">
   <div class="container">
+    
     <h2 class="fw-bold mb-4">Your Shopping Cart 🛒</h2>
+
     <div class="row g-4">
+      
+      <!-- ITEM LIST / EMPTY STATE (LEFT COLUMN) -->
       <div class="col-lg-8">
+        <!-- EMPTY CART CONTAINER -->
         <div id="empty-cart-wrapper" class="text-center" style="display: none;">
           <div class="empty-cart-box">
-            <div style="font-size: 3.5rem;">🛍️</div>
+            <div class="empty-cart-icon">🛍️</div>
             <h3 class="fw-bold mb-2">Your Cart is Empty</h3>
             <p class="mb-4">Looks like you haven't added anything to your cart yet.</p>
-            <a href="bestsellers.html" class="btn btn-checkout px-4 py-2 fs-6">Explore Products →</a>
+            <a href="bestsellers.html" class="btn btn-checkout px-4 py-2 fs-6">
+              Explore Products →
+            </a>
           </div>
         </div>
-        <div id="cart-container">Loading products...</div>
+
+        <!-- PRODUCT CARDS -->
+        <div id="cart-container"></div>
       </div>
 
+      <!-- ORDER SUMMARY / CONTINUE SHOPPING CARD (RIGHT COLUMN) -->
       <div class="col-lg-4">
+        <!-- SHOWN WHEN CART HAS ITEMS -->
         <div class="cart-summary" id="summary-section">
           <h4 class="fw-bold mb-3">Order Summary</h4>
           <hr style="color: #c4a092;">
-          <div class="d-flex justify-content-between my-2 fs-6"><span>Subtotal:</span><span id="subtotal-val" class="fw-bold">₹0</span></div>
-          <div class="d-flex justify-content-between my-2 fs-6"><span>Shipping:</span><span id="shipping-val" class="fw-bold">₹150</span></div>
+          
+          <div class="d-flex justify-content-between my-2 fs-6">
+            <span>Subtotal:</span>
+            <span id="subtotal-val" class="fw-bold">₹0</span>
+          </div>
+          
+          <div class="d-flex justify-content-between my-2 fs-6">
+            <span>Shipping:</span>
+            <span id="shipping-val" class="fw-bold">₹150</span>
+          </div>
+          
           <hr style="color: #c4a092;">
-          <div class="d-flex justify-content-between my-3 fs-5 fw-bold"><span>Total:</span><span id="total-val">₹0</span></div>
-          <a href="payment.html" id="checkout-btn" class="btn btn-checkout w-100 py-2 fs-5 mt-2">Proceed to Payment →</a>
+          
+          <div class="d-flex justify-content-between my-3 fs-5 fw-bold">
+            <span>Total:</span>
+            <span id="total-val">₹0</span>
+          </div>
+          
+          <a href="payment.html" id="checkout-btn" class="btn btn-checkout w-100 py-2 fs-5 mt-2">
+            Proceed to Payment →
+          </a>
         </div>
+        
       </div>
+
     </div>
+
   </div>
 </div>
 
-<footer class="text-center py-4 bg-light"><p>&copy; 2026 The Mandir Company. All rights reserved.</p></footer>
+<!-- FOOTER -->
+<footer class="text-center py-4 bg-light">
+  <p>&copy; 2026 The Mandir Company. All rights reserved.</p>
+</footer>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwnJU4J23D0TRxGyUauR77R3wMNeEEwYB8KEaKhb6el5DPIH5-7x8Y7XwEBV2NRVwZV3g/exec";
-let products = {};
+const products = {
+  8:{name:"Elephant Akhand Diya",price:"₹850",img:"images/elephant_akhand_diya.jpeg"},
+  17:{name:"Radha Krishna Tilak Set",price:"₹850",img:"images/radhakrishna_roli_chawal_set.jpeg"},
+  22:{name:"Agate & Marble Ganesha Stand",price:"₹350",img:"images/ganesha_marble_agate.jpeg"},
+  24:{name:"Buddha Diya Base",price:"₹599",img:"images/buddha.jpeg"},
+  35:{name:"Evil Eye Roli Chawal",price:"₹250 each",img:"images/evileye.rolichawal"},
+  36:{name:"Hand Fan",price:"₹250",img:"images/fan"},
+  38:{name:"Om Shubh Labh",price:"₹699",img:"images/omshubhlabh"},
+  39:{name:"Pink Toran",price:"₹3,500",img:"images/pinktoran"},
+  40:{name:"Elegant Lotus Toran",price:"₹2,550",img:"images/elegant.lotus.toran"},
+  41:{name:"German Silver Thali Set",price:"₹2,500",img:"images/german.silver.thali.set"},
+  42:{name:"Temple Design Shubh Labh",price:"₹450",img:"images/temple.design.shubh.labh."},
+  43:{name:"Studded Torans",price:"₹2,550",img:"images/studded.torans"}
+};
+
 const SHIPPING_FEE = 150;
 
-async function loadProductsAndDisplayCart() {
-  try {
-    const res = await fetch(GOOGLE_SCRIPT_URL + "?action=getProducts");
-    const list = await res.json();
-    list.forEach(p => {
-      products[p.id] = { name: p.name, price: p.price, img: p.img };
-    });
-    displayCart();
-  } catch(e) {
-    console.error("Cart error loading products", e);
-  }
-}
-
 function parsePrice(priceStr) {
-  return parseInt(String(priceStr || "").replace(/[^0-9]/g, '')) || 0;
+  return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
 }
 
 function getCartData() {
   let raw = localStorage.getItem("cart");
   if (!raw) return {};
-  try { return JSON.parse(raw); } catch(e) { return {}; }
+  try {
+    let parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      let obj = {};
+      parsed.forEach(id => obj[String(id)] = 1);
+      localStorage.setItem("cart", JSON.stringify(obj));
+      return obj;
+    }
+    return parsed;
+  } catch(e) {
+    return {};
+  }
 }
 
 function updateBadge() {
   let cartObj = getCartData();
   let totalCount = 0;
-  for (let key in cartObj) totalCount += parseInt(cartObj[key]) || 0;
+  for (let key in cartObj) {
+    totalCount += parseInt(cartObj[key]) || 0;
+  }
   const badge = document.getElementById("cart-count-badge");
   if (badge) badge.innerText = totalCount;
 }
@@ -117,9 +313,13 @@ function updateBadge() {
 function updateQty(id, delta) {
   let cartObj = getCartData();
   if (cartObj[String(id)]) {
-    let next = (parseInt(cartObj[String(id)]) || 1) + delta;
-    if (next <= 0) delete cartObj[String(id)];
-    else cartObj[String(id)] = next;
+    let current = parseInt(cartObj[String(id)]) || 1;
+    let next = current + delta;
+    if (next <= 0) {
+      delete cartObj[String(id)];
+    } else {
+      cartObj[String(id)] = next;
+    }
     localStorage.setItem("cart", JSON.stringify(cartObj));
     displayCart();
   }
@@ -136,6 +336,7 @@ function displayCart() {
   const container = document.getElementById("cart-container");
   const emptyWrapper = document.getElementById("empty-cart-wrapper");
   const summarySection = document.getElementById("summary-section");
+
   let cartObj = getCartData();
   let itemIds = Object.keys(cartObj).filter(id => products[id]);
 
@@ -159,33 +360,50 @@ function displayCart() {
     const itemSubtotal = unitPrice * qty;
     subtotalAmount += itemSubtotal;
 
-    container.innerHTML += `
+    const cardHtml = `
       <div class="cart-item-card">
-        <a href="product.html?id=${id}"><img src="${item.img}" alt="${item.name}" class="cart-item-img"></a>
+        <a href="product.html?id=${id}">
+          <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+        </a>
+        
         <div class="cart-item-details">
-          <a href="product.html?id=${id}" class="text-decoration-none"><h5 class="fw-bold mb-1">${item.name}</h5></a>
+          <a href="product.html?id=${id}" class="text-decoration-none">
+            <h5 class="fw-bold mb-1">${item.name}</h5>
+          </a>
           <p class="fw-bold mb-2">${item.price}</p>
+          
           <div class="d-flex align-items-center gap-2">
+            <span class="me-1 text-muted fs-7">Qty:</span>
             <button class="qty-btn" onclick="updateQty('${id}', -1)">-</button>
             <input type="text" class="qty-input" value="${qty}" readonly>
             <button class="qty-btn" onclick="updateQty('${id}', 1)">+</button>
           </div>
         </div> 
+
         <div class="text-end ms-auto">
           <h5 class="fw-bold mb-2">₹${itemSubtotal.toLocaleString('en-IN')}</h5>
-          <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart('${id}')">Remove 🗑️</button>
+          <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart('${id}')">
+            Remove 🗑️
+          </button>
         </div>
-      </div>`;
+      </div>
+    `;
+    container.innerHTML += cardHtml;
   });
+
+  const grandTotal = subtotalAmount + SHIPPING_FEE;
 
   document.getElementById("subtotal-val").innerText = "₹" + subtotalAmount.toLocaleString('en-IN');
   document.getElementById("shipping-val").innerText = "₹" + SHIPPING_FEE;
-  document.getElementById("total-val").innerText = "₹" + (subtotalAmount + SHIPPING_FEE).toLocaleString('en-IN');
+  document.getElementById("total-val").innerText = "₹" + grandTotal.toLocaleString('en-IN');
+
   updateBadge();
 }
 
-document.addEventListener("DOMContentLoaded", loadProductsAndDisplayCart);
+document.addEventListener("DOMContentLoaded", displayCart);
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
