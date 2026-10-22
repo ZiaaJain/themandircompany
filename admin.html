@@ -4,94 +4,259 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Mandir Company - Accounts Admin</title>
+
+  <!-- Google Fonts: Elegant Playfair Display & Modern Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #f7f3ed; margin: 0; padding: 20px; color: #333; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    h1 { color: #8C6239; margin: 0; }
-    .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
-    .card h3 { margin: 0 0 8px 0; color: #777; font-size: 14px; text-transform: uppercase; }
-    .card .value { font-size: 24px; font-weight: bold; color: #8C6239; }
-    .table-container { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow-x: auto; }
-    .controls { display: flex; gap: 10px; margin-bottom: 15px; }
-    input[type="text"] { padding: 10px; border: 1px solid #ccc; border-radius: 6px; flex: 1; font-size: 14px; }
-    button { padding: 10px 18px; background: #8C6239; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-    button:hover { background: #6D4C2B; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-    th, td { padding: 12px 15px; border-bottom: 1px solid #eee; }
-    th { background-color: #FFF6EA; color: #8C6239; font-weight: 600; }
-    tr:hover { background-color: #fafafa; }
-    .badge-margin { background: #e6f4ea; color: #137333; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
-    .loading { text-align: center; padding: 40px; color: #666; }
+    * {
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: #fff6ea;
+      margin: 0;
+      padding: 30px 20px;
+      color: #444;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: #c4a092;
+      font-size: 32px;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .refresh-btn {
+      padding: 10px 20px;
+      background: #c4a092;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(196, 160, 146, 0.3);
+    }
+
+    .refresh-btn:hover {
+      background: #b08b7d;
+      transform: translateY(-1px);
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(196, 160, 146, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      text-align: center;
+    }
+
+    .card h3 {
+      margin: 0 0 8px 0;
+      color: #888;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .card .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .table-container {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid rgba(196, 160, 146, 0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      overflow-x: auto;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e2d7d0;
+      border-radius: 10px;
+      font-size: 14px;
+      background-color: #fffaf3;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #c4a092;
+      box-shadow: 0 0 0 3px rgba(196, 160, 146, 0.15);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #fffaf3;
+      color: #c4a092;
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 2px solid #f0e6df;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.6px;
+    }
+
+    th:first-child { border-top-left-radius: 8px; }
+    th:last-child { border-top-right-radius: 8px; }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f7f1eb;
+      color: #555;
+    }
+
+    tr:hover td {
+      background-color: #fffcf8;
+    }
+
+    .badge-margin {
+      background: #eaf6ed;
+      color: #2b7a41;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>Accounts & Sales Dashboard</h1>
-    <button onclick="fetchAccountsData()">🔄 Refresh</button>
-  </div>
-
-  <div class="stats-container">
-    <div class="card">
-      <h3>Total Sales</h3>
-      <div class="value" id="stat-sales">₹0</div>
-    </div>
-    <div class="card">
-      <h3>Total Cost</h3>
-      <div class="value" id="stat-cost">₹0</div>
-    </div>
-    <div class="card">
-      <h3>Total Gross Margin</h3>
-      <div class="value" id="stat-margin">₹0</div>
-    </div>
-    <div class="card">
-      <h3>Total Items Sold</h3>
-      <div class="value" id="stat-items">0</div>
-    </div>
-  </div>
-
-  <div class="table-container">
-    <div class="controls">
-      <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search customer, item, or date...">
+  <div class="container">
+    <div class="header">
+      <h1>Accounts & Sales</h1>
+      <button class="refresh-btn" onclick="fetchAccountsData()">🔄 Refresh</button>
     </div>
 
-    <div id="loading" class="loading">Loading accounts data...</div>
+    <div class="stats-container">
+      <div class="card">
+        <h3>Total Sales</h3>
+        <div class="value" id="stat-sales">₹0</div>
+      </div>
+      <div class="card">
+        <h3>Total Cost</h3>
+        <div class="value" id="stat-cost">₹0</div>
+      </div>
+      <div class="card">
+        <h3>Gross Margin</h3>
+        <div class="value" id="stat-margin">₹0</div>
+      </div>
+      <div class="card">
+        <h3>Items Sold</h3>
+        <div class="value" id="stat-items">0</div>
+      </div>
+    </div>
 
-    <table id="accountsTable" style="display:none;">
-      <thead>
-        <tr>
-          <th>Qty</th>
-          <th>Name (Item)</th>
-          <th>Cost</th>
-          <th>Selling Price</th>
-          <th>Gross Margin</th>
-          <th>Customer</th>
-          <th>Date of Order</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+    <div class="table-container">
+      <div class="controls">
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search customer, item, or date...">
+      </div>
+
+      <div id="loading" class="loading">Loading accounts data...</div>
+
+      <table id="accountsTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Qty</th>
+            <th>Name (Item)</th>
+            <th>Cost</th>
+            <th>Selling Price</th>
+            <th>Gross Margin</th>
+            <th>Customer</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
   </div>
 
   <script>
-    // REPLACE WITH YOUR PUBLISHED WEB APP URL
+    // ⚠️ PASTE YOUR GOOGLE APPS SCRIPT EXEC DEPLOYED URL HERE
     const WEB_APP_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE";
 
     let rawData = [];
 
-    async function fetchAccountsData() {
+    // JSONP Loader to bypass CORS issues on GitHub Pages
+    function fetchAccountsData() {
       document.getElementById('loading').style.display = 'block';
+      document.getElementById('loading').innerText = 'Loading accounts data...';
       document.getElementById('accountsTable').style.display = 'none';
 
-      try {
-        const response = await fetch(WEB_APP_URL);
-        rawData = await response.json();
-        renderDashboard(rawData);
-      } catch (err) {
+      // Remove any existing JSONP script tag
+      const existingScript = document.getElementById('jsonp-script');
+      if (existingScript) existingScript.remove();
+
+      // Create new JSONP script request
+      const script = document.createElement('script');
+      script.id = 'jsonp-script';
+      script.src = `${WEB_APP_URL}?callback=handleResponse`;
+      
+      script.onerror = function() {
         document.getElementById('loading').innerText = 'Failed to load data. Please check your Web App URL.';
-        console.error(err);
+      };
+
+      document.body.appendChild(script);
+    }
+
+    // JSONP Callback Handler
+    function handleResponse(data) {
+      if (Array.isArray(data)) {
+        rawData = data;
+        renderDashboard(rawData);
+      } else {
+        document.getElementById('loading').innerText = 'Error loading data from sheet.';
       }
     }
 
@@ -105,10 +270,13 @@
       let totalItems = 0;
 
       data.forEach(row => {
-        const cost = parseFloat(row.cost) || 0;
-        const price = parseFloat(row.sellingPrice) || 0;
-        const margin = parseFloat(row.grossMargin) || (price - cost);
-        const qty = parseInt(row.quantity) || 1;
+        // Clean numeric formatting (removes commas, currency symbols)
+        const parseNum = (str) => parseFloat(String(str || '0').replace(/[^0-9.-]+/g, "")) || 0;
+
+        const qty = parseNum(row.quantity) || 1;
+        const cost = parseNum(row.cost);
+        const price = parseNum(row.sellingPrice);
+        const margin = parseNum(row.grossMargin) || (price - cost);
 
         totalSales += price;
         totalCost += cost;
@@ -117,20 +285,20 @@
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${row.quantity}</td>
-          <td><strong>${row.name}</strong></td>
-          <td>₹${cost.toLocaleString()}</td>
-          <td>₹${price.toLocaleString()}</td>
-          <td><span class="badge-margin">₹${margin.toLocaleString()}</span></td>
+          <td>${row.quantity || 1}</td>
+          <td><strong style="color:#333;">${row.name}</strong></td>
+          <td>₹${cost.toLocaleString('en-IN')}</td>
+          <td>₹${price.toLocaleString('en-IN')}</td>
+          <td><span class="badge-margin">₹${margin.toLocaleString('en-IN')}</span></td>
           <td>${row.customer}</td>
           <td>${row.date}</td>
         `;
         tbody.appendChild(tr);
       });
 
-      document.getElementById('stat-sales').innerText = '₹' + totalSales.toLocaleString();
-      document.getElementById('stat-cost').innerText = '₹' + totalCost.toLocaleString();
-      document.getElementById('stat-margin').innerText = '₹' + totalMargin.toLocaleString();
+      document.getElementById('stat-sales').innerText = '₹' + totalSales.toLocaleString('en-IN');
+      document.getElementById('stat-cost').innerText = '₹' + totalCost.toLocaleString('en-IN');
+      document.getElementById('stat-margin').innerText = '₹' + totalMargin.toLocaleString('en-IN');
       document.getElementById('stat-items').innerText = totalItems;
 
       document.getElementById('loading').style.display = 'none';
@@ -140,14 +308,14 @@
     function filterTable() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const filtered = rawData.filter(item => 
-        item.name.toLowerCase().includes(input) ||
-        item.customer.toLowerCase().includes(input) ||
-        item.date.toLowerCase().includes(input)
+        (item.name && item.name.toLowerCase().includes(input)) ||
+        (item.customer && item.customer.toLowerCase().includes(input)) ||
+        (item.date && item.date.toLowerCase().includes(input))
       );
       renderDashboard(filtered);
     }
 
-    // Initial load
+    // Auto load on page start
     fetchAccountsData();
   </script>
 </body>
