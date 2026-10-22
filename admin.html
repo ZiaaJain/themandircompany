@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Mandir Company - Accounts Admin</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f7f3ed; margin: 0; padding: 20px; color: #333; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    h1 { color: #8C6239; margin: 0; }
+    .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
+    .card h3 { margin: 0 0 8px 0; color: #777; font-size: 14px; text-transform: uppercase; }
+    .card .value { font-size: 24px; font-weight: bold; color: #8C6239; }
+    .table-container { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow-x: auto; }
+    .controls { display: flex; gap: 10px; margin-bottom: 15px; }
+    input[type="text"] { padding: 10px; border: 1px solid #ccc; border-radius: 6px; flex: 1; font-size: 14px; }
+    button { padding: 10px 18px; background: #8C6239; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    button:hover { background: #6D4C2B; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+    th, td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+    th { background-color: #FFF6EA; color: #8C6239; font-weight: 600; }
+    tr:hover { background-color: #fafafa; }
+    .badge-margin { background: #e6f4ea; color: #137333; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+    .loading { text-align: center; padding: 40px; color: #666; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Accounts & Sales Dashboard</h1>
+    <button onclick="fetchAccountsData()">🔄 Refresh</button>
+  </div>
+
+  <div class="stats-container">
+    <div class="card">
+      <h3>Total Sales</h3>
+      <div class="value" id="stat-sales">₹0</div>
+    </div>
+    <div class="card">
+      <h3>Total Cost</h3>
+      <div class="value" id="stat-cost">₹0</div>
+    </div>
+    <div class="card">
+      <h3>Total Gross Margin</h3>
+      <div class="value" id="stat-margin">₹0</div>
+    </div>
+    <div class="card">
+      <h3>Total Items Sold</h3>
+      <div class="value" id="stat-items">0</div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <div class="controls">
+      <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search customer, item, or date...">
+    </div>
+
+    <div id="loading" class="loading">Loading accounts data...</div>
+
+    <table id="accountsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Qty</th>
+          <th>Name (Item)</th>
+          <th>Cost</th>
+          <th>Selling Price</th>
+          <th>Gross Margin</th>
+          <th>Customer</th>
+          <th>Date of Order</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    // REPLACE WITH YOUR PUBLISHED WEB APP URL
+    const WEB_APP_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE";
+
+    let rawData = [];
+
+    async function fetchAccountsData() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('accountsTable').style.display = 'none';
+
+      try {
+        const response = await fetch(WEB_APP_URL);
+        rawData = await response.json();
+        renderDashboard(rawData);
+      } catch (err) {
+        document.getElementById('loading').innerText = 'Failed to load data. Please check your Web App URL.';
+        console.error(err);
+      }
+    }
+
+    function renderDashboard(data) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      let totalSales = 0;
+      let totalCost = 0;
+      let totalMargin = 0;
+      let totalItems = 0;
+
+      data.forEach(row => {
+        const cost = parseFloat(row.cost) || 0;
+        const price = parseFloat(row.sellingPrice) || 0;
+        const margin = parseFloat(row.grossMargin) || (price - cost);
+        const qty = parseInt(row.quantity) || 1;
+
+        totalSales += price;
+        totalCost += cost;
+        totalMargin += margin;
+        totalItems += qty;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.quantity}</td>
+          <td><strong>${row.name}</strong></td>
+          <td>₹${cost.toLocaleString()}</td>
+          <td>₹${price.toLocaleString()}</td>
+          <td><span class="badge-margin">₹${margin.toLocaleString()}</span></td>
+          <td>${row.customer}</td>
+          <td>${row.date}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('stat-sales').innerText = '₹' + totalSales.toLocaleString();
+      document.getElementById('stat-cost').innerText = '₹' + totalCost.toLocaleString();
+      document.getElementById('stat-margin').innerText = '₹' + totalMargin.toLocaleString();
+      document.getElementById('stat-items').innerText = totalItems;
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('accountsTable').style.display = 'table';
+    }
+
+    function filterTable() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = rawData.filter(item => 
+        item.name.toLowerCase().includes(input) ||
+        item.customer.toLowerCase().includes(input) ||
+        item.date.toLowerCase().includes(input)
+      );
+      renderDashboard(filtered);
+    }
+
+    // Initial load
+    fetchAccountsData();
+  </script>
+</body>
+</html>
